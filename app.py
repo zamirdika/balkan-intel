@@ -128,17 +128,18 @@ st.markdown("""
     [data-testid="collapsedControl"] svg { fill: #0F172A !important; }
     [data-testid="collapsedControl"]:hover { transform: scale(1.05); }
     [data-testid="stSidebar"][aria-expanded="true"] { min-width: 215px !important; max-width: 215px !important; }
-    /* --- SIDEBAR DARK MODE FIX --- */
-    [data-testid="stSidebar"] { background-color: #0F172A !important; border-right: 1px solid #1E293B !important; }
-    /* Force every text element in the sidebar to be visible */
+    /* --- 1. SIDEBAR DARK MODE FIX (Forcing all text to be light) --- */
+    [data-testid="stSidebar"] { 
+        background-color: #0F172A !important; 
+        border-right: 1px solid #1E293B !important; 
+    }
     [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, 
-    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label { 
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] div { 
         color: #F8FAFC !important; 
     }
-    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p { color: #94A3B8 !important; }
 
-    /* --- MOBILE SWIPEABLE TABS (PILLS) --- */
-    /* Force the container to stay on one line and scroll horizontally */
+    /* --- 2. MOBILE SWIPEABLE TABS (PILLS) --- */
     div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
@@ -151,34 +152,40 @@ st.markdown("""
     }
     div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
 
-    /* Style the individual pill */
+    /* The Pill Shape */
     div[role="radiogroup"] label {
         background-color: transparent !important;
         padding: 8px 18px !important;
         border-radius: 999px !important;
         border: 1px solid #475569 !important;
-        white-space: nowrap !important; 
         cursor: pointer !important;
-        color: #94A3B8 !important; /* Make the base text light gray */
         transition: all 0.2s ease !important;
     }
 
-    /* Hide the default radio circle */
-    div[role="radiogroup"] label div:first-child { display: none !important; }
-
-    /* FORCE the text inside the pill to be visible */
-    div[role="radiogroup"] label * {
-        color: inherit !important; 
-        font-weight: 700 !important;
-        font-size: 0.9rem !important;
-        margin: 0 !important;
+    /* Hide the default radio circle precisely */
+    div[role="radiogroup"] label div:first-of-type { 
+        display: none !important; 
     }
 
-    /* Active/Selected Pill State - Make it pop! */
+    /* 🚨 THE TEXT FIX: Force the text to be visible light gray 🚨 */
+    div[role="radiogroup"] label p {
+        color: #94A3B8 !important; 
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        visibility: visible !important;
+    }
+
+    /* Active/Selected Pill State - Background */
     div[role="radiogroup"] label:has(input:checked) {
         background-color: #3B82F6 !important;
         border-color: #3B82F6 !important;
-        color: #FFFFFF !important; /* Force text to pure white when active */
+    }
+
+    /* 🚨 THE TEXT FIX: Force the active text to be PURE WHITE 🚨 */
+    div[role="radiogroup"] label:has(input:checked) p {
+        color: #FFFFFF !important;
     }
     [data-testid="stSidebar"] label { white-space: nowrap !important; }
     .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 0px; position: relative; }
