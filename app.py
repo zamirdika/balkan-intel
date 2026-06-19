@@ -201,6 +201,17 @@ st.markdown("""
     .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 15px; }
     .b2b-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; }
+    
+    /* NEW: Clean styling for the Blindspots Notification Button */
+    button[kind="secondary"]:has(div:contains("👁️")) {
+        background-color: #FEF2F2 !important;
+        border: 1px solid #FECACA !important;
+        color: #EF4444 !important;
+        justify-content: center !important;
+        border-radius: 12px !important;
+        padding: 10px !important;
+        margin-top: 0.5rem !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -252,6 +263,24 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style):
             
     st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
 
+# --- BLINDSPOTS MODAL ---
+@st.dialog("👁️ Të pathënat / Blindspots", width="large")
+def open_blindspots_modal(t_dict):
+    st.markdown(f"<div style='font-size:0.9rem; color:#64748B; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub', 'Narratives you might have missed.')}</div>", unsafe_allow_html=True)
+    
+    for idx, row in get_blindspot_stories().iterrows():
+        b_title = row.get('cluster_title_sq') or row.get('title_en') or "Titulli Mungon"
+        st.markdown(f"""
+        <div style='background: #FFFFFF; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid #F1F5F9; border-right: 1px solid #F1F5F9; border-bottom: 1px solid #F1F5F9;'>
+            <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{row.get('cluster_category', 'News')}</div>
+            <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none;">
+                <div style='font-weight: 800; color: #0F172A; font-size: 1rem; line-height: 1.4; margin-bottom: 8px;'>
+                    {b_title} <span style="color: #3B82F6; font-size: 0.85rem;">↗</span>
+                </div>
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+
 if "modal_is_open" not in st.session_state: st.session_state.modal_is_open = False
 
 # --- NATIVE IN-FLOW HEADER ---
@@ -268,8 +297,6 @@ st.markdown("""
 <hr style='margin-top: 0.5rem; margin-bottom: 1rem; border-color: #E2E8F0;'/>
 """, unsafe_allow_html=True)
 
-LANG_MAP = {"EN": "English", "SQ": "Shqip", "MK": "Македонски", "SR": "Srpski/Bosanski"}
-
 # Data Fetch & Dedup
 df = get_database_data()
 if not df.empty:
@@ -278,10 +305,13 @@ if not df.empty:
 # --- SIDEBAR ---
 with st.sidebar:
     st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 8px;'>🌐 Language</div>", unsafe_allow_html=True)
-    short_lang = st.radio("Lang", ["EN", "SQ", "MK", "SR"], horizontal=True, label_visibility="collapsed")
     
+    LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR"]
+    short_lang = st.radio("Lang", LANG_OPTIONS, horizontal=True, label_visibility="collapsed")
+    
+    LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski/Bosanski"}
     selected_lang = LANG_MAP[short_lang]
-    t = UI_TEXT[selected_lang]
+    t = UI_TEXT[selected_lang]    
     
     st.markdown("<hr style='margin: 1rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
     
@@ -309,20 +339,11 @@ cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
 st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
-# Blindspots Expander (Mobile Friendly)
-with st.expander(f"👁️ {t.get('blindspots', 'Blindspots')} - {t.get('blindspots_sub', 'Hidden Narratives')}"):
-    for idx, row in get_blindspot_stories().iterrows():
-        b_title = row.get('cluster_title_sq') or row.get('title_en') or "Titulli Mungon"
-        st.markdown(f"""
-        <div style='background: #FFFFFF; padding: 1rem; border-radius: 8px; border-left: 3px solid #EF4444; margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #F1F5F9;'>
-            <div style='font-size: 0.7rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 4px;'>{row.get('cluster_category', 'News')}</div>
-            <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none;">
-                <div style='font-weight: 700; color: #0F172A; font-size: 0.9rem; line-height: 1.3; margin-bottom: 6px;'>
-                    {b_title} ↗
-                </div>
-            </a>
-        </div>
-        """, unsafe_allow_html=True)
+# The New One-Tap Blindspots Trigger
+if st.button(f"{t.get('blindspots')} (3)", type="secondary", use_container_width=True):
+    open_blindspots_modal(t)
+
+st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
 # Simulator Widget
 with st.expander("🎛️ Simulatori i Parametrave të AI (Live Demo)"):
@@ -448,4 +469,4 @@ with footer_col2:
         submitted = st.form_submit_button("Subscribe", use_container_width=True)
         if submitted:
             st.success("Thank you! You are subscribed.")
-    st.markdown("</div>", unsafe_allow_html=True)   
+    st.markdown("</div>", unsafe_allow_html=True)
