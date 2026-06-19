@@ -5,6 +5,7 @@ import json
 import uuid
 from datetime import datetime
 import os
+import google.generativeai as genai
 import time 
 from google import genai
 from google.genai import types
@@ -12,6 +13,18 @@ from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
+# Load all available keys into a list, ignoring any empty ones
+API_KEYS = [
+    os.getenv("GEMINI_API_KEY_1"),
+    os.getenv("GEMINI_API_KEY_2"),
+    os.getenv("GEMINI_API_KEY_3"),
+    os.getenv("GEMINI_API_KEY_4")
+]
+# Filter out any None values just in case you only use 2 keys
+API_KEYS = [key for key in API_KEYS if key is not None]
+
+if not API_KEYS:
+    raise ValueError("CRITICAL: No API keys found in .env file.")
 
 # ==========================================
 # 1. DATABASE SETUP
@@ -127,57 +140,59 @@ class ArticleAnalysis(BaseModel):
 # ==========================================
 # 3. THE AI ENGINE 
 # ==========================================
-def analyze_article_with_llm(article_text, max_retries=3):
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise ValueError("CRITICAL ERROR: Python cannot see your .env file.")
-        
-    client = genai.Client(api_key=api_key)  
-    
+def analyze_article_with_llm(text):
     prompt = f"""
-    You are an expert geopolitical intelligence analyst focusing on the Western Balkans.
-    Analyze the following news text and extract the required intelligence metrics in Albanian.
-    
-    RAW ARTICLE TEXT:
-    {article_text}
+    Analyze the following news text. First, extract the core geopolitical intelligence metrics. 
+    Then, write a neutral headline and three summary bullet points in English. 
+    Finally, translate that exact English headline into Albanian, Macedonian, and Serbian.
+
+    Text:
+    {text}
     """
     
-    delay = 65 
-    for attempt in range(max_retries):
+    # Try each key one by one
+    for index, key in enumerate(API_KEYS):
         try:
-            response = client.models.generate_content(
-                # Change this BACK to 2.5
-                model='gemini-2.5-flash', 
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    response_schema=ArticleAnalysis,
-                    temperature=0.1,
-                ),
+            # Configure Gemini with the current key in the rotation
+            genai.configure(api_key=key)
+            model = genai.GenerativeModel(
+                model_name="gemini-2.5-flash",
+                generation_config={"response_mime_type": "application/json"}
             )
+            
+            response = model.generate_content(prompt)
+            
+            # If successful, return the data immediately
             return json.loads(response.text)
             
         except Exception as e:
-            error_msg = str(e)
-            if "429" in error_msg or "503" in error_msg:
-                print(f"   [!] Gemini Quota Hit. Forcing {delay}-second hard reset (Attempt {attempt + 1}/{max_retries})...")
-                time.sleep(delay)
+            error_msg = str(e).lower()
+            # If it's a quota/limit error, tell the console and try the next key
+            if "429" in error_msg or "quota" in error_msg or "exhausted" in error_msg:
+                print(f"⚠️ Key {index + 1} reached limit. Switching to the next key...")
+                time.sleep(2) # Brief pause before trying the next key
+                continue # Move to the next key in the loop
             else:
-                print(f"⚠️ Non-retryable AI Error: {e}")
-                break 
-
-    print("❌ All retries exhausted. Using fallback profile.")
+                # If it's a different kind of error (like a bad prompt), print it and return fallback
+                print(f"❌ AI Analysis Error: {e}")
+                break # Stop the loop
+                
+    # If the code reaches this point, ALL keys are exhausted
+    print("🚨 FATAL: All API keys have reached their quota limits.")
     return {
-        "cluster_title_sq": "Gabim në përpunim",
-        "bullet_points_sq": "Sistemi tejkaloi kuotën.\nJu lutem ekzekutoni përsëri.",
-        "cluster_perspective_sq": "Analiza nuk ofrohet.",
-        "cluster_category": "Politikë",
-        "cluster_geo_scope": "Maqedonia e Veriut", # Updated to match your new schema
+        "cluster_category": "News",
+        "cluster_geo_scope": "Regional",
+        "title_en": "Processing Error",
+        "bullets_en": "Analysis failed.",
+        "perspective_en": "Data unavailable due to quota limits.",
+        "title_sq": "Gabim në përpunim",
+        "bullets_sq": "Gabim në përpunim",
+        "title_mk": "Грешка во обработката",
+        "title_sr": "Greška u obradi",
         "geo_pro_western": 0.5,
         "narrative_objectivity": 0.5,
-        "narrative_divergence_score": 0.5 # Added this safety fallback
+        "narrative_divergence_score": 0.5
     }
-
 # ==========================================
 # 4. ORCHESTRATION & DATABASE INSERTION
 # ==========================================
