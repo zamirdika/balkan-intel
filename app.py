@@ -128,64 +128,68 @@ st.markdown("""
     [data-testid="collapsedControl"] svg { fill: #0F172A !important; }
     [data-testid="collapsedControl"]:hover { transform: scale(1.05); }
     [data-testid="stSidebar"][aria-expanded="true"] { min-width: 215px !important; max-width: 215px !important; }
-    /* --- 1. SIDEBAR DARK MODE FIX (Forcing all text to be light) --- */
-    [data-testid="stSidebar"] { 
-        background-color: #0F172A !important; 
-        border-right: 1px solid #1E293B !important; 
+    /* --- 1. SIDEBAR TEXT FIX (Brute-Force Approach) --- */
+    [data-testid="stSidebar"] {
+        background-color: #0F172A !important;
+        border-right: 1px solid #1E293B !important;
     }
-    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, 
-    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label,
-    [data-testid="stSidebar"] div { 
-        color: #F8FAFC !important; 
+    /* Force ALL standard text inside the sidebar to be highly visible */
+    [data-testid="stSidebar"] * {
+        color: #F8FAFC !important;
+    }
+    /* Make sure any icons/SVGs also turn white */
+    [data-testid="stSidebar"] svg {
+        fill: #F8FAFC !important;
     }
 
-    /* --- 2. MOBILE SWIPEABLE TABS (PILLS) --- */
-    div[role="radiogroup"] {
+    /* --- 2. SINGLE-ROW SWIPEABLE PILLS --- */
+    /* Target the exact container Streamlit uses for horizontal radio buttons */
+    div[data-testid="stRadio"] > div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: nowrap !important; 
-        overflow-x: auto !important;   
-        -webkit-overflow-scrolling: touch !important; 
-        gap: 12px !important;
-        padding-bottom: 12px !important; 
-        scrollbar-width: none !important; 
+        flex-wrap: nowrap !important; /* 🚨 FORCES THE SINGLE ROW 🚨 */
+        overflow-x: auto !important;  /* 🚨 ENABLES HORIZONTAL SWIPING 🚨 */
+        -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS/Android */
+        scrollbar-width: none !important; /* Hides scrollbar on Firefox */
+        padding-bottom: 8px !important;
     }
-    div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
+    div[data-testid="stRadio"] > div[role="radiogroup"]::-webkit-scrollbar { 
+        display: none !important; /* Hides scrollbar on Chrome/Safari */
+    }
 
-    /* The Pill Shape */
+    /* The Pill Container */
     div[role="radiogroup"] label {
         background-color: transparent !important;
-        padding: 8px 18px !important;
+        padding: 8px 20px !important;
         border-radius: 999px !important;
         border: 1px solid #475569 !important;
+        margin-right: 8px !important;
+        flex: 0 0 auto !important; /* 🚨 PREVENTS PILLS FROM SQUISHING 🚨 */
         cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
 
-    /* Hide the default radio circle precisely */
-    div[role="radiogroup"] label div:first-of-type { 
+    /* Hide the native radio circle completely */
+    div[role="radiogroup"] label > div:first-child { 
         display: none !important; 
     }
 
-    /* 🚨 THE TEXT FIX: Force the text to be visible light gray 🚨 */
+    /* Base Pill Text (Unselected) */
     div[role="radiogroup"] label p {
-        color: #94A3B8 !important; 
+        color: #94A3B8 !important; /* Bright Light Gray */
         font-weight: 700 !important;
         font-size: 0.95rem !important;
         margin: 0 !important;
-        white-space: nowrap !important;
-        visibility: visible !important;
+        white-space: nowrap !important; /* Strictly 1 line of text */
     }
 
-    /* Active/Selected Pill State - Background */
+    /* Active/Selected Pill State */
     div[role="radiogroup"] label:has(input:checked) {
         background-color: #3B82F6 !important;
         border-color: #3B82F6 !important;
     }
-
-    /* 🚨 THE TEXT FIX: Force the active text to be PURE WHITE 🚨 */
     div[role="radiogroup"] label:has(input:checked) p {
-        color: #FFFFFF !important;
+        color: #FFFFFF !important; /* Pure White text */
     }
     [data-testid="stSidebar"] label { white-space: nowrap !important; }
     .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 0px; position: relative; }
