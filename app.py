@@ -128,7 +128,46 @@ st.markdown("""
     [data-testid="collapsedControl"] svg { fill: #0F172A !important; }
     [data-testid="collapsedControl"]:hover { transform: scale(1.05); }
     [data-testid="stSidebar"][aria-expanded="true"] { min-width: 215px !important; max-width: 215px !important; }
-    [data-testid="stSidebar"] { background-color: #FFFFFF !important; border-right: 1px solid #F1F5F9 !important; }
+    /* --- SIDEBAR DARK MODE FIX --- */
+    [data-testid="stSidebar"] { background-color: #0F172A !important; border-right: 1px solid #1E293B !important; }
+    [data-testid="stSidebar"] * { color: #F8FAFC !important; }
+    [data-testid="stSidebar"] label div:first-child { border-color: #475569 !important; }
+
+    /* --- MOBILE SWIPEABLE TABS (PILLS) --- */
+    div[role="radiogroup"] {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch; /* Smooth iOS momentum scrolling */
+        gap: 8px !important;
+        padding-bottom: 8px; /* Room for scrollbar */
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+    }
+    div[role="radiogroup"]::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+    
+    div[role="radiogroup"] label {
+        background: transparent !important;
+        padding: 8px 16px !important;
+        border-radius: 999px !important; /* Pill shape */
+        border: 1px solid #334155 !important;
+        white-space: nowrap !important;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    /* Hide the native radio circles */
+    div[role="radiogroup"] label div:first-child { display: none !important; }
+    div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p { margin: 0 !important; font-weight: 600 !important; color: #94A3B8 !important; }
+    
+    /* Active/Selected Pill State */
+    div[role="radiogroup"] label:has(input:checked) {
+        background: #3B82F6 !important;
+        border-color: #3B82F6 !important;
+    }
+    div[role="radiogroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p {
+        color: #FFFFFF !important;
+    }
     [data-testid="stSidebar"] label { white-space: nowrap !important; }
     .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 0px; position: relative; }
     .particle-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); }
@@ -221,10 +260,15 @@ with top_col2:
     """, unsafe_allow_html=True)
 
 with top_col3:
-    # THE FIX: Language Toggle moved to the top right!
-    selected_lang = st.selectbox("Language", ["English", "Shqip", "Македонски", "Srpski/Bosanski"], label_visibility="collapsed")
-    t = UI_TEXT[selected_lang] # Load the dictionary immediately for the whole app
-
+    # Dictionary mapping for modern short codes
+    LANG_MAP = {"EN": "English", "SQ": "Shqip", "MK": "Македонски", "SR": "Srpski/Bosanski"}
+    
+    st.markdown("<div style='padding-top: 0.6rem;'></div>", unsafe_allow_html=True)
+    # The radio buttons will now automatically style themselves as swipeable pills thanks to our CSS!
+    short_lang = st.radio("Lang", ["EN", "SQ", "MK", "SR"], horizontal=True, label_visibility="collapsed")
+    
+    selected_lang = LANG_MAP[short_lang]
+    t = UI_TEXT[selected_lang] # Load the dictionary immediately
 st.markdown("<hr style='margin-top: 0.5rem; margin-bottom: 1rem; border-color: #E2E8F0;'/>", unsafe_allow_html=True)
 # Data Fetch & Dedup
 df = get_database_data()
