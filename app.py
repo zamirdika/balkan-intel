@@ -49,7 +49,7 @@ UI_TEXT = {
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
     },
-    "Srpski/Bosanski": {
+    "Srpski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
         "geo_header": "📍 Region",
@@ -60,6 +60,20 @@ UI_TEXT = {
         "div": "Divergencija",
         "btn_back": "← Nazad",
         "db_col_title": "title_sr",
+        "db_col_bullets": "bullets_en",
+        "db_col_persp": "perspective_en"
+    },
+    "Bosanski": {
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
+        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
+        "geo_header": "📍 Region",
+        "blindspots": "👁️ Slijepne tačke",
+        "blindspots_sub": "Narativi koje ste možda propustili.",
+        "pw": "Pro-Zapadno",
+        "obj": "Objektivnost",
+        "div": "Divergencija",
+        "btn_back": "← Nazad",
+        "db_col_title": "title_sr", 
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
     }
@@ -135,7 +149,6 @@ st.markdown("""
     [data-testid="stSidebar"] svg { fill: #F8FAFC !important; }
 
     /* --- TABS BEHAVIOR (SWIPE VS WRAP) --- */
-    /* MAIN AREA: Single Row Horizontal Swipe */
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
@@ -147,15 +160,13 @@ st.markdown("""
     }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
 
-    /* SIDEBAR: Wrap into a nice grid */
     [data-testid="stSidebar"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: wrap !important; /* ALLOWS THEM TO STACK */
+        flex-wrap: wrap !important; 
         gap: 8px !important;
     }
 
-    /* Universal Pill Styling */
     div[role="radiogroup"] label {
         background-color: transparent !important;
         padding: 8px 16px !important;
@@ -191,26 +202,36 @@ st.markdown("""
     .card-tag { background: #3B82F6; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; margin-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
     .card-title { font-size: clamp(1.05rem, 1.15vw, 1.2rem); font-weight: 800; color: #FFFFFF !important; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 6px rgba(0,0,0,0.9) !important; }
     .card-footer { height: 80px; padding: 12px 24px; background: #FFFFFF; display: flex; flex-direction: column; justify-content: center; }
-    .source-link-card { padding: 10px 12px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; margin-bottom: 8px; transition: all 0.2s ease; cursor: pointer; }
-    .source-link-card:hover { border-color: #3B82F6; background-color: #F8FAFC; transform: translateX(2px); }
+    
+    .source-link-card { padding: 10px 12px; background: transparent; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 8px; margin-bottom: 8px; transition: all 0.2s ease; cursor: pointer; }
+    .source-link-card:hover { border-color: #3B82F6; background-color: rgba(59, 130, 246, 0.05); transform: translateX(2px); }
+    
     div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; min-height: 0px !important; overflow: visible !important; }
     button[kind="primary"] { position: absolute !important; background: transparent !important; border: none !important; color: transparent !important; height: 0px !important; min-height: 0px !important; padding: 0 !important; box-shadow: none !important; }
     button[kind="primary"]::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 380px; z-index: 99; cursor: pointer; }
-    button[kind="secondary"] { background: transparent !important; border: none !important; color: #64748B !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center !important; justify-content: flex-start !important; width: auto !important; margin-bottom: 1.5rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
-    button[kind="secondary"]:hover { color: #0F172A !important; }
+    
+    button[kind="secondary"] { background: transparent !important; border: none !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center !important; justify-content: flex-start !important; width: auto !important; margin-bottom: 1.5rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
+    
     .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 15px; }
     .b2b-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; }
     
-    /* NEW: Clean styling for the Blindspots Notification Button */
+    /* THE NEW FANCY BLINDSPOTS BUTTON */
     button[kind="secondary"]:has(div:contains("👁️")) {
-        background-color: #FEF2F2 !important;
-        border: 1px solid #FECACA !important;
-        color: #EF4444 !important;
+        background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%) !important;
+        border: 1px solid #FCA5A5 !important;
+        color: #DC2626 !important;
         justify-content: center !important;
         border-radius: 12px !important;
-        padding: 10px !important;
+        padding: 12px !important;
         margin-top: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15) !important;
+        transition: all 0.3s ease !important;
+    }
+    button[kind="secondary"]:has(div:contains("👁️")):hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 15px rgba(239, 68, 68, 0.25) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -227,23 +248,23 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style):
     obj = int(float(row.get('avg_objectivity', 0.5)) * 100) 
     
     spectrum_html = "".join([
-        '<div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 12px; margin-top: 12px;">',
-        '<div style="font-size: 0.75rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.05em;">📊 Analiza e Tekstit</div>',
-        f'<div style="margin-bottom: 12px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 6px;"><span>🇪🇺 Pro-Perëndimit: {pw}%</span></div><div style="width: 100%; height: 8px; background-color: #E2E8F0; border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 6px;"><span>🔍 Objektiviteti: {obj}%</span></div><div style="width: 100%; height: 8px; background-color: #E2E8F0; border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
+        '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 16px; border-radius: 12px; margin-top: 12px;">',
+        '<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.05em; opacity: 0.7;">📊 Analiza e Tekstit</div>',
+        f'<div style="margin-bottom: 12px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px;"><span>🇪🇺 Pro-Perëndimit: {pw}%</span></div><div style="width: 100%; height: 8px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px;"><span>🔍 Objektiviteti: {obj}%</span></div><div style="width: 100%; height: 8px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
 
     with header_col1:
         st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 12px;"></div>""", unsafe_allow_html=True)
-        st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: #F1F5F9; color: #475569; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {row['cluster_geo_scope']}</span></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {row['cluster_geo_scope']}</span></div>""", unsafe_allow_html=True)
         st.markdown(spectrum_html, unsafe_allow_html=True)
         
     with header_col2:
-        st.markdown(f"<h3 style='margin-top: 0; margin-bottom: 16px; color: #0F172A; font-weight: 800; font-size: 1.6rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='margin-top: 0; margin-bottom: 16px; font-weight: 800; font-size: 1.6rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
         if clean_bullets:
             for b in clean_bullets[:4]: 
-                st.markdown(f"<div style='margin-bottom: 10px; color: #334155; font-size: 0.95rem; line-height: 1.5;'>• {b}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='margin-bottom: 10px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
         if perspective_html: 
             st.markdown("<div style='margin-top: 16px;'></div>", unsafe_allow_html=True)
             st.markdown(perspective_html, unsafe_allow_html=True)
@@ -256,25 +277,25 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style):
         for t, s, u in zip(titles, sources_raw, urls):
             if t and t not in seen and u and str(u).startswith('http'):
                 seen.add(t)
-                links_html += f"<a href='{u}' target='_blank' style='text-decoration: none;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; color: #0F172A; line-height: 1.3;'>{t}</div></div></a>"
+                links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
                 
         if links_html:
-            st.markdown(f"<div style='margin-top: 24px; border-top: 1px solid #E2E8F0; padding-top: 16px;'><h4 style='font-size: 0.85rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.05em;'>Burimet Origjinale</h4>{links_html}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='margin-top: 24px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 16px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.05em; opacity: 0.7;'>Burimet Origjinale</h4>{links_html}</div>", unsafe_allow_html=True)
             
     st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
 
 # --- BLINDSPOTS MODAL ---
 @st.dialog("👁️ Të pathënat / Blindspots", width="large")
 def open_blindspots_modal(t_dict):
-    st.markdown(f"<div style='font-size:0.9rem; color:#64748B; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub', 'Narratives you might have missed.')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub', 'Narratives you might have missed.')}</div>", unsafe_allow_html=True)
     
     for idx, row in get_blindspot_stories().iterrows():
         b_title = row.get('cluster_title_sq') or row.get('title_en') or "Titulli Mungon"
         st.markdown(f"""
-        <div style='background: #FFFFFF; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid #F1F5F9; border-right: 1px solid #F1F5F9; border-bottom: 1px solid #F1F5F9;'>
+        <div style='background: transparent; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid rgba(148, 163, 184, 0.3); border-right: 1px solid rgba(148, 163, 184, 0.3); border-bottom: 1px solid rgba(148, 163, 184, 0.3);'>
             <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{row.get('cluster_category', 'News')}</div>
-            <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none;">
-                <div style='font-weight: 800; color: #0F172A; font-size: 1rem; line-height: 1.4; margin-bottom: 8px;'>
+            <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none; color: inherit;">
+                <div style='font-weight: 800; font-size: 1rem; line-height: 1.4; margin-bottom: 8px;'>
                     {b_title} <span style="color: #3B82F6; font-size: 0.85rem;">↗</span>
                 </div>
             </a>
@@ -306,10 +327,10 @@ if not df.empty:
 with st.sidebar:
     st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 8px;'>🌐 Language</div>", unsafe_allow_html=True)
     
-    LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR"]
+    LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"]
     short_lang = st.radio("Lang", LANG_OPTIONS, horizontal=True, label_visibility="collapsed")
     
-    LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski/Bosanski"}
+    LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski", "🇧🇦 BS": "Bosanski"}
     selected_lang = LANG_MAP[short_lang]
     t = UI_TEXT[selected_lang]    
     
@@ -339,32 +360,9 @@ cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
 st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
-# The New One-Tap Blindspots Trigger
-if st.button(f"{t.get('blindspots')} (3)", type="secondary", use_container_width=True):
+# The New One-Tap Fancy Blindspots Trigger
+if st.button(f"👁️ {t.get('blindspots')} (3)", type="secondary", use_container_width=True):
     open_blindspots_modal(t)
-
-st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
-
-# Simulator Widget
-with st.expander("🎛️ Simulatori i Parametrave të AI (Live Demo)"):
-    st.markdown("<div style='font-size: 0.85rem; color: #64748B; margin-bottom: 1rem;'>Ky panel demonstron heuristikën që përdor LLM për të llogaritur metrikat. Ndryshoni vlerat për të parë si ndikohet rezultati përfundimtar i një lajmi hipotetik.</div>", unsafe_allow_html=True)
-    
-    sim_col1, sim_col2 = st.columns(2, gap="large")
-    with sim_col1:
-        st.markdown("**1. Metrika e Objektivitetit**")
-        fakte = st.slider("Prania e fakteve dhe burimeve", 0, 100, 80)
-        emocion = st.slider("Gjuha sensacionale/emocionale", 0, 100, 20)
-        obj_score = int((fakte + (100 - emocion)) / 2)
-        st.markdown(f"""<div style="margin-top: 10px; padding: 10px; background-color: #F8FAFC; border-radius: 8px; border-left: 4px solid #10B981;"><div style="font-size: 0.8rem; color: #475569; font-weight: 600;">Rezultati Përfundimtar</div><div style="font-size: 1.5rem; font-weight: 800; color: #0F172A;">{obj_score}%</div></div>""", unsafe_allow_html=True)
-
-    with sim_col2:
-        st.markdown("**2. Metrika Pro-Perëndimore**")
-        euro = st.slider("Gjuha pro-Integrimit (BE/NATO)", 0, 100, 70)
-        anti_west = st.slider("Narrativa Anti-Perëndimore", 0, 100, 10)
-        pw_score = int((euro + (100 - anti_west)) / 2)
-        st.markdown(f"""<div style="margin-top: 10px; padding: 10px; background-color: #F8FAFC; border-radius: 8px; border-left: 4px solid #3B82F6;"><div style="font-size: 0.8rem; color: #475569; font-weight: 600;">Rezultati Përfundimtar</div><div style="font-size: 1.5rem; font-weight: 800; color: #0F172A;">{pw_score}%</div></div>""", unsafe_allow_html=True)
-        
-st.markdown("<div style='margin-bottom: 1.5rem;'></div>", unsafe_allow_html=True)
 
 # Filtering Logic
 filtered_df = df.copy()
@@ -395,7 +393,7 @@ else:
         clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip() and len(b) > 15]
         
         persp_text = row.get(col_persp) or row.get('perspective_en') or ""
-        persp = f"<div style='padding: 12px; background: #F8FAFC; border-left: 3px solid #3B82F6; font-size: 0.9rem; color: #475569; font-style: italic; border-radius: 0 8px 8px 0;'>{persp_text}</div>" if persp_text else ""
+        persp = f"<div style='padding: 12px; border-left: 3px solid #3B82F6; font-size: 0.9rem; font-style: italic; border-radius: 0 8px 8px 0; opacity: 0.85;'>{persp_text}</div>" if persp_text else ""
         
         raw_img = str(row.get('cluster_image', '')).strip()
         unique_seed = row.get('cluster_id', f"rand_{idx}")
