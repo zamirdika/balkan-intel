@@ -130,43 +130,55 @@ st.markdown("""
     [data-testid="stSidebar"][aria-expanded="true"] { min-width: 215px !important; max-width: 215px !important; }
     /* --- SIDEBAR DARK MODE FIX --- */
     [data-testid="stSidebar"] { background-color: #0F172A !important; border-right: 1px solid #1E293B !important; }
-    [data-testid="stSidebar"] * { color: #F8FAFC !important; }
-    [data-testid="stSidebar"] label div:first-child { border-color: #475569 !important; }
+    /* Force every text element in the sidebar to be visible */
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, 
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label { 
+        color: #F8FAFC !important; 
+    }
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p { color: #94A3B8 !important; }
 
     /* --- MOBILE SWIPEABLE TABS (PILLS) --- */
+    /* Force the container to stay on one line and scroll horizontally */
     div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch; /* Smooth iOS momentum scrolling */
-        gap: 8px !important;
-        padding-bottom: 8px; /* Room for scrollbar */
-        scrollbar-width: none; /* Hide scrollbar Firefox */
+        flex-wrap: nowrap !important; 
+        overflow-x: auto !important;   
+        -webkit-overflow-scrolling: touch !important; 
+        gap: 12px !important;
+        padding-bottom: 12px !important; 
+        scrollbar-width: none !important; 
     }
-    div[role="radiogroup"]::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
-    
+    div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
+
+    /* Style the individual pill */
     div[role="radiogroup"] label {
-        background: transparent !important;
-        padding: 8px 16px !important;
-        border-radius: 999px !important; /* Pill shape */
-        border: 1px solid #334155 !important;
-        white-space: nowrap !important;
-        cursor: pointer;
-        transition: all 0.2s ease;
+        background-color: transparent !important;
+        padding: 8px 18px !important;
+        border-radius: 999px !important;
+        border: 1px solid #475569 !important;
+        white-space: nowrap !important; 
+        cursor: pointer !important;
+        color: #94A3B8 !important; /* Make the base text light gray */
+        transition: all 0.2s ease !important;
     }
-    
-    /* Hide the native radio circles */
+
+    /* Hide the default radio circle */
     div[role="radiogroup"] label div:first-child { display: none !important; }
-    div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p { margin: 0 !important; font-weight: 600 !important; color: #94A3B8 !important; }
-    
-    /* Active/Selected Pill State */
-    div[role="radiogroup"] label:has(input:checked) {
-        background: #3B82F6 !important;
-        border-color: #3B82F6 !important;
+
+    /* FORCE the text inside the pill to be visible */
+    div[role="radiogroup"] label * {
+        color: inherit !important; 
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
+        margin: 0 !important;
     }
-    div[role="radiogroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p {
-        color: #FFFFFF !important;
+
+    /* Active/Selected Pill State - Make it pop! */
+    div[role="radiogroup"] label:has(input:checked) {
+        background-color: #3B82F6 !important;
+        border-color: #3B82F6 !important;
+        color: #FFFFFF !important; /* Force text to pure white when active */
     }
     [data-testid="stSidebar"] label { white-space: nowrap !important; }
     .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 0px; position: relative; }
