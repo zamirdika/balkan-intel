@@ -11,7 +11,7 @@ UI_TEXT = {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional", "International"],
         "geo_header": "📍 Region",
-        "blindspots": "👁️ Blindspots",
+        "blindspots": "Blindspots",
         "blindspots_sub": "Narratives you might have missed.",
         "pw": "Pro-Western",
         "obj": "Objectivity",
@@ -25,7 +25,7 @@ UI_TEXT = {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale", "Ndërkombëtare"],
         "geo_header": "📍 Rajoni",
-        "blindspots": "👁️ Të pathënat",
+        "blindspots": "Të pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
         "pw": "Pro-Perëndimit",
         "obj": "Objektiviteti",
@@ -39,7 +39,7 @@ UI_TEXT = {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално", "Меѓународно"],
         "geo_header": "📍 Регион",
-        "blindspots": "👁️ Слепи точки",
+        "blindspots": "Слепи точки",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
         "pw": "Про-Западно",
         "obj": "Објективност",
@@ -53,7 +53,7 @@ UI_TEXT = {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
         "geo_header": "📍 Region",
-        "blindspots": "👁️ Slepe tačke",
+        "blindspots": "Slepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
@@ -67,7 +67,7 @@ UI_TEXT = {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
         "geo_header": "📍 Region",
-        "blindspots": "👁️ Slijepne tačke",
+        "blindspots": "Slijepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
@@ -216,22 +216,31 @@ st.markdown("""
     .b2b-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; }
     
-    /* THE NEW FANCY BLINDSPOTS BUTTON */
+    /* THE NEW PREMIUM INTELLIGENCE BLINDSPOTS BUTTON */
     button[kind="secondary"]:has(div:contains("👁️")) {
-        background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%) !important;
-        border: 1px solid #FCA5A5 !important;
-        color: #DC2626 !important;
+        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
+        border: 1px solid #334155 !important;
+        border-left: 4px solid #EF4444 !important;
+        color: #F8FAFC !important;
         justify-content: center !important;
         border-radius: 12px !important;
-        padding: 12px !important;
+        padding: 14px !important;
         margin-top: 0.5rem !important;
-        margin-bottom: 1rem !important;
-        box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15) !important;
+        margin-bottom: 0.5rem !important;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
         transition: all 0.3s ease !important;
+    }
+    button[kind="secondary"]:has(div:contains("👁️")) p {
+        font-size: 1rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.05em !important;
+        color: #F8FAFC !important;
     }
     button[kind="secondary"]:has(div:contains("👁️")):hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 6px 15px rgba(239, 68, 68, 0.25) !important;
+        box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important;
+        border-left: 4px solid #DC2626 !important;
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -360,7 +369,7 @@ cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
 st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
-# The New One-Tap Fancy Blindspots Trigger
+# The New Premium Intelligence Blindspots Trigger
 if st.button(f"👁️ {t.get('blindspots')} (3)", type="secondary", use_container_width=True):
     open_blindspots_modal(t)
 
@@ -374,8 +383,6 @@ if backend_geo != "All Regions":
 if backend_cat != "All Topics": 
     target_cat = backend_cat.strip().lower()
     filtered_df = filtered_df[filtered_df['cluster_category'].apply(lambda x: target_cat in str(x).strip().lower())]
-
-st.caption(f"🔍 System Status: {len(filtered_df)} articles found for [{display_geo}] & [{display_cat}].")
 
 # Main News Grid
 if filtered_df.empty:
