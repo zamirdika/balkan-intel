@@ -167,7 +167,7 @@ st.markdown("""
         overflow-x: auto !important;   
         -webkit-overflow-scrolling: touch !important; 
         scrollbar-width: none !important; 
-        padding-bottom: 8px !important;
+        padding-bottom: 4px !important;
     }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
@@ -178,12 +178,12 @@ st.markdown("""
     [data-testid="stSidebar"] div[role="radiogroup"] {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important; /* Strictly forces two equal columns */
-        gap: 8px !important;
+        gap: 6px !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label {
         width: 100% !important; 
         margin: 0 !important;
-        padding: 8px 4px !important; /* Compact padding */
+        padding: 6px 2px !important; /* Tighter padding */
         justify-content: center !important;
         text-align: center !important;
         background-color: transparent !important;
@@ -198,8 +198,10 @@ st.markdown("""
     div[role="radiogroup"] label p {
         color: #94A3B8 !important; 
         font-weight: 700 !important;
-        font-size: 0.85rem !important;
+        font-size: 0.78rem !important; /* Shrunk slightly to prevent wrapping */
         margin: 0 !important;
+        white-space: nowrap !important; /* Strictly prevents breaking to new line */
+        letter-spacing: -0.02em !important;
     }
 
     div[role="radiogroup"] label:has(input:checked) {
@@ -231,7 +233,7 @@ st.markdown("""
     
     .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 15px; }
     .b2b-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
-    [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; }
+    [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; margin-bottom: 0 !important; }
     
     /* THE PREMIUM INTELLIGENCE BLINDSPOTS BUTTON */
     button[kind="secondary"]:has(div:contains("👁️")) {
@@ -241,9 +243,9 @@ st.markdown("""
         color: #F8FAFC !important;
         justify-content: center !important;
         border-radius: 12px !important;
-        padding: 14px !important;
-        margin-top: 0.5rem !important;
-        margin-bottom: 0.5rem !important;
+        padding: 10px !important; /* Slimmer padding */
+        margin-top: 0.25rem !important; /* Reduced space above */
+        margin-bottom: 0.25rem !important; /* Reduced space below */
         box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
         transition: all 0.3s ease !important;
     }
@@ -362,7 +364,7 @@ st.markdown("""
         <a href="#" style="color: inherit; text-decoration: none;">API</a>
     </div>
 </div>
-<hr style='margin-top: 0.5rem; margin-bottom: 1rem; border-color: #E2E8F0;'/>
+<hr style='margin-top: 0.5rem; margin-bottom: 0.5rem; border-color: #E2E8F0;'/>
 """, unsafe_allow_html=True)
 
 # Data Fetch & Dedup
@@ -381,7 +383,8 @@ with st.sidebar:
     selected_lang = LANG_MAP[short_lang]
     t = UI_TEXT[selected_lang]    
     
-    st.markdown("<hr style='margin: 1rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    # Reduced spacer
+    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
     
     st.markdown(f"<h3 style='color: #F8FAFC; font-weight: 800; margin-top: -10px;'>{t['geo_header']}</h3>", unsafe_allow_html=True)
     
@@ -389,25 +392,27 @@ with st.sidebar:
     geo_index = t["geo_labels"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
 
-    st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    # Reduced spacer
+    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
     
     # --- NEWSLETTER INTEGRATION ---
     st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>📬 Daily Briefing</div>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.3;'>Narrative blindspots delivered straight to your inbox.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>Narrative blindspots delivered straight to your inbox.</p>", unsafe_allow_html=True)
     with st.form("newsletter_form", clear_on_submit=True):
         email = st.text_input("Email", placeholder="your@email.com", label_visibility="collapsed")
         submitted = st.form_submit_button("Subscribe", use_container_width=True)
         if submitted:
             st.success("Thank you! You are subscribed.")
 
-    st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    # Reduced spacer
+    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
 
     # --- B2B API INTEGRATION ---
     st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>⚙️ Enterprise API</div>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.3;'>Integrate real-time narrative clustering into your dashboards.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>Integrate real-time narrative clustering into your dashboards.</p>", unsafe_allow_html=True)
     st.markdown("<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>View API Docs</a>", unsafe_allow_html=True)
     
-    st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
     
     # --- AI METHODOLOGY (MOVED TO BOTTOM) ---
     with st.expander(t.get("ai_method", "ℹ️ AI Methodology")):
@@ -426,9 +431,8 @@ with st.sidebar:
 display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
 cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
-st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
-# The New Premium Intelligence Blindspots Trigger
+# The New Premium Intelligence Blindspots Trigger (Removed extra spaces above/below)
 if st.button(f"👁️ {t.get('blindspots')} (3)", type="secondary", use_container_width=True):
     open_blindspots_modal(t)
 
@@ -442,6 +446,8 @@ if backend_geo != "All Regions":
 if backend_cat != "All Topics": 
     target_cat = backend_cat.strip().lower()
     filtered_df = filtered_df[filtered_df['cluster_category'].apply(lambda x: target_cat in str(x).strip().lower())]
+
+st.caption(f"🔍 System Status: {len(filtered_df)} articles found for [{display_geo}] & [{display_cat}].")
 
 # Main News Grid
 if filtered_df.empty:
