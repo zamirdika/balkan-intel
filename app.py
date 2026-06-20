@@ -10,10 +10,10 @@ UI_TEXT = {
     "English": {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional", "International"],
+        "geo_labels": ["🌍 All", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
         "geo_header": "📍 Geography",
         "blindspots": "Blindspots",
         "blindspots_sub": "Narratives you might have missed.",
-        "ai_method": "ℹ️ AI Methodology",
         "pw": "Pro-Western",
         "obj": "Objectivity",
         "div": "Divergence Level",
@@ -25,10 +25,10 @@ UI_TEXT = {
     "Shqip": {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale", "Ndërkombëtare"],
+        "geo_labels": ["🌍 Të gjitha", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
         "geo_header": "📍 Gjeografia",
         "blindspots": "Të pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
-        "ai_method": "ℹ️ Metodologjia e AI",
         "pw": "Pro-Perëndimit",
         "obj": "Objektiviteti",
         "div": "Anashkalimi",
@@ -40,10 +40,10 @@ UI_TEXT = {
     "Македонски": {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално", "Меѓународно"],
+        "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
         "geo_header": "📍 Географија",
         "blindspots": "Слепи точки",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
-        "ai_method": "ℹ️ АИ Методологија",
         "pw": "Про-Западно",
         "obj": "Објективност",
         "div": "Дивергенција",
@@ -55,10 +55,10 @@ UI_TEXT = {
     "Srpski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
+        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
         "geo_header": "📍 Geografija",
         "blindspots": "Slepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
-        "ai_method": "ℹ️ AI Metodologija",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
@@ -70,10 +70,10 @@ UI_TEXT = {
     "Bosanski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
+        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
         "geo_header": "📍 Geografija",
         "blindspots": "Slijepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
-        "ai_method": "ℹ️ AI Metodologija",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
@@ -176,20 +176,18 @@ st.markdown("""
         gap: 8px !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label {
-        width: 100% !important; /* Forces the pill to fill the grid cell */
+        width: 100% !important; 
         margin: 0 !important;
-        padding: 8px 4px !important;
+        padding: 8px 4px !important; /* Compact padding */
         justify-content: center !important;
         text-align: center !important;
-    }
-    /* Universal Pill Styling */
-    div[role="radiogroup"] label {
         background-color: transparent !important;
         border-radius: 999px !important;
         border: 1px solid #475569 !important;
         cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
+
     div[role="radiogroup"] label > div:first-child { display: none !important; }
     
     div[role="radiogroup"] label p {
@@ -360,8 +358,10 @@ with st.sidebar:
     st.markdown("<hr style='margin: 1rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
     
     st.markdown(f"<h3 style='color: #F8FAFC; font-weight: 800; margin-top: -10px;'>{t['geo_header']}</h3>", unsafe_allow_html=True)
-    display_geo = st.radio("Geo", t["geos"], label_visibility="collapsed")
-    geo_index = t["geos"].index(display_geo)
+    
+    # NEW: Displaying labels (acronyms) but mapping back to the database names (geos)
+    display_geo = st.radio("Geo", t["geo_labels"], label_visibility="collapsed")
+    geo_index = t["geo_labels"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
 
     st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
