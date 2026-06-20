@@ -10,14 +10,15 @@ UI_TEXT = {
     "English": {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional", "International"],
-        "geo_labels": ["🌍 All", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
+        "geo_labels": ["🌍 All", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkans", "🌐 INT"],
         "geo_header": "📍 Geography",
         "blindspots": "Blindspots",
         "blindspots_sub": "Narratives you might have missed.",
+        "modal_title": "Deep Dive Analysis",
         "pw": "Pro-Western",
         "obj": "Objectivity",
         "div": "Divergence Level",
-        "btn_back": "← Go Back",
+        "btn_back": "« Back",
         "db_col_title": "title_en",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
@@ -25,14 +26,15 @@ UI_TEXT = {
     "Shqip": {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale", "Ndërkombëtare"],
-        "geo_labels": ["🌍 Të gjitha", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
+        "geo_labels": ["🌍 Të gjitha", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Ballkani", "🌐 INT"],
         "geo_header": "📍 Gjeografia",
         "blindspots": "Të pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
+        "modal_title": "Analiza e Thelluar",
         "pw": "Pro-Perëndimit",
         "obj": "Objektiviteti",
         "div": "Anashkalimi",
-        "btn_back": "← Kthehu",
+        "btn_back": "« Kthehu",
         "db_col_title": "title_sq",
         "db_col_bullets": "bullets_sq",
         "db_col_persp": "perspective_en"
@@ -40,14 +42,15 @@ UI_TEXT = {
     "Македонски": {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално", "Меѓународно"],
-        "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
+        "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Балкан", "🌐 INT"],
         "geo_header": "📍 Географија",
         "blindspots": "Слепи точки",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
+        "modal_title": "Длабинска Анализа",
         "pw": "Про-Западно",
         "obj": "Објективност",
         "div": "Дивергенција",
-        "btn_back": "← Назад",
+        "btn_back": "« Назад",
         "db_col_title": "title_mk",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
@@ -55,14 +58,15 @@ UI_TEXT = {
     "Srpski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
-        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
+        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan", "🌐 INT"],
         "geo_header": "📍 Geografija",
         "blindspots": "Slepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
+        "modal_title": "Dubinska Analiza",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
-        "btn_back": "← Nazad",
+        "btn_back": "« Nazad",
         "db_col_title": "title_sr",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
@@ -70,14 +74,15 @@ UI_TEXT = {
     "Bosanski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
-        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "📍 REG", "🌐 INT"],
+        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan", "🌐 INT"],
         "geo_header": "📍 Geografija",
         "blindspots": "Slijepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
+        "modal_title": "Dubinska Analiza",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
-        "btn_back": "← Nazad",
+        "btn_back": "« Nazad",
         "db_col_title": "title_sr", 
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
@@ -254,56 +259,77 @@ st.markdown("""
         border-left: 4px solid #DC2626 !important;
         background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
     }
+    
+    /* MODAL POLISH: Custom Back Button */
+    .modal-back-btn {
+        display: inline-block;
+        background-color: rgba(148, 163, 184, 0.1);
+        color: #94A3B8;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    .modal-back-btn:hover { background-color: rgba(148, 163, 184, 0.2); }
 </style>
 """, unsafe_allow_html=True)
 
 # --- DEEP DIVE MODAL ---
-@st.dialog("Full Coverage & Perspective Mapping", width="large")
-def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style):
-    if st.button("← Kthehu", type="secondary"):
-        st.session_state.modal_is_open = False
-        st.rerun()
-
-    header_col1, header_col2 = st.columns([1, 1.5], gap="large")
-    pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
-    obj = int(float(row.get('avg_objectivity', 0.5)) * 100) 
-    
-    spectrum_html = "".join([
-        '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 16px; border-radius: 12px; margin-top: 12px;">',
-        '<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.05em; opacity: 0.7;">📊 Analiza e Tekstit</div>',
-        f'<div style="margin-bottom: 12px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px;"><span>🇪🇺 Pro-Perëndimit: {pw}%</span></div><div style="width: 100%; height: 8px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px;"><span>🔍 Objektiviteti: {obj}%</span></div><div style="width: 100%; height: 8px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
-        '</div>'
-    ])
-
-    with header_col1:
-        st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 12px;"></div>""", unsafe_allow_html=True)
-        st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {row['cluster_geo_scope']}</span></div>""", unsafe_allow_html=True)
-        st.markdown(spectrum_html, unsafe_allow_html=True)
-        
-    with header_col2:
-        st.markdown(f"<h3 style='margin-top: 0; margin-bottom: 16px; font-weight: 800; font-size: 1.6rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
-        if clean_bullets:
-            for b in clean_bullets[:4]: 
-                st.markdown(f"<div style='margin-bottom: 10px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
-        if perspective_html: 
-            st.markdown("<div style='margin-top: 16px;'></div>", unsafe_allow_html=True)
-            st.markdown(perspective_html, unsafe_allow_html=True)
-
-        titles = str(row.get('orig_titles', '')).split("||")
-        urls = str(row.get('orig_urls', '')).split("||")
-        sources_raw = str(row.get('sources', '')).split(", ")
-
-        seen, links_html = set(), ""
-        for t, s, u in zip(titles, sources_raw, urls):
-            if t and t not in seen and u and str(u).startswith('http'):
-                seen.add(t)
-                links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
-                
-        if links_html:
-            st.markdown(f"<div style='margin-top: 24px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 16px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.05em; opacity: 0.7;'>Burimet Origjinale</h4>{links_html}</div>", unsafe_allow_html=True)
+def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, t_dict):
+    @st.dialog(t_dict.get("modal_title", "Deep Dive"), width="large")
+    def render_modal():
+        # New sleek back button mechanism
+        if st.button(t_dict.get("btn_back", "« Back"), type="secondary", key="close_modal_btn"):
+            st.session_state.modal_is_open = False
+            st.rerun()
             
-    st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
+        # Hide the default bulky streamlit button that was rendering empty space
+        st.markdown("""<style>div[data-testid="stDialog"] button[kind="secondary"] { margin-bottom: 4px !important; padding: 4px 12px !important; font-size: 0.8rem !important; background-color: rgba(148, 163, 184, 0.1) !important; border-radius: 6px !important; width: auto !important; }</style>""", unsafe_allow_html=True)
+
+        header_col1, header_col2 = st.columns([1, 1.5], gap="large")
+        pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
+        obj = int(float(row.get('avg_objectivity', 0.5)) * 100) 
+        
+        spectrum_html = "".join([
+            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 8px;">',
+            '<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 Analiza e Tekstit</div>',
+            f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🇪🇺 Pro-Perëndimit: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🔍 Objektiviteti: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
+            '</div>'
+        ])
+
+        with header_col1:
+            st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 8px;"></div>""", unsafe_allow_html=True)
+            st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {row['cluster_geo_scope']}</span></div>""", unsafe_allow_html=True)
+            st.markdown(spectrum_html, unsafe_allow_html=True)
+            
+        with header_col2:
+            st.markdown(f"<h3 style='margin-top: 0; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
+            if clean_bullets:
+                for b in clean_bullets[:4]: 
+                    st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
+            if perspective_html: 
+                st.markdown("<div style='margin-top: 12px;'></div>", unsafe_allow_html=True)
+                st.markdown(perspective_html, unsafe_allow_html=True)
+
+            titles = str(row.get('orig_titles', '')).split("||")
+            urls = str(row.get('orig_urls', '')).split("||")
+            sources_raw = str(row.get('sources', '')).split(", ")
+
+            seen, links_html = set(), ""
+            for t, s, u in zip(titles, sources_raw, urls):
+                if t and t not in seen and u and str(u).startswith('http'):
+                    seen.add(t)
+                    links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
+                    
+            if links_html:
+                st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>Burimet Origjinale</h4>{links_html}</div>", unsafe_allow_html=True)
+                
+    render_modal()
 
 # --- BLINDSPOTS MODAL ---
 @st.dialog("👁️ Të pathënat / Blindspots", width="large")
@@ -359,7 +385,6 @@ with st.sidebar:
     
     st.markdown(f"<h3 style='color: #F8FAFC; font-weight: 800; margin-top: -10px;'>{t['geo_header']}</h3>", unsafe_allow_html=True)
     
-    # NEW: Displaying labels (acronyms) but mapping back to the database names (geos)
     display_geo = st.radio("Geo", t["geo_labels"], label_visibility="collapsed")
     geo_index = t["geo_labels"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
@@ -473,6 +498,6 @@ else:
             if st.button(" ", key=f"btn_{row.get('cluster_id', idx)}", type="primary", use_container_width=True):
                 row_dict = row.to_dict()
                 row_dict['cluster_title_sq'] = display_title 
-                open_article_modal(row_dict, clean_b, persp, "", bg)
+                open_article_modal(row_dict, clean_b, persp, "", bg, t)
             
             st.markdown("<div style='margin-bottom: 24px;'></div>", unsafe_allow_html=True)
