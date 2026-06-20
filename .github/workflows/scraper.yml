@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.11' 
 
-       - name: Install dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install feedparser beautifulsoup4 requests pandas google-generativeai google.genai python-dotenv
@@ -38,11 +38,10 @@ jobs:
           git config --global user.name "BalkanIntel-Bot"
           git config --global user.email "bot@balkanintel.local"
           git add news_aggregator.db
-          
-          # Bulletproof commit logic
           if git diff --staged --quiet; then
             echo "No new news to commit. Going back to sleep."
           else
             git commit -m "🤖 Auto-update database with latest news cycle"
             git push
+          fi
           fi
