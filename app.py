@@ -10,9 +10,10 @@ UI_TEXT = {
     "English": {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional", "International"],
-        "geo_header": "📍 Region",
+        "geo_header": "📍 Geography",
         "blindspots": "Blindspots",
         "blindspots_sub": "Narratives you might have missed.",
+        "ai_method": "ℹ️ AI Methodology",
         "pw": "Pro-Western",
         "obj": "Objectivity",
         "div": "Divergence Level",
@@ -24,9 +25,10 @@ UI_TEXT = {
     "Shqip": {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale", "Ndërkombëtare"],
-        "geo_header": "📍 Rajoni",
+        "geo_header": "📍 Gjeografia",
         "blindspots": "Të pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
+        "ai_method": "ℹ️ Metodologjia e AI",
         "pw": "Pro-Perëndimit",
         "obj": "Objektiviteti",
         "div": "Anashkalimi",
@@ -38,9 +40,10 @@ UI_TEXT = {
     "Македонски": {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално", "Меѓународно"],
-        "geo_header": "📍 Регион",
+        "geo_header": "📍 Географија",
         "blindspots": "Слепи точки",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
+        "ai_method": "ℹ️ АИ Методологија",
         "pw": "Про-Западно",
         "obj": "Објективност",
         "div": "Дивергенција",
@@ -52,9 +55,10 @@ UI_TEXT = {
     "Srpski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
-        "geo_header": "📍 Region",
+        "geo_header": "📍 Geografija",
         "blindspots": "Slepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
+        "ai_method": "ℹ️ AI Metodologija",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
@@ -66,9 +70,10 @@ UI_TEXT = {
     "Bosanski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
-        "geo_header": "📍 Region",
+        "geo_header": "📍 Geografija",
         "blindspots": "Slijepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
+        "ai_method": "ℹ️ AI Metodologija",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
@@ -149,6 +154,7 @@ st.markdown("""
     [data-testid="stSidebar"] svg { fill: #F8FAFC !important; }
 
     /* --- TABS BEHAVIOR (SWIPE VS WRAP) --- */
+    /* MAIN AREA: Single Row Horizontal Swipe */
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
@@ -159,20 +165,29 @@ st.markdown("""
         padding-bottom: 8px !important;
     }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
+    [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
+        flex: 0 0 auto !important; 
+    }
 
+    /* SIDEBAR: Wrap into a nice 2-column grid */
     [data-testid="stSidebar"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important; 
-        gap: 8px !important;
+        gap: 6px !important; /* Reduced space */
+    }
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
+        flex: 1 1 calc(50% - 6px) !important; /* Forces perfect 2 columns */
+        padding: 6px 10px !important; /* Compact padding */
+        justify-content: center !important;
+        text-align: center !important;
     }
 
+    /* Universal Pill Styling */
     div[role="radiogroup"] label {
         background-color: transparent !important;
-        padding: 8px 16px !important;
         border-radius: 999px !important;
         border: 1px solid #475569 !important;
-        flex: 0 0 auto !important; 
         cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
@@ -216,7 +231,7 @@ st.markdown("""
     .b2b-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; }
     
-    /* THE NEW PREMIUM INTELLIGENCE BLINDSPOTS BUTTON */
+    /* THE PREMIUM INTELLIGENCE BLINDSPOTS BUTTON */
     button[kind="secondary"]:has(div:contains("👁️")) {
         background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
         border: 1px solid #334155 !important;
@@ -349,27 +364,14 @@ with st.sidebar:
     display_geo = st.radio("Geo", t["geos"], label_visibility="collapsed")
     geo_index = t["geos"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
-        
-    st.markdown("<hr style='margin: 1rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)        
-    with st.expander(t.get("ai_explanation_title", "ℹ️ How AI Analysis Works")):
-        st.markdown("""
-        <div style='font-size: 0.8rem; color: #94A3B8; line-height: 1.5;'>
-            Kjo platformë përdor modele të avancuara të gjuhës (LLM) për të vlerësuar përmbajtjen përmes analizës sasiore të tekstit:
-            <br><br>
-            <b>• Objektiviteti:</b> Mat mungesën e gjuhës së ngarkuar emocionalisht ose sensacionale, duke favorizuar raportimin neutral.
-            <br><br>
-            <b>• Anashkalimi (Blindspot):</b> Vlerëson divergjencën e narrativës. Ndërton një metrikë bazuar në atë se sa ndryshon këndvështrimi i artikullit nga rryma kryesore mediatike në Ballkan.
-        </div>
-        """, unsafe_allow_html=True)
 
-        st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
     
     # --- NEWSLETTER INTEGRATION ---
     st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>📬 Daily Briefing</div>", unsafe_allow_html=True)
     st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.3;'>Narrative blindspots delivered straight to your inbox.</p>", unsafe_allow_html=True)
     with st.form("newsletter_form", clear_on_submit=True):
         email = st.text_input("Email", placeholder="your@email.com", label_visibility="collapsed")
-        # Custom button styling applied automatically via our CSS
         submitted = st.form_submit_button("Subscribe", use_container_width=True)
         if submitted:
             st.success("Thank you! You are subscribed.")
@@ -380,7 +382,20 @@ with st.sidebar:
     st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>⚙️ Enterprise API</div>", unsafe_allow_html=True)
     st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.3;'>Integrate real-time narrative clustering into your dashboards.</p>", unsafe_allow_html=True)
     st.markdown("<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>View API Docs</a>", unsafe_allow_html=True)
+    
     st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
+    
+    # --- AI METHODOLOGY (MOVED TO BOTTOM) ---
+    with st.expander(t.get("ai_method", "ℹ️ AI Methodology")):
+        st.markdown("""
+        <div style='font-size: 0.8rem; color: #94A3B8; line-height: 1.5;'>
+            Kjo platformë përdor modele të avancuara të gjuhës (LLM) për të vlerësuar përmbajtjen përmes analizës sasiore të tekstit:
+            <br><br>
+            <b>• Objektiviteti:</b> Mat mungesën e gjuhës së ngarkuar emocionalisht ose sensacionale, duke favorizuar raportimin neutral.
+            <br><br>
+            <b>• Anashkalimi (Blindspot):</b> Vlerëson divergjencën e narrativës. Ndërton një metrikë bazuar në atë se sa ndryshon këndvështrimi i artikullit nga rryma kryesore mediatike në Ballkan.
+        </div>
+        """, unsafe_allow_html=True)
 
 # --- MAIN INTERFACE ---
 # Category Selector
@@ -462,36 +477,3 @@ else:
                 open_article_modal(row_dict, clean_b, persp, "", bg)
             
             st.markdown("<div style='margin-bottom: 24px;'></div>", unsafe_allow_html=True)
-
-# --- BOTTOM FOOTERS ---
-st.markdown("<div style='margin-top: 3rem;'></div>", unsafe_allow_html=True)
-
-footer_col1, footer_col2 = st.columns(2, gap="large")
-
-with footer_col1:
-    st.markdown("""
-        <div style='background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 1.5rem; border-radius: 16px; color: #FFFFFF; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; overflow: hidden; height: 100%;'>
-            <div style='position: absolute; top: -20px; right: -20px; font-size: 6rem; opacity: 0.05;'>⚙️</div>
-            <div style='font-size: 0.75rem; font-weight: 800; color: #3B82F6; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em;'>Enterprise Solutions</div>
-            <h4 style='margin: 0 0 10px 0; font-size: 1.1rem; font-weight: 800; color: #FFFFFF;'>BalkanIntel API</h4>
-            <p style='font-size: 0.85rem; color: #94A3B8; line-height: 1.5; margin-bottom: 0px;'>Integrate real-time narrative clustering directly into your dashboards.</p>
-            <a href="http://localhost:8000/docs" target="_blank" class="b2b-btn">View API Docs</a>
-        </div>
-    """, unsafe_allow_html=True)
-
-with footer_col2:
-    st.markdown("""
-        <div style='background: #FFFFFF; padding: 1.5rem 1.5rem 0.5rem 1.5rem; border-radius: 16px 16px 0 0; border: 1px solid #E2E8F0; border-bottom: none; text-align: center;'>
-            <div style='font-size: 1.8rem; margin-bottom: 8px;'>📬</div>
-            <h4 style='margin: 0 0 8px 0; font-size: 1.05rem; font-weight: 800; color: #0F172A;'>Daily Briefing</h4>
-            <p style='font-size: 0.8rem; color: #64748B; margin-bottom: 0; line-height: 1.4;'>Narrative blindspots delivered straight to your inbox.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("<div style='background: #FFFFFF; padding: 0 1.5rem 1.5rem 1.5rem; border-radius: 0 0 16px 16px; border: 1px solid #E2E8F0; border-top: none; text-align: center;'>", unsafe_allow_html=True)
-    with st.form("newsletter_form", clear_on_submit=True):
-        email = st.text_input("Email", placeholder="your@email.com", label_visibility="collapsed")
-        submitted = st.form_submit_button("Subscribe", use_container_width=True)
-        if submitted:
-            st.success("Thank you! You are subscribed.")
-    st.markdown("</div>", unsafe_allow_html=True)
