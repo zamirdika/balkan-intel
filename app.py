@@ -199,6 +199,7 @@ st.markdown("""
     [data-testid="stSidebar"] svg { fill: #F8FAFC !important; }
 
     /* --- TABS BEHAVIOR (SWIPE VS WRAP) --- */
+    /* MAIN AREA: Single Row Horizontal Swipe */
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
@@ -289,6 +290,12 @@ st.markdown("""
         font-weight: 800 !important;
         letter-spacing: 0.05em !important;
         color: #F8FAFC !important;
+    }
+    button[kind="secondary"]:has(div:contains("👁️")):hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important;
+        border-left: 4px solid #DC2626 !important;
+        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
     }
     
     /* MODAL POLISH: Custom Back Button (Invisible footprint) */
@@ -408,28 +415,32 @@ if not df.empty:
     
 # --- SIDEBAR ---
 with st.sidebar:
-    # 1. LANGUAGE
-    # Setting an initial default translation context to safely load headers
-    short_lang_default = st.radio("Lang_Ghost", ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"], horizontal=True, label_visibility="collapsed")
+    LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"]
     LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski", "🇧🇦 BS": "Bosanski"}
-    t = UI_TEXT[LANG_MAP[short_lang_default]]
     
-    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['lang_header']}</div>", unsafe_allow_html=True)
-    # The actual radio button
-    short_lang = st.radio("Lang", ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"], horizontal=True, label_visibility="collapsed")
-    t = UI_TEXT[LANG_MAP[short_lang]]    
+    # Grab the current language from session state to translate headers before the radio renders
+    current_lang_code = st.session_state.get("lang_choice", "🇬🇧 EN")
+    current_dict = UI_TEXT[LANG_MAP[current_lang_code]]
     
-    st.markdown(THIN_DIVIDER, unsafe_allow_html=True)
+    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{current_dict['lang_header']}</div>", unsafe_allow_html=True)
     
-    # 2. GEOGRAPHY
+    # Render the radio button once, using the session_state key
+    short_lang = st.radio("Lang", LANG_OPTIONS, horizontal=True, label_visibility="collapsed", key="lang_choice")
+    t = UI_TEXT[LANG_MAP[short_lang]]
+    
+    # Reduced spacer
+    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['geo_header']}</div>", unsafe_allow_html=True)
+    
     display_geo = st.radio("Geo", t["geo_labels"], label_visibility="collapsed")
     geo_index = t["geo_labels"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
 
-    st.markdown(THIN_DIVIDER, unsafe_allow_html=True)
+    # Reduced spacer
+    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
     
-    # 3. NEWSLETTER 
+    # --- NEWSLETTER INTEGRATION ---
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['db_header']}</div>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['db_sub']}</p>", unsafe_allow_html=True)
     with st.form("newsletter_form", clear_on_submit=True):
@@ -438,14 +449,15 @@ with st.sidebar:
         if submitted:
             st.success(t['success'])
 
-    st.markdown(THIN_DIVIDER, unsafe_allow_html=True)
+    # Reduced spacer
+    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
 
-    # 4. ENTERPRISE API 
+    # --- B2B API INTEGRATION ---
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['api_header']}</div>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['api_sub']}</p>", unsafe_allow_html=True)
     st.markdown(f"<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>{t['api_btn']}</a>", unsafe_allow_html=True)
     
-    st.markdown("<div style='margin-bottom: 1.5rem;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
 # --- MAIN INTERFACE ---
 # Category Selector
