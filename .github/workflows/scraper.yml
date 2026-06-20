@@ -31,9 +31,7 @@ jobs:
           GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
           GEMINI_API_KEY_3: ${{ secrets.GEMINI_API_KEY_3 }}
           GEMINI_API_KEY_4: ${{ secrets.GEMINI_API_KEY_4 }}
-        run: |
-          ls -F  # This helps us debug by listing the files in the logs
-          python ./orchestrator.py
+        run: python orchestrator.py
 
       - name: Commit and Push the updated Database
         run: |
@@ -41,9 +39,8 @@ jobs:
           git config --global user.email "bot@balkanintel.local"
           git add news_aggregator.db
           if git diff --staged --quiet; then
-            echo "No new news to commit. Going back to sleep."
+            echo "No new news to commit."
           else
             git commit -m "🤖 Auto-update database with latest news cycle"
             git push
-          fi
           fi
