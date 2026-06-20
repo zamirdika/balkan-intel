@@ -2,14 +2,14 @@ name: BalkanIntel Auto-Scraper
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # Wakes up every 6 hours
-  workflow_dispatch: # Allows you to click a "Run Now" button manually on GitHub
+    - cron: "0 */6 * * *" 
+  workflow_dispatch: 
 
 jobs:
   scrape_and_analyze:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Gives the robot permission to push the DB back to your repo
+      contents: write 
 
     steps:
       - name: Checkout code
@@ -21,13 +21,11 @@ jobs:
           python-version: '3.11' 
 
       - name: Install dependencies
-        # Assuming you use standard libraries for scraping. Adjust if you have a requirements_backend.txt
         run: |
           python -m pip install --upgrade pip
           pip install feedparser beautifulsoup4 requests pandas google-generativeai python-dotenv
 
       - name: Run the Orchestrator
-        # Pulls the secret keys out of the GitHub vault temporarily
         env:
           GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
           GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
@@ -40,6 +38,11 @@ jobs:
           git config --global user.name "BalkanIntel-Bot"
           git config --global user.email "bot@balkanintel.local"
           git add news_aggregator.db
-          # The robot checks if new news was added. If yes, it commits. If no, it goes back to sleep.
-          git diff --staged --quiet || git commit -m "🤖 Auto-update database with latest news cycle"
-          git push
+          
+          # Bulletproof commit logic
+          if git diff --staged --quiet; then
+            echo "No new news to commit. Going back to sleep."
+          else
+            git commit -m "🤖 Auto-update database with latest news cycle"
+            git push
+          fi
