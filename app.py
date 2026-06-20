@@ -169,20 +169,19 @@ st.markdown("""
         flex: 0 0 auto !important; 
     }
 
-    /* SIDEBAR: Wrap into a nice 2-column grid */
+    /* SIDEBAR: Bulletproof 2-Column Grid */
     [data-testid="stSidebar"] div[role="radiogroup"] {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important; 
-        gap: 6px !important; /* Reduced space */
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Strictly forces two equal columns */
+        gap: 8px !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label {
-        flex: 1 1 calc(50% - 6px) !important; /* Forces perfect 2 columns */
-        padding: 6px 10px !important; /* Compact padding */
+        width: 100% !important; /* Forces the pill to fill the grid cell */
+        margin: 0 !important;
+        padding: 8px 4px !important;
         justify-content: center !important;
         text-align: center !important;
     }
-
     /* Universal Pill Styling */
     div[role="radiogroup"] label {
         background-color: transparent !important;
