@@ -362,6 +362,26 @@ with st.sidebar:
         </div>
         """, unsafe_allow_html=True)
 
+        st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    
+    # --- NEWSLETTER INTEGRATION ---
+    st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>📬 Daily Briefing</div>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.3;'>Narrative blindspots delivered straight to your inbox.</p>", unsafe_allow_html=True)
+    with st.form("newsletter_form", clear_on_submit=True):
+        email = st.text_input("Email", placeholder="your@email.com", label_visibility="collapsed")
+        # Custom button styling applied automatically via our CSS
+        submitted = st.form_submit_button("Subscribe", use_container_width=True)
+        if submitted:
+            st.success("Thank you! You are subscribed.")
+
+    st.markdown("<hr style='margin: 1.5rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+
+    # --- B2B API INTEGRATION ---
+    st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>⚙️ Enterprise API</div>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.3;'>Integrate real-time narrative clustering into your dashboards.</p>", unsafe_allow_html=True)
+    st.markdown("<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>View API Docs</a>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
+
 # --- MAIN INTERFACE ---
 # Category Selector
 display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
