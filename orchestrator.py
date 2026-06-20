@@ -199,14 +199,31 @@ def analyze_article_with_llm(text):
 def run_pipeline():
     init_db()
     
-    target_feeds = [
-        "https://alsat.mk/feed/",          
-        "https://mia.mk/feed",           
-        "https://telegrafi.com/feed/",     
-        "https://balkaninsight.com/feed/",
-        "https://top-channel.tv/feed/",
-        "https://www.klix.ba/feed"  
-    ]
+    target_feeds = {
+    # North Macedonia
+    "MIA (MK)": "https://mia.mk/feed/",
+    "Alsat (MK/SQ)": "https://alsat.mk/feed/",
+    "Kanal 5 (MK)": "https://kanal5.com.mk/rss",
+    
+    # Kosovo
+    "Koha (KS)": "https://koha.net/rss",
+    "Telegrafi (KS)": "https://telegrafi.com/feed/",
+    "Gazeta Express (KS)": "https://www.gazetaexpress.com/feed/",
+    
+    # Albania
+    "Top Channel (AL)": "https://top-channel.tv/feed/",
+    "Euronews (AL)": "https://euronews.al/feed/",
+    
+    # Serbia
+    "RTS (SR)": "https://www.rts.rs/page/stories/sr/rss.html",
+    "N1 Srbija (SR)": "https://n1info.rs/feed/",
+    "B92 (SR)": "https://www.b92.net/info/rss/vesti.xml",
+    
+    # Bosnia & Herzegovina
+    "Klix (BA)": "https://www.klix.ba/rss",
+    "N1 BiH (BA)": "https://n1info.ba/feed/",
+    "Al Jazeera Balkans (BA)": "https://balkans.aljazeera.net/rss"
+}
     
     print("1. Fetching articles from RSS feeds...")
     raw_articles = fetch_rss_feeds(target_feeds)
