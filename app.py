@@ -11,7 +11,15 @@ UI_TEXT = {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional", "International"],
         "geo_labels": ["🌍 All", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkans", "🌐 INT"],
+        "lang_header": "🌐 Language",
         "geo_header": "📍 Geography",
+        "db_header": "📬 Daily Briefing",
+        "db_sub": "Narrative blindspots delivered straight to your inbox.",
+        "api_header": "⚙️ Enterprise API",
+        "api_sub": "Integrate real-time narrative clustering into your dashboards.",
+        "subscribe": "Subscribe",
+        "success": "Thank you! You are subscribed.",
+        "api_btn": "View API Docs",
         "blindspots": "Blindspots",
         "blindspots_sub": "Narratives you might have missed.",
         "modal_title": "Deep Dive Analysis",
@@ -27,7 +35,15 @@ UI_TEXT = {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale", "Ndërkombëtare"],
         "geo_labels": ["🌍 Të gjitha", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Ballkani", "🌐 INT"],
+        "lang_header": "🌐 Gjuha",
         "geo_header": "📍 Gjeografia",
+        "db_header": "📬 Informimi Ditor",
+        "db_sub": "Të pathënat e narrativave direkt në emailin tuaj.",
+        "api_header": "⚙️ API për Biznese",
+        "api_sub": "Integroni grupimin e narrativave në kohë reale.",
+        "subscribe": "Abonohu",
+        "success": "Faleminderit! Jeni abonuar.",
+        "api_btn": "Shiko Dokumentacionin",
         "blindspots": "Të pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
         "modal_title": "Analiza e Thelluar",
@@ -43,7 +59,15 @@ UI_TEXT = {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално", "Меѓународно"],
         "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Балкан", "🌐 INT"],
+        "lang_header": "🌐 Јазик",
         "geo_header": "📍 Географија",
+        "db_header": "📬 Дневен Брифинг",
+        "db_sub": "Наративни слепи точки доставени директно во вашето сандаче.",
+        "api_header": "⚙️ Enterprise API",
+        "api_sub": "Интегрирајте групирање на наративи во реално време.",
+        "subscribe": "Претплати се",
+        "success": "Ви благодариме! Претплатени сте.",
+        "api_btn": "Види API Документација",
         "blindspots": "Слепи точки",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа",
@@ -59,7 +83,15 @@ UI_TEXT = {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
         "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan", "🌐 INT"],
+        "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
+        "db_header": "📬 Dnevni Brifing",
+        "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.",
+        "api_header": "⚙️ Enterprise API",
+        "api_sub": "Integrišite grupisanje narativa u realnom vremenu.",
+        "subscribe": "Pretplati se",
+        "success": "Hvala! Pretplatili ste se.",
+        "api_btn": "Vidi API Dokumentaciju",
         "blindspots": "Slepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza",
@@ -75,7 +107,15 @@ UI_TEXT = {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
         "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan", "🌐 INT"],
+        "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
+        "db_header": "📬 Dnevni Brifing",
+        "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.",
+        "api_header": "⚙️ Enterprise API",
+        "api_sub": "Integrišite grupisanje narativa u realnom vremenu.",
+        "subscribe": "Pretplati se",
+        "success": "Hvala! Pretplatili ste se.",
+        "api_btn": "Vidi API Dokumentaciju",
         "blindspots": "Slijepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza",
@@ -154,12 +194,11 @@ st.markdown("""
     [data-testid="collapsedControl"]:hover { transform: scale(1.05); }
     
     /* --- SIDEBAR TEXT & BG --- */
-    [data-testid="stSidebar"] { background-color: #0F172A !important; border-right: 1px solid #1E293B !important; }
+    [data-testid="stSidebar"] { background-color: #0F172A !important; border-right: 1px solid #1E293B !important; padding-top: 1rem !important; }
     [data-testid="stSidebar"] * { color: #F8FAFC !important; }
     [data-testid="stSidebar"] svg { fill: #F8FAFC !important; }
 
     /* --- TABS BEHAVIOR (SWIPE VS WRAP) --- */
-    /* MAIN AREA: Single Row Horizontal Swipe */
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
@@ -170,20 +209,17 @@ st.markdown("""
         padding-bottom: 4px !important;
     }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
-    [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
-        flex: 0 0 auto !important; 
-    }
+    [data-testid="stMainBlockContainer"] div[role="radiogroup"] label { flex: 0 0 auto !important; }
 
-    /* SIDEBAR: Bulletproof 2-Column Grid */
     [data-testid="stSidebar"] div[role="radiogroup"] {
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important; /* Strictly forces two equal columns */
+        grid-template-columns: 1fr 1fr !important;
         gap: 6px !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label {
         width: 100% !important; 
         margin: 0 !important;
-        padding: 6px 2px !important; /* Tighter padding */
+        padding: 6px 2px !important; 
         justify-content: center !important;
         text-align: center !important;
         background-color: transparent !important;
@@ -198,9 +234,9 @@ st.markdown("""
     div[role="radiogroup"] label p {
         color: #94A3B8 !important; 
         font-weight: 700 !important;
-        font-size: 0.78rem !important; /* Shrunk slightly to prevent wrapping */
+        font-size: 0.78rem !important; 
         margin: 0 !important;
-        white-space: nowrap !important; /* Strictly prevents breaking to new line */
+        white-space: nowrap !important; 
         letter-spacing: -0.02em !important;
     }
 
@@ -229,10 +265,9 @@ st.markdown("""
     button[kind="primary"] { position: absolute !important; background: transparent !important; border: none !important; color: transparent !important; height: 0px !important; min-height: 0px !important; padding: 0 !important; box-shadow: none !important; }
     button[kind="primary"]::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 380px; z-index: 99; cursor: pointer; }
     
-    button[kind="secondary"] { background: transparent !important; border: none !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center !important; justify-content: flex-start !important; width: auto !important; margin-bottom: 1.5rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
+    button[kind="secondary"] { background: transparent !important; border: none !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center !important; justify-content: flex-start !important; width: auto !important; text-transform: uppercase; letter-spacing: 0.05em; }
     
-    .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 15px; }
-    .b2b-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+    .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 10px; }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; margin-bottom: 0 !important; }
     
     /* THE PREMIUM INTELLIGENCE BLINDSPOTS BUTTON */
@@ -243,9 +278,9 @@ st.markdown("""
         color: #F8FAFC !important;
         justify-content: center !important;
         border-radius: 12px !important;
-        padding: 10px !important; /* Slimmer padding */
-        margin-top: 0.25rem !important; /* Reduced space above */
-        margin-bottom: 0.25rem !important; /* Reduced space below */
+        padding: 10px !important; 
+        margin-top: 0 !important; 
+        margin-bottom: 0 !important; 
         box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
         transition: all 0.3s ease !important;
     }
@@ -255,49 +290,48 @@ st.markdown("""
         letter-spacing: 0.05em !important;
         color: #F8FAFC !important;
     }
-    button[kind="secondary"]:has(div:contains("👁️")):hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important;
-        border-left: 4px solid #DC2626 !important;
-        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-    }
     
-    /* MODAL POLISH: Custom Back Button */
-    .modal-back-btn {
-        display: inline-block;
-        background-color: rgba(148, 163, 184, 0.1);
-        color: #94A3B8;
-        padding: 4px 12px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
+    /* MODAL POLISH: Custom Back Button (Invisible footprint) */
+    div[data-testid="stDialog"] div[data-testid="stButton"] button {
+        background: transparent !important;
+        border: none !important;
+        color: #94A3B8 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        margin-top: -15px !important;
+        margin-bottom: 10px !important;
+        font-size: 0.8rem !important;
+        transition: color 0.2s ease !important;
     }
-    .modal-back-btn:hover { background-color: rgba(148, 163, 184, 0.2); }
+    div[data-testid="stDialog"] div[data-testid="stButton"] button:hover { color: #FFFFFF !important; }
 </style>
 """, unsafe_allow_html=True)
+
+# STANDARD HEADER STYLE FOR CONSISTENCY
+SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;"
+THIN_DIVIDER = "<div style='height: 1px; background-color: #1E293B; margin: 16px 0;'></div>"
 
 # --- DEEP DIVE MODAL ---
 def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, t_dict):
     @st.dialog(t_dict.get("modal_title", "Deep Dive"), width="large")
     def render_modal():
-        # New sleek back button mechanism
-        if st.button(t_dict.get("btn_back", "« Back"), type="secondary", key="close_modal_btn"):
+        # Sleek text-only back button
+        if st.button(t_dict.get("btn_back", "« Back"), key="close_modal_btn"):
             st.session_state.modal_is_open = False
             st.rerun()
-            
-        # Hide the default bulky streamlit button that was rendering empty space
-        st.markdown("""<style>div[data-testid="stDialog"] button[kind="secondary"] { margin-bottom: 4px !important; padding: 4px 12px !important; font-size: 0.8rem !important; background-color: rgba(148, 163, 184, 0.1) !important; border-radius: 6px !important; width: auto !important; }</style>""", unsafe_allow_html=True)
 
-        header_col1, header_col2 = st.columns([1, 1.5], gap="large")
+        header_col1, header_col2 = st.columns([1, 1.5], gap="small")
         pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
         obj = int(float(row.get('avg_objectivity', 0.5)) * 100) 
         
+        # Translate the geography pin dynamically based on dictionary index
+        db_geo = row.get('cluster_geo_scope', '')
+        geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
+        display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
+
         spectrum_html = "".join([
-            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 8px;">',
+            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
             '<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 Analiza e Tekstit</div>',
             f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🇪🇺 Pro-Perëndimit: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
             f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🔍 Objektiviteti: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
@@ -306,16 +340,16 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
 
         with header_col1:
             st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 8px;"></div>""", unsafe_allow_html=True)
-            st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {row['cluster_geo_scope']}</span></div>""", unsafe_allow_html=True)
+            st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {display_geo_pin}</span></div>""", unsafe_allow_html=True)
             st.markdown(spectrum_html, unsafe_allow_html=True)
             
         with header_col2:
-            st.markdown(f"<h3 style='margin-top: 0; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='margin-top: 4px; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
             if clean_bullets:
                 for b in clean_bullets[:4]: 
                     st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
             if perspective_html: 
-                st.markdown("<div style='margin-top: 12px;'></div>", unsafe_allow_html=True)
+                st.markdown("<div style='margin-top: 8px;'></div>", unsafe_allow_html=True)
                 st.markdown(perspective_html, unsafe_allow_html=True)
 
             titles = str(row.get('orig_titles', '')).split("||")
@@ -364,7 +398,7 @@ st.markdown("""
         <a href="#" style="color: inherit; text-decoration: none;">API</a>
     </div>
 </div>
-<hr style='margin-top: 0.5rem; margin-bottom: 0.5rem; border-color: #E2E8F0;'/>
+<hr style='margin-top: 0.5rem; margin-bottom: 1rem; border-color: #E2E8F0;'/>
 """, unsafe_allow_html=True)
 
 # Data Fetch & Dedup
@@ -374,57 +408,44 @@ if not df.empty:
     
 # --- SIDEBAR ---
 with st.sidebar:
-    st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 8px;'>🌐 Language</div>", unsafe_allow_html=True)
-    
-    LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"]
-    short_lang = st.radio("Lang", LANG_OPTIONS, horizontal=True, label_visibility="collapsed")
-    
+    # 1. LANGUAGE
+    # Setting an initial default translation context to safely load headers
+    short_lang_default = st.radio("Lang_Ghost", ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"], horizontal=True, label_visibility="collapsed")
     LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski", "🇧🇦 BS": "Bosanski"}
-    selected_lang = LANG_MAP[short_lang]
-    t = UI_TEXT[selected_lang]    
+    t = UI_TEXT[LANG_MAP[short_lang_default]]
     
-    # Reduced spacer
-    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['lang_header']}</div>", unsafe_allow_html=True)
+    # The actual radio button
+    short_lang = st.radio("Lang", ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"], horizontal=True, label_visibility="collapsed")
+    t = UI_TEXT[LANG_MAP[short_lang]]    
     
-    st.markdown(f"<h3 style='color: #F8FAFC; font-weight: 800; margin-top: -10px;'>{t['geo_header']}</h3>", unsafe_allow_html=True)
+    st.markdown(THIN_DIVIDER, unsafe_allow_html=True)
     
+    # 2. GEOGRAPHY
+    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['geo_header']}</div>", unsafe_allow_html=True)
     display_geo = st.radio("Geo", t["geo_labels"], label_visibility="collapsed")
     geo_index = t["geo_labels"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
 
-    # Reduced spacer
-    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    st.markdown(THIN_DIVIDER, unsafe_allow_html=True)
     
-    # --- NEWSLETTER INTEGRATION ---
-    st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>📬 Daily Briefing</div>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>Narrative blindspots delivered straight to your inbox.</p>", unsafe_allow_html=True)
+    # 3. NEWSLETTER 
+    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['db_header']}</div>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['db_sub']}</p>", unsafe_allow_html=True)
     with st.form("newsletter_form", clear_on_submit=True):
         email = st.text_input("Email", placeholder="your@email.com", label_visibility="collapsed")
-        submitted = st.form_submit_button("Subscribe", use_container_width=True)
+        submitted = st.form_submit_button(t['subscribe'], use_container_width=True)
         if submitted:
-            st.success("Thank you! You are subscribed.")
+            st.success(t['success'])
 
-    # Reduced spacer
-    st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    st.markdown(THIN_DIVIDER, unsafe_allow_html=True)
 
-    # --- B2B API INTEGRATION ---
-    st.markdown("<div style='font-size: 0.8rem; font-weight: 800; color: #F8FAFC; text-transform: uppercase; margin-bottom: 8px;'>⚙️ Enterprise API</div>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>Integrate real-time narrative clustering into your dashboards.</p>", unsafe_allow_html=True)
-    st.markdown("<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>View API Docs</a>", unsafe_allow_html=True)
+    # 4. ENTERPRISE API 
+    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['api_header']}</div>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['api_sub']}</p>", unsafe_allow_html=True)
+    st.markdown(f"<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>{t['api_btn']}</a>", unsafe_allow_html=True)
     
-    st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
-    
-    # --- AI METHODOLOGY (MOVED TO BOTTOM) ---
-    with st.expander(t.get("ai_method", "ℹ️ AI Methodology")):
-        st.markdown("""
-        <div style='font-size: 0.8rem; color: #94A3B8; line-height: 1.5;'>
-            Kjo platformë përdor modele të avancuara të gjuhës (LLM) për të vlerësuar përmbajtjen përmes analizës sasiore të tekstit:
-            <br><br>
-            <b>• Objektiviteti:</b> Mat mungesën e gjuhës së ngarkuar emocionalisht ose sensacionale, duke favorizuar raportimin neutral.
-            <br><br>
-            <b>• Anashkalimi (Blindspot):</b> Vlerëson divergjencën e narrativës. Ndërton një metrikë bazuar në atë se sa ndryshon këndvështrimi i artikullit nga rryma kryesore mediatike në Ballkan.
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 1.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MAIN INTERFACE ---
 # Category Selector
@@ -432,9 +453,12 @@ display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility=
 cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
 
-# The New Premium Intelligence Blindspots Trigger (Removed extra spaces above/below)
+# Blindspots Button
 if st.button(f"👁️ {t.get('blindspots')} (3)", type="secondary", use_container_width=True):
     open_blindspots_modal(t)
+
+# Negative margin to pull the grid up to the button
+st.markdown("<div style='margin-top: -12px;'></div>", unsafe_allow_html=True)
 
 # Filtering Logic
 filtered_df = df.copy()
@@ -447,11 +471,9 @@ if backend_cat != "All Topics":
     target_cat = backend_cat.strip().lower()
     filtered_df = filtered_df[filtered_df['cluster_category'].apply(lambda x: target_cat in str(x).strip().lower())]
 
-st.caption(f"🔍 System Status: {len(filtered_df)} articles found for [{display_geo}] & [{display_cat}].")
-
 # Main News Grid
 if filtered_df.empty:
-    st.warning(t.get("empty_state", "No articles found matching this region and category."))
+    st.warning("No articles found.")
 else:
     grid_col1, grid_col2 = st.columns(2, gap="medium")
     for idx, row in filtered_df.reset_index(drop=True).iterrows():
