@@ -8,14 +8,14 @@ from difflib import SequenceMatcher
 # --- UI TRANSLATION DICTIONARY ---
 UI_TEXT = {
     "English": {
-        "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment"],
+        "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment", "Sports"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional", "International"],
-        "geo_labels": ["🌍 All", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkans", "🌐 INT"],
-        "lang_header": "🌐 Language",
-        "geo_header": "📍 Geography",
-        "db_header": "📬 Daily Briefing",
+        "geo_labels": ["ALL", "MKD", "KOS", "ALB", "BALKAN", "INT"],
+        "lang_header": "SYSTEM LANGUAGE",
+        "geo_header": "GEOGRAPHIC FILTER",
+        "db_header": "DAILY BRIEFING",
         "db_sub": "Narrative blindspots delivered straight to your inbox.",
-        "api_header": "⚙️ Enterprise API",
+        "api_header": "ENTERPRISE API",
         "api_sub": "Integrate real-time narrative clustering into your dashboards.",
         "subscribe": "Subscribe",
         "success": "Thank you! You are subscribed.",
@@ -32,14 +32,14 @@ UI_TEXT = {
         "db_col_persp": "perspective_en"
     },
     "Shqip": {
-        "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz"],
+        "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz", "Sport"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale", "Ndërkombëtare"],
-        "geo_labels": ["🌍 Të gjitha", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Ballkani", "🌐 INT"],
-        "lang_header": "🌐 Gjuha",
-        "geo_header": "📍 Gjeografia",
-        "db_header": "📬 Informimi Ditor",
+        "geo_labels": ["ALL", "MKD", "KOS", "ALB", "BALKAN", "INT"],
+        "lang_header": "GJUHA E SISTEMIT",
+        "geo_header": "FILTRI GJEOGRAFIK",
+        "db_header": "INFORMIMI DITOR",
         "db_sub": "Të pathënat e narrativave direkt në emailin tuaj.",
-        "api_header": "⚙️ API për Biznese",
+        "api_header": "API PËR BIZNESE",
         "api_sub": "Integroni grupimin e narrativave në kohë reale.",
         "subscribe": "Abonohu",
         "success": "Faleminderit! Jeni abonuar.",
@@ -53,17 +53,17 @@ UI_TEXT = {
         "btn_back": "« Kthehu",
         "db_col_title": "title_sq",
         "db_col_bullets": "bullets_sq",
-        "db_col_persp": "perspective_en"
+        "db_col_persp": "perspective_sq"
     },
     "Македонски": {
-        "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава"],
+        "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава", "Спорт"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално", "Меѓународно"],
-        "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Балкан", "🌐 INT"],
-        "lang_header": "🌐 Јазик",
-        "geo_header": "📍 Географија",
-        "db_header": "📬 Дневен Брифинг",
+        "geo_labels": ["ALL", "MKD", "KOS", "ALB", "BALKAN", "INT"],
+        "lang_header": "ЈАЗИК НА СИСТЕМОТ",
+        "geo_header": "ГЕОГРАФСКИ ФИЛТЕР",
+        "db_header": "ДНЕВЕН БРИФИНГ",
         "db_sub": "Наративни слепи точки доставени директно во вашето сандаче.",
-        "api_header": "⚙️ Enterprise API",
+        "api_header": "ENTERPRISE API",
         "api_sub": "Интегрирајте групирање на наративи во реално време.",
         "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.",
@@ -77,18 +77,18 @@ UI_TEXT = {
         "btn_back": "« Назад",
         "db_col_title": "title_mk",
         "db_col_bullets": "bullets_en",
-        "db_col_persp": "perspective_en"
+        "db_col_persp": "perspective_mk"
     },
     "Srpski": {
-        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
-        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan", "🌐 INT"],
-        "lang_header": "🌐 Jezik",
-        "geo_header": "📍 Geografija",
-        "db_header": "📬 Dnevni Brifing",
+        "geo_labels": ["ALL", "MKD", "KOS", "ALB", "BALKAN", "INT"],
+        "lang_header": "JEZIK SISTEMA",
+        "geo_header": "GEOGRAFSKI FILTER",
+        "db_header": "DNEVNI BRIFING",
         "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.",
-        "api_header": "⚙️ Enterprise API",
-        "api_sub": "Integrišite grupisanje narativa u realnomemu.",
+        "api_header": "ENTERPRISE API",
+        "api_sub": "Integrišite grupisanje narativa u realnom vremenu.",
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
@@ -101,17 +101,17 @@ UI_TEXT = {
         "btn_back": "« Nazad",
         "db_col_title": "title_sr",
         "db_col_bullets": "bullets_en",
-        "db_col_persp": "perspective_en"
+        "db_col_persp": "perspective_sr"
     },
     "Bosanski": {
-        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava"],
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno", "Međunarodno"],
-        "geo_labels": ["🌍 Sve", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan", "🌐 INT"],
-        "lang_header": "🌐 Jezik",
-        "geo_header": "📍 Geografija",
-        "db_header": "📬 Dnevni Brifing",
+        "geo_labels": ["ALL", "MKD", "KOS", "ALB", "BALKAN", "INT"],
+        "lang_header": "JEZIK SISTEMA",
+        "geo_header": "GEOGRAFSKI FILTER",
+        "db_header": "DNEVNI BRIFING",
         "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.",
-        "api_header": "⚙️ Enterprise API",
+        "api_header": "ENTERPRISE API",
         "api_sub": "Integrišite grupisanje narativa u realnom vremenu.",
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
@@ -125,18 +125,11 @@ UI_TEXT = {
         "btn_back": "« Nazad",
         "db_col_title": "title_sr", 
         "db_col_bullets": "bullets_en",
-        "db_col_persp": "perspective_en"
+        "db_col_persp": "perspective_sr"
     }
 }
 
 # --- HELPER FUNCTIONS ---
-def is_similar_title(new_title, seen_titles, threshold=0.75):
-    if pd.isna(new_title): return False
-    new_t = re.sub(r'[^\w\s]', '', ''.join(c for c in unicodedata.normalize('NFD', str(new_title).lower()) if unicodedata.category(c) != 'Mn'))
-    for seen in seen_titles:
-        if SequenceMatcher(None, new_t, seen).ratio() > threshold: return True
-    return False
-
 def get_connection():
     return sqlite3.connect('news_aggregator.db')
 
@@ -147,7 +140,8 @@ def get_database_data():
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, 
                MAX(title_mk) as title_mk, MAX(title_sr) as title_sr,
                MAX(bullets_en) as bullets_en, MAX(bullets_sq) as bullets_sq,
-               MAX(perspective_en) as perspective_en,
+               MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq,
+               MAX(perspective_mk) as perspective_mk, MAX(perspective_sr) as perspective_sr,
                AVG(geo_pro_western) as avg_pro_western, 
                AVG(narrative_objectivity) as avg_objectivity,
                AVG(narrative_divergence_score) as avg_divergence,
@@ -166,7 +160,7 @@ def get_blindspot_stories():
         conn = get_connection()
         query = """
             SELECT * FROM articles 
-            WHERE title_en != 'Gabim në përpunim' AND title_en IS NOT NULL
+            WHERE title_en != 'Processing Error' AND title_en IS NOT NULL
             ORDER BY narrative_divergence_score DESC 
             LIMIT 3
         """
@@ -193,58 +187,21 @@ st.markdown("""
     [data-testid="collapsedControl"] svg { fill: #0F172A !important; }
     [data-testid="collapsedControl"]:hover { transform: scale(1.05); }
     
-    /* --- SIDEBAR TEXT & BG --- */
     [data-testid="stSidebar"] { background-color: #0F172A !important; border-right: 1px solid #1E293B !important; padding-top: 1rem !important; }
     [data-testid="stSidebar"] * { color: #F8FAFC !important; }
     [data-testid="stSidebar"] svg { fill: #F8FAFC !important; }
 
-    /* --- TABS BEHAVIOR --- */
-    [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important; 
-        overflow-x: auto !important;    
-        -webkit-overflow-scrolling: touch !important; 
-        scrollbar-width: none !important; 
-        padding-bottom: 4px !important;
-    }
+    [data-testid="stMainBlockContainer"] div[role="radiogroup"] { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; padding-bottom: 4px !important; }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] label { flex: 0 0 auto !important; }
 
-    [data-testid="stSidebar"] div[role="radiogroup"] {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 6px !important;
-    }
-    [data-testid="stSidebar"] div[role="radiogroup"] label {
-        width: 100% !important; 
-        margin: 0 !important;
-        padding: 6px 2px !important; 
-        justify-content: center !important;
-        text-align: center !important;
-        background-color: transparent !important;
-        border-radius: 999px !important;
-        border: 1px solid #475569 !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-    }
-
+    [data-testid="stSidebar"] div[role="radiogroup"] { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+    [data-testid="stSidebar"] div[role="radiogroup"] label { width: 100% !important; margin: 0 !important; padding: 6px 2px !important; justify-content: center !important; text-align: center !important; background-color: transparent !important; border-radius: 6px !important; border: 1px solid #334155 !important; cursor: pointer !important; transition: all 0.2s ease !important; }
     div[role="radiogroup"] label > div:first-child { display: none !important; }
-    div[role="radiogroup"] label p {
-        color: #94A3B8 !important; 
-        font-weight: 700 !important;
-        font-size: 0.78rem !important; 
-        margin: 0 !important;
-        white-space: nowrap !important; 
-        letter-spacing: -0.02em !important;
-    }
-    div[role="radiogroup"] label:has(input:checked) {
-        background-color: #3B82F6 !important;
-        border-color: #3B82F6 !important;
-    }
+    div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.75rem !important; margin: 0 !important; white-space: nowrap !important; letter-spacing: 0.02em !important; }
+    div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
     div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
     
-    /* --- CARD STYLING --- */
     .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 0px; position: relative; }
     .particle-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); }
     .card-img-area { height: 300px; background-color: #1E293B; background-size: cover; background-position: center; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 24px; }
@@ -265,27 +222,13 @@ st.markdown("""
     .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 10px; }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; margin-bottom: 0 !important; }
     
-    /* THE BLINDSPOTS BUTTON */
-    button[kind="secondary"]:has(div:contains("👁️")) {
-        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
-        border: 1px solid #334155 !important;
-        border-left: 4px solid #EF4444 !important;
-        color: #F8FAFC !important;
-        justify-content: center !important;
-        border-radius: 12px !important;
-        padding: 10px !important; 
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
-        transition: all 0.3s ease !important;
-    }
+    button[kind="secondary"]:has(div:contains("👁️")) { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important; border: 1px solid #334155 !important; border-left: 4px solid #EF4444 !important; color: #F8FAFC !important; justify-content: center !important; border-radius: 12px !important; padding: 10px !important; box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important; transition: all 0.3s ease !important; }
     button[kind="secondary"]:has(div:contains("👁️")) p { font-size: 1rem !important; font-weight: 800 !important; letter-spacing: 0.05em; color: #F8FAFC !important; }
     button[kind="secondary"]:has(div:contains("👁️")):hover { transform: translateY(-2px) !important; box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important; }
     
-    /* FLOATING BACK TO TOP BUTTON */
     .scroll-top-btn { position: fixed; bottom: 25px; right: 25px; background-color: #3B82F6; color: white !important; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); z-index: 99999; font-size: 1.2rem; font-weight: bold; text-decoration: none !important; transition: all 0.2s ease; cursor: pointer; }
-    .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; box-gradient: none; }
+    .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; }
 </style>
-
-<!-- Injected HTML Anchor for Scrolling Home -->
 <div id="top-anchor"></div>
 """, unsafe_allow_html=True)
 
@@ -309,9 +252,9 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
 
         spectrum_html = "".join([
             '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-            '<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 Analiza e Tekstit</div>',
-            f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🇪🇺 Pro-Perëndimit: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🔍 Objektiviteti: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
+            '<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 Analysis</div>',
+            f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🇪🇺 Pro-Western: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>🔍 Objectivity: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
             '</div>'
         ])
 
@@ -340,7 +283,7 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
                     links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
                     
             if links_html:
-                st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>Burimet Origjinale</h4>{links_html}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>Original Sources</h4>{links_html}</div>", unsafe_allow_html=True)
                 
     render_modal()
 
@@ -348,7 +291,6 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
 @st.dialog("👁️ Të pathënat / Blindspots", width="large")
 def open_blindspots_modal(t_dict):
     st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub', 'Narratives you might have missed.')}</div>", unsafe_allow_html=True)
-    
     for idx, row in get_blindspot_stories().iterrows():
         b_title = row.get('title_sq') or row.get('title_en') or "Titulli Mungon"
         st.markdown(f"""
@@ -384,10 +326,10 @@ if not df.empty:
     
 # --- SIDEBAR ---
 with st.sidebar:
-    LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"]
-    LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski", "🇧🇦 BS": "Bosanski"}
+    LANG_OPTIONS = ["EN", "SQ", "MK", "SR", "BS"]
+    LANG_MAP = {"EN": "English", "SQ": "Shqip", "MK": "Македонски", "SR": "Srpski", "BS": "Bosanski"}
     
-    current_lang_code = st.session_state.get("lang_choice", "🇬🇧 EN")
+    current_lang_code = st.session_state.get("lang_choice", "EN")
     current_dict = UI_TEXT[LANG_MAP[current_lang_code]]
     
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{current_dict['lang_header']}</div>", unsafe_allow_html=True)
@@ -493,5 +435,4 @@ else:
             
             st.markdown("<div style='margin-bottom: 24px;'></div>", unsafe_allow_html=True)
 
-# Inject the Floating "Back to Top" HTML button at the end
 st.markdown('<a href="#top-anchor" class="scroll-top-btn">▲</a>', unsafe_allow_html=True)
