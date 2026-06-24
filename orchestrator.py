@@ -138,50 +138,51 @@ class ArticleAnalysis(BaseModel):
 # ==========================================
 # 3. THE AI ENGINE 
 # ==========================================
-# ==========================================
-# 3. THE AI ENGINE 
-# ==========================================
 def analyze_article_with_llm(text):
     prompt = f"""
     Analyze the following news text. First, extract the core geopolitical intelligence metrics. 
     Then, write a neutral headline and three summary bullet points in English. 
     Finally, translate that exact English headline into Albanian, Macedonian, and Serbian.
-    Ensure your response is valid JSON matching the requested schema.
 
     Text:
     {text}
     """
     
-    # Try each key one by one
     for index, key in enumerate(API_KEYS):
         try:
-            # --- THE FIX: NEW GOOGLE GENAI SDK SYNTAX ---
             client = genai.Client(api_key=key)
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
                 contents=prompt,
                 config=types.GenerateContentConfig(
-                    response_mime_type="application/json"
+                    response_mime_type="application/json",
+                    response_schema=ArticleAnalysis, # Forces Gemini to output perfect JSON keys
+                    temperature=0.2
                 )
             )
             
-            # If successful, return the data immediately
-            return json.loads(response.text)
+            # Robust JSON parsing to strip any accidental Markdown formatting
+            raw_text = response.text.strip()
+            if raw_text.startswith("```json"):
+                raw_text = raw_text[7:]
+            if raw_text.endswith("```"):
+                raw_text = raw_text[:-3]
+                
+            return json.loads(raw_text.strip())
             
         except Exception as e:
             error_msg = str(e).lower()
-            # If it's a quota/limit error, tell the console and try the next key
             if "429" in error_msg or "quota" in error_msg or "exhausted" in error_msg:
-                print(f"⚠️ Key {index + 1} reached limit. Switching to the next key...")
-                time.sleep(2) # Brief pause before trying the next key
-                continue # Move to the next key in the loop
+                print(f"⚠️ Key {index + 1} reached limit. Switching to next key...")
+                time.sleep(2)
+                continue
             else:
-                # If it's a different kind of error, print it and break
-                print(f"❌ AI Analysis Error: {e}")
-                break 
+                print(f"❌ AI Analysis Error on Key {index + 1}: {e}")
+                # Use 'continue' instead of 'break' so it tries the next key!
+                continue 
                 
-    # If the code reaches this point, ALL keys are exhausted or failed
-    print("🚨 FATAL: All API keys have reached their quota limits or failed.")
+    # If the code reaches this point, ALL keys failed
+    print("🚨 FATAL: AI Engine failed to process this article after trying all keys.")
     return {
         "cluster_category": "News",
         "cluster_geo_scope": "Regional",
