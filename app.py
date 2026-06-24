@@ -20,7 +20,8 @@ UI_TEXT = {
         "subscribe": "Subscribe",
         "success": "Thank you! You are subscribed.",
         "api_btn": "View API Docs",
-        "blindspots_btn": "👁️ Blindspots Dashboard",
+        "blindspots_btn": "👁️ Blindspots",
+        "blindspots": "Blindspots",
         "blindspots_sub": "Narratives you might have missed.",
         "modal_title": "Deep Dive Analysis",
         "pw": "Pro-Western",
@@ -47,7 +48,8 @@ UI_TEXT = {
         "subscribe": "Abonohu",
         "success": "Faleminderit! Jeni abonuar.",
         "api_btn": "Shiko Dokumentacionin",
-        "blindspots_btn": "👁️ Të Pathënat",
+        "blindspots_btn": "👁️ Të pathënat",
+        "blindspots": "Të pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
         "modal_title": "Analiza e Thelluar",
         "pw": "Pro-Perëndimit",
@@ -74,7 +76,8 @@ UI_TEXT = {
         "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.",
         "api_btn": "Види API Документација",
-        "blindspots_btn": "👁️ Слепи Точки",
+        "blindspots_btn": "👁️ Игнорирани вести",
+        "blindspots": "Игнорирани вести",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа",
         "pw": "Про-Западно",
@@ -101,7 +104,8 @@ UI_TEXT = {
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
-        "blindspots_btn": "👁️ Slepe Tačke",
+        "blindspots_btn": "👁️ Slepe tačke",
+        "blindspots": "Slepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza",
         "pw": "Pro-Zapadno",
@@ -128,7 +132,8 @@ UI_TEXT = {
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
-        "blindspots_btn": "👁️ Slijepe Tačke",
+        "blindspots_btn": "👁️ Slijepe tačke",
+        "blindspots": "Slijepe tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza",
         "pw": "Pro-Zapadno",
@@ -249,7 +254,9 @@ st.markdown("""
     div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; min-height: 0px !important; overflow: visible !important; }
     button[kind="primary"] { position: absolute !important; background: transparent !important; border: none !important; color: transparent !important; height: 0px !important; min-height: 0px !important; padding: 0 !important; box-shadow: none !important; }
     button[kind="primary"]::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 380px; z-index: 99; cursor: pointer; }
-    button[kind="secondary"] { background: transparent !important; border: none !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center; text-transform: uppercase; }
+    
+    /* Removed uppercase transformation from secondary buttons */
+    button[kind="secondary"] { background: transparent !important; border: none !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center; }
     
     /* BLINDSPOTS BUTTON EXECUTIONS */
     button[kind="secondary"]:has(div:contains("👁️")) { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important; border: 1px solid #334155 !important; border-left: 4px solid #EF4444 !important; color: #F8FAFC !important; justify-content: center !important; border-radius: 12px !important; padding: 10px !important; width: 100%; box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important; transition: all 0.3s ease !important; }
@@ -270,8 +277,9 @@ st.markdown("""
 SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;"
 
 # --- MODALS ---
-@st.dialog("Methodology", width="small")
+@st.dialog("🧠", width="small")
 def open_methodology_modal(t_dict):
+    st.markdown(f"<h3 style='margin-top:-10px; margin-bottom:15px;'>{t_dict.get('how_ai_works')}</h3>", unsafe_allow_html=True)
     st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; color: #334155;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
 
 def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, t_dict):
@@ -303,7 +311,7 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
             st.markdown(spectrum_html, unsafe_allow_html=True)
             
         with header_col2:
-            st.markdown(f"<h3 style='margin-top: 4px; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row['cluster_title_sq']}</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='margin-top: 4px; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row[t_dict.get('db_col_title')]}</h3>", unsafe_allow_html=True)
             if clean_bullets:
                 for b in clean_bullets[:4]: 
                     st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
@@ -326,21 +334,25 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
                 
     render_modal()
 
-@st.dialog("👁️ Blindspots Dashboard", width="large")
 def open_blindspots_modal(t_dict):
-    st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub')}</div>", unsafe_allow_html=True)
-    for idx, row in get_blindspot_stories().iterrows():
-        b_title = row.get('title_sq') or row.get('title_en') or "Title Missing"
-        st.markdown(f"""
-        <div style='background: transparent; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid rgba(148, 163, 184, 0.3); border-right: 1px solid rgba(148, 163, 184, 0.3); border-bottom: 1px solid rgba(148, 163, 184, 0.3);'>
-            <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{row.get('cluster_category', 'News')}</div>
-            <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none; color: inherit;">
-                <div style='font-weight: 800; font-size: 1rem; line-height: 1.4; margin-bottom: 8px;'>
-                    {b_title} <span style="color: #3B82F6; font-size: 0.85rem;">↗</span>
-                </div>
-            </a>
-        </div>
-        """, unsafe_allow_html=True)
+    @st.dialog("👁️", width="large")
+    def render_blindspots():
+        st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('blindspots')}</h3>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub')}</div>", unsafe_allow_html=True)
+        for idx, row in get_blindspot_stories().iterrows():
+            col_title = t_dict.get("db_col_title", "title_en")
+            b_title = row.get(col_title) or row.get('title_en') or "Title Missing"
+            st.markdown(f"""
+            <div style='background: transparent; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid rgba(148, 163, 184, 0.3); border-right: 1px solid rgba(148, 163, 184, 0.3); border-bottom: 1px solid rgba(148, 163, 184, 0.3);'>
+                <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{row.get('cluster_category', 'News')}</div>
+                <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none; color: inherit;">
+                    <div style='font-weight: 800; font-size: 1rem; line-height: 1.4; margin-bottom: 8px;'>
+                        {b_title} <span style="color: #3B82F6; font-size: 0.85rem;">↗</span>
+                    </div>
+                </a>
+            </div>
+            """, unsafe_allow_html=True)
+    render_blindspots()
 
 if "modal_is_open" not in st.session_state: st.session_state.modal_is_open = False
 
