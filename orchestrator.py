@@ -112,82 +112,84 @@ def fetch_rss_feeds(feed_urls):
             
     return articles
 # ==========================================
-# STRICT DATA SCHEMA (Updated for Objectivity)
+# STRICT DATA SCHEMA (Updated for Full Translations)
 # ==========================================
-# 1. PËRDITËSONI SKEMËN PYDANTIC (Shtoni fushën e re në fund)
 class ArticleAnalysis(BaseModel):
-    # 1. Master Backend Categories (Strictly English)
     cluster_category: str = Field(description="Must be exactly one of: Politics, Economy, Technology, Culture, Infrastructure, Entertainment.")  
     cluster_geo_scope: str = Field(description="Must be exactly one of: North Macedonia, Kosovo, Albania, Regional, International.")
     
-    # 2. English (Base Language for API and default UI)
     title_en: str = Field(description="A strong, objective English headline.")
     bullets_en: str = Field(description="Three short English bullet points, separated by \\n.")
-    perspective_en: str = Field(description="One-sentence English analysis of the underlying geopolitical or local narrative.")
+    perspective_en: str = Field(description="One-sentence English analysis of the underlying geopolitical narrative.")
     
-    # 3. Localized Translations
     title_sq: str = Field(description="Albanian translation of the headline.")
-    bullets_sq: str = Field(description="Albanian translation of the bullet points, separated by \\n.")
+    bullets_sq: str = Field(description="Albanian translation of the 3 bullets, separated by \\n.")
     title_mk: str = Field(description="Macedonian translation of the headline.")
     title_sr: str = Field(description="Serbian/Bosnian/Croatian translation of the headline.")
     
-    # 4. Universal Metrics
     geo_pro_western: float = Field(description="Float between 0.0 and 1.0.")
     narrative_objectivity: float = Field(description="Float between 0.0 and 1.0.")
     narrative_divergence_score: float = Field(description="Float between 0.0 and 1.0.")
+
 # ==========================================
 # 3. THE AI ENGINE 
 # ==========================================
 def analyze_article_with_llm(text):
     prompt = f"""
-    Analyze the following news text. First, extract the core geopolitical intelligence metrics. 
-    Then, write a neutral headline and three summary bullet points in English. 
-    Finally, translate that exact English headline into Albanian, Macedonian, and Serbian.
+    Analyze the following news text. Extract the metrics, write an objective English headline, 
+    and 3 English summary bullets. Then translate the headline and bullets accurately into Albanian. 
+    Translate the headline into Macedonian and Serbian.
 
     Text:
     {text}
     """
     
     for index, key in enumerate(API_KEYS):
-        try:
-            client = genai.Client(api_key=key)
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    response_schema=ArticleAnalysis, # Forces Gemini to output perfect JSON keys
-                    temperature=0.2
+        # We try up to 2 attempts per API key to beat 503 traffic spikes
+        for attempt in range(2):
+            try:
+                client = genai.Client(api_key=key)
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        response_schema=ArticleAnalysis,
+                        temperature=0.2
+                    )
                 )
-            )
-            
-            # Robust JSON parsing to strip any accidental Markdown formatting
-            raw_text = response.text.strip()
-            if raw_text.startswith("```json"):
-                raw_text = raw_text[7:]
-            if raw_text.endswith("```"):
-                raw_text = raw_text[:-3]
                 
-            return json.loads(raw_text.strip())
-            
-        except Exception as e:
-            error_msg = str(e).lower()
-            if "429" in error_msg or "quota" in error_msg or "exhausted" in error_msg:
-                print(f"⚠️ Key {index + 1} reached limit. Switching to next key...")
-                time.sleep(2)
-                continue
-            else:
-                print(f"❌ AI Analysis Error on Key {index + 1}: {e}")
-                # Use 'continue' instead of 'break' so it tries the next key!
-                continue 
+                raw_text = response.text.strip()
+                if raw_text.startswith("```json"):
+                    raw_text = raw_text[7:]
+                if raw_text.endswith("
+```"):
+                    raw_text = raw_text[:-3]
+                    
+                return json.loads(raw_text.strip())
                 
-    # If the code reaches this point, ALL keys failed
-    print("🚨 FATAL: AI Engine failed to process this article after trying all keys.")
+            except Exception as e:
+                error_msg = str(e).lower()
+                
+                # If Google throws a 503 high demand spike, cool down and retry
+                if "503" in error_msg or "unavailable" in error_msg:
+                    print(f"⏳ Gemini is experiencing high demand (503). Retrying key {index + 1} in 5 seconds...")
+                    time.sleep(5)
+                    continue
+                    
+                elif "429" in error_msg or "quota" in error_msg or "exhausted" in error_msg:
+                    print(f"⚠️ Key {index + 1} reached quota limit. Moving to next key...")
+                    break # Break out of attempt loop to cycle to next key
+                else:
+                    print(f"❌ AI Analysis Error on Key {index + 1}: {e}")
+                    break # Break out of attempt to cycle to next key
+                    
+    print("🚨 FATAL: AI Engine failed to process this article after trying all backup options.")
     return {
         "cluster_category": "News",
         "cluster_geo_scope": "Regional",
         "title_en": "Processing Error",
-        "bullets_en": "Analysis failed.",
+        "bullets_en": "Analysis failed due to temporary cloud traffic overload.",
         "perspective_en": "Data unavailable due to quota limits.",
         "title_sq": "Gabim në përpunim",
         "bullets_sq": "Gabim në përpunim",
