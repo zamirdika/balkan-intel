@@ -20,13 +20,16 @@ UI_TEXT = {
         "subscribe": "Subscribe",
         "success": "Thank you! You are subscribed.",
         "api_btn": "View API Docs",
-        "blindspots": "Blindspots",
+        "blindspots_btn": "👁️ Blindspots Dashboard",
         "blindspots_sub": "Narratives you might have missed.",
         "modal_title": "Deep Dive Analysis",
         "pw": "Pro-Western",
         "obj": "Objectivity",
         "div": "Divergence Level",
         "btn_back": "« Back",
+        "sources": "Original Sources",
+        "how_ai_works": "🧠 How AI Works",
+        "ai_desc": "Balkan Intel aggregates RSS feeds across the region, translates them into English, and uses Google's Gemini 2.5 Flash to extract geopolitical metrics before re-translating for localized delivery.",
         "db_col_title": "title_en",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
@@ -44,13 +47,16 @@ UI_TEXT = {
         "subscribe": "Abonohu",
         "success": "Faleminderit! Jeni abonuar.",
         "api_btn": "Shiko Dokumentacionin",
-        "blindspots": "Të pathënat",
+        "blindspots_btn": "👁️ Të Pathënat",
         "blindspots_sub": "Lajme ndoshta të anashkaluara.",
         "modal_title": "Analiza e Thelluar",
         "pw": "Pro-Perëndimit",
         "obj": "Objektiviteti",
         "div": "Anashkalimi",
         "btn_back": "« Kthehu",
+        "sources": "Burimet Origjinale",
+        "how_ai_works": "🧠 Si funksionon AI?",
+        "ai_desc": "Balkan Intel grumbullon lajmet nga rajoni përmes RSS, i përkthen ato në anglisht dhe përdor modelin Gemini 2.5 Flash të Google për të nxjerrë metrika gjeopolitike, përpara se t'i përkthejë sërish për ju.",
         "db_col_title": "title_sq",
         "db_col_bullets": "bullets_sq",
         "db_col_persp": "perspective_sq"
@@ -68,13 +74,16 @@ UI_TEXT = {
         "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.",
         "api_btn": "Види API Документација",
-        "blindspots": "Слепи точки",
+        "blindspots_btn": "👁️ Слепи Точки",
         "blindspots_sub": "Наративи што можеби сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа",
         "pw": "Про-Западно",
         "obj": "Објективност",
         "div": "Дивергенција",
         "btn_back": "« Назад",
+        "sources": "Оригинални Извори",
+        "how_ai_works": "🧠 Како работи ВИ?",
+        "ai_desc": "Balkan Intel собира вести преку RSS, ги преведува на англиски и го користи Gemini 2.5 Flash за да извлече геополитички метрики, пред повторно да ги преведе за локализирана достава.",
         "db_col_title": "title_mk",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_mk"
@@ -92,13 +101,16 @@ UI_TEXT = {
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
-        "blindspots": "Slepe tačke",
+        "blindspots_btn": "👁️ Slepe Tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
         "btn_back": "« Nazad",
+        "sources": "Originalni Izvori",
+        "how_ai_works": "🧠 Kako radi AI?",
+        "ai_desc": "Balkan Intel agregira RSS vesti, prevodi ih na engleski i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika, pre nego što ih ponovo prevede za lokalizovanu isporuku.",
         "db_col_title": "title_sr",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_sr"
@@ -116,13 +128,16 @@ UI_TEXT = {
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
-        "blindspots": "Slijepe tačke",
+        "blindspots_btn": "👁️ Slijepe Tačke",
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza",
         "pw": "Pro-Zapadno",
         "obj": "Objektivnost",
         "div": "Divergencija",
         "btn_back": "« Nazad",
+        "sources": "Originalni Izvori",
+        "how_ai_works": "🧠 Kako radi AI?",
+        "ai_desc": "Balkan Intel agregira RSS vijesti, prevodi ih na engleski i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika, prije nego što ih ponovo prevede za lokalizovanu isporuku.",
         "db_col_title": "title_sr", 
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_sr"
@@ -190,8 +205,9 @@ st.markdown("""
 
     /* --- FORM FIELDS INPUT COLOR STABILIZATION --- */
     [data-testid="stSidebar"] input { color: #0F172A !important; background-color: #FFFFFF !important; }
-    button[data-testid="stFormSubmitButton"] { background-color: #3B82F6 !important; color: #FFFFFF !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; width: 100%; transition: background 0.2s; margin-top: 4px; }
-    button[data-testid="stFormSubmitButton"]:hover { background-color: #2563EB !important; color: #FFFFFF !important; }
+    [data-testid="stForm"] button { background-color: #3B82F6 !important; border: none !important; border-radius: 8px !important; color: #FFFFFF !important; width: 100% !important; transition: background 0.2s; margin-top: 4px; }
+    [data-testid="stForm"] button p { color: #FFFFFF !important; font-weight: 700 !important; }
+    [data-testid="stForm"] button:hover { background-color: #2563EB !important; }
 
     /* --- HORIZONTAL CHIP SYSTEM & SWIPE INFLOW --- */
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
@@ -239,6 +255,11 @@ st.markdown("""
     button[kind="secondary"]:has(div:contains("👁️")) { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important; border: 1px solid #334155 !important; border-left: 4px solid #EF4444 !important; color: #F8FAFC !important; justify-content: center !important; border-radius: 12px !important; padding: 10px !important; width: 100%; box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important; transition: all 0.3s ease !important; }
     button[kind="secondary"]:has(div:contains("👁️")) p { font-size: 1rem !important; font-weight: 800 !important; color: #F8FAFC !important; }
     
+    /* METHODOLOGY BUTTON EXECUTION */
+    button[kind="secondary"]:has(div:contains("🧠")) { border: 1px solid #334155 !important; background-color: transparent !important; color: #F8FAFC !important; justify-content: center !important; border-radius: 8px !important; padding: 8px !important; width: 100%; margin-top: 10px !important; transition: all 0.2s ease !important; }
+    button[kind="secondary"]:has(div:contains("🧠")) p { font-size: 0.8rem !important; font-weight: 700 !important; color: #F8FAFC !important; }
+    button[kind="secondary"]:has(div:contains("🧠")):hover { background-color: rgba(255,255,255,0.05) !important; border-color: #64748B !important; }
+
     /* BACK TO TOP FLOATER */
     .scroll-top-btn { position: fixed; bottom: 25px; right: 25px; background-color: #3B82F6; color: white !important; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); z-index: 99999; font-weight: bold; text-decoration: none !important; transition: all 0.2s ease; }
     .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; }
@@ -248,7 +269,11 @@ st.markdown("""
 
 SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;"
 
-# --- DEEP DIVE MODAL ---
+# --- MODALS ---
+@st.dialog("Methodology", width="small")
+def open_methodology_modal(t_dict):
+    st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; color: #334155;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
+
 def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, t_dict):
     @st.dialog(t_dict.get("modal_title", "Deep Dive"), width="large")
     def render_modal():
@@ -266,7 +291,7 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
 
         spectrum_html = "".join([
             '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-            f'<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 {t_dict.get("modal_title")} Analytics</div>',
+            f'<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 {t_dict.get("modal_title")}</div>',
             f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
             f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
             '</div>'
@@ -297,11 +322,10 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
                     links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
                     
             if links_html:
-                st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>Sources Matrix</h4>{links_html}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources', 'Sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
                 
     render_modal()
 
-# --- BLINDSPOTS MODAL ---
 @st.dialog("👁️ Blindspots Dashboard", width="large")
 def open_blindspots_modal(t_dict):
     st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub')}</div>", unsafe_allow_html=True)
@@ -367,9 +391,8 @@ with st.sidebar:
             st.success(t['success'])
 
     st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
-    st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['api_header']}</div>", unsafe_allow_html=True)
-    st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['api_sub']}</p>", unsafe_allow_html=True)
-    st.markdown(f"<a href='#' class='b2b-btn' style='margin-top:0;'>{t['api_btn']}</a>", unsafe_allow_html=True)
+    if st.button(t.get('how_ai_works', '🧠 How AI Works'), type="secondary", use_container_width=True):
+        open_methodology_modal(t)
 
 # --- MAIN SYSTEM INTERFACE ---
 # Category Selector (Horizontal Swipe Enabled)
@@ -378,7 +401,7 @@ cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
 
 # Blindspots Panel Button
-if st.button(f"👁️ {t.get('blindspots')} Dashboard", type="secondary", use_container_width=True):
+if st.button(t.get('blindspots_btn'), type="secondary", use_container_width=True):
     open_blindspots_modal(t)
 
 st.markdown("<div style='margin-top: -12px;'></div>", unsafe_allow_html=True)
