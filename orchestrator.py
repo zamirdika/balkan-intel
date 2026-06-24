@@ -162,8 +162,7 @@ def analyze_article_with_llm(text):
                 raw_text = response.text.strip()
                 if raw_text.startswith("```json"):
                     raw_text = raw_text[7:]
-                if raw_text.endswith("
-```"):
+                if raw_text.endswith("```"):
                     raw_text = raw_text[:-3]
                     
                 return json.loads(raw_text.strip())
