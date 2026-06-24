@@ -5,7 +5,6 @@ import json
 import uuid
 from datetime import datetime
 import os
-import google.generativeai as genai
 import time 
 from google import genai
 from google.genai import types
@@ -139,11 +138,15 @@ class ArticleAnalysis(BaseModel):
 # ==========================================
 # 3. THE AI ENGINE 
 # ==========================================
+# ==========================================
+# 3. THE AI ENGINE 
+# ==========================================
 def analyze_article_with_llm(text):
     prompt = f"""
     Analyze the following news text. First, extract the core geopolitical intelligence metrics. 
     Then, write a neutral headline and three summary bullet points in English. 
     Finally, translate that exact English headline into Albanian, Macedonian, and Serbian.
+    Ensure your response is valid JSON matching the requested schema.
 
     Text:
     {text}
@@ -152,14 +155,15 @@ def analyze_article_with_llm(text):
     # Try each key one by one
     for index, key in enumerate(API_KEYS):
         try:
-            # Configure Gemini with the current key in the rotation
-            genai.configure(api_key=key)
-            model = genai.GenerativeModel(
-                model_name="gemini-2.5-flash",
-                generation_config={"response_mime_type": "application/json"}
+            # --- THE FIX: NEW GOOGLE GENAI SDK SYNTAX ---
+            client = genai.Client(api_key=key)
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json"
+                )
             )
-            
-            response = model.generate_content(prompt)
             
             # If successful, return the data immediately
             return json.loads(response.text)
@@ -172,12 +176,12 @@ def analyze_article_with_llm(text):
                 time.sleep(2) # Brief pause before trying the next key
                 continue # Move to the next key in the loop
             else:
-                # If it's a different kind of error (like a bad prompt), print it and return fallback
+                # If it's a different kind of error, print it and break
                 print(f"❌ AI Analysis Error: {e}")
-                break # Stop the loop
+                break 
                 
-    # If the code reaches this point, ALL keys are exhausted
-    print("🚨 FATAL: All API keys have reached their quota limits.")
+    # If the code reaches this point, ALL keys are exhausted or failed
+    print("🚨 FATAL: All API keys have reached their quota limits or failed.")
     return {
         "cluster_category": "News",
         "cluster_geo_scope": "Regional",
