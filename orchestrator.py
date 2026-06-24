@@ -74,9 +74,10 @@ def init_db(db_name="news_aggregator.db"):
 def fetch_rss_feeds(feed_urls):
     """Pulls recent articles from a list of RSS feeds and filters out empty data."""
     articles = []
-    for url in feed_urls:
+    
+    # Use .items() so we get both the clean label name and the actual web link
+    for source_name, url in feed_urls.items():
         parsed_feed = feedparser.parse(url)
-        source = parsed_feed.feed.get('title', 'Unknown Source')
         
         valid_entries_count = 0
         for entry in parsed_feed.entries:
@@ -90,10 +91,8 @@ def fetch_rss_feeds(feed_urls):
             # Fallback chain for content: use summary if available, otherwise title
             raw_text = summary if summary else title
             
-            # --- THE FIX: SANITY FILTER ---
-            # Skip if the title is blank OR if the text is too short to be an actual news story
+            # --- SANITY FILTER ---
             if not title or len(raw_text) < 15 or "Titulli mungon" in title:
-                print(f"   [!] Skipping empty/malformed entry from {source}")
                 continue
                 
             # Safely grab image URL if available
@@ -105,7 +104,7 @@ def fetch_rss_feeds(feed_urls):
                 "article_id": str(uuid.uuid4()),
                 "original_title": title,
                 "original_url": entry.get('link', ''),
-                "source_domain": source,
+                "source_domain": source_name, # Saves your clean label name to DB
                 "image_url": image_url,
                 "published_at": datetime.now().isoformat(),
                 "raw_text": raw_text
