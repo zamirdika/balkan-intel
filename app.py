@@ -168,8 +168,7 @@ def get_blindspot_stories():
         return df
     except Exception:
         return pd.DataFrame()
-# --- STYLE CONFIGURATION CONSTANTS ---
-SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;"
+
 st.set_page_config(page_title="Balkan Intel", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
