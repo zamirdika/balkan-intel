@@ -88,7 +88,7 @@ UI_TEXT = {
         "db_header": "📬 Dnevni Brifing",
         "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.",
         "api_header": "⚙️ Enterprise API",
-        "api_sub": "Integrišite grupisanje narativa u realnom vremenu.",
+        "api_sub": "Integrišite grupisanje narativa u realnomemu.",
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
@@ -183,12 +183,12 @@ st.set_page_config(page_title="Balkan Intel", layout="wide", initial_sidebar_sta
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FAFAFA; }
+    html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FAFAFA; scroll-behavior: smooth; }
     header[data-testid="stHeader"] { background: transparent !important; box-shadow: none !important; z-index: 99999 !important; pointer-events: none !important; }
     [data-testid="collapsedControl"] { pointer-events: auto !important; }
     .stAppDeployButton, [data-testid="stMainMenu"] { display: none !important; }
     footer { visibility: hidden; }
-    .block-container { padding-top: 0rem !important; padding-bottom: 2rem !important; max-width: 100% !important; padding-left: 2.5rem !important; padding-right: 2.5rem !important; }
+    .block-container { padding-top: 0rem !important; padding-bottom: 4rem !important; max-width: 100% !important; padding-left: 2.5rem !important; padding-right: 2.5rem !important; }
     [data-testid="collapsedControl"] { background-color: #FFFFFF !important; border-radius: 50% !important; box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important; top: 1rem !important; left: 1rem !important; transition: all 0.2s ease; }
     [data-testid="collapsedControl"] svg { fill: #0F172A !important; }
     [data-testid="collapsedControl"]:hover { transform: scale(1.05); }
@@ -198,13 +198,12 @@ st.markdown("""
     [data-testid="stSidebar"] * { color: #F8FAFC !important; }
     [data-testid="stSidebar"] svg { fill: #F8FAFC !important; }
 
-    /* --- TABS BEHAVIOR (SWIPE VS WRAP) --- */
-    /* MAIN AREA: Single Row Horizontal Swipe */
+    /* --- TABS BEHAVIOR --- */
     [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important; 
-        overflow-x: auto !important;   
+        overflow-x: auto !important;    
         -webkit-overflow-scrolling: touch !important; 
         scrollbar-width: none !important; 
         padding-bottom: 4px !important;
@@ -231,7 +230,6 @@ st.markdown("""
     }
 
     div[role="radiogroup"] label > div:first-child { display: none !important; }
-    
     div[role="radiogroup"] label p {
         color: #94A3B8 !important; 
         font-weight: 700 !important;
@@ -240,14 +238,11 @@ st.markdown("""
         white-space: nowrap !important; 
         letter-spacing: -0.02em !important;
     }
-
     div[role="radiogroup"] label:has(input:checked) {
         background-color: #3B82F6 !important;
         border-color: #3B82F6 !important;
     }
-    div[role="radiogroup"] label:has(input:checked) p {
-        color: #FFFFFF !important; 
-    }
+    div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
     
     /* --- CARD STYLING --- */
     .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; margin-bottom: 0px; position: relative; }
@@ -265,13 +260,12 @@ st.markdown("""
     div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; min-height: 0px !important; overflow: visible !important; }
     button[kind="primary"] { position: absolute !important; background: transparent !important; border: none !important; color: transparent !important; height: 0px !important; min-height: 0px !important; padding: 0 !important; box-shadow: none !important; }
     button[kind="primary"]::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 380px; z-index: 99; cursor: pointer; }
-    
     button[kind="secondary"] { background: transparent !important; border: none !important; font-weight: 800 !important; font-size: 0.9rem !important; padding: 0 !important; box-shadow: none !important; display: flex !important; align-items: center !important; justify-content: flex-start !important; width: auto !important; text-transform: uppercase; letter-spacing: 0.05em; }
     
     .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.2s ease; margin-top: 10px; }
     [data-testid="stForm"] { border: none !important; padding: 0 !important; box-shadow: none !important; margin-bottom: 0 !important; }
     
-    /* THE PREMIUM INTELLIGENCE BLINDSPOTS BUTTON */
+    /* THE BLINDSPOTS BUTTON */
     button[kind="secondary"]:has(div:contains("👁️")) {
         background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
         border: 1px solid #334155 !important;
@@ -280,50 +274,27 @@ st.markdown("""
         justify-content: center !important;
         border-radius: 12px !important;
         padding: 10px !important; 
-        margin-top: 0 !important; 
-        margin-bottom: 0 !important; 
         box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
         transition: all 0.3s ease !important;
     }
-    button[kind="secondary"]:has(div:contains("👁️")) p {
-        font-size: 1rem !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.05em !important;
-        color: #F8FAFC !important;
-    }
-    button[kind="secondary"]:has(div:contains("👁️")):hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important;
-        border-left: 4px solid #DC2626 !important;
-        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-    }
+    button[kind="secondary"]:has(div:contains("👁️")) p { font-size: 1rem !important; font-weight: 800 !important; letter-spacing: 0.05em; color: #F8FAFC !important; }
+    button[kind="secondary"]:has(div:contains("👁️")):hover { transform: translateY(-2px) !important; box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important; }
     
-    /* MODAL POLISH: Custom Back Button (Invisible footprint) */
-    div[data-testid="stDialog"] div[data-testid="stButton"] button {
-        background: transparent !important;
-        border: none !important;
-        color: #94A3B8 !important;
-        padding: 0 !important;
-        min-height: 0 !important;
-        height: auto !important;
-        margin-top: -15px !important;
-        margin-bottom: 10px !important;
-        font-size: 0.8rem !important;
-        transition: color 0.2s ease !important;
-    }
-    div[data-testid="stDialog"] div[data-testid="stButton"] button:hover { color: #FFFFFF !important; }
+    /* FLOATING BACK TO TOP BUTTON */
+    .scroll-top-btn { position: fixed; bottom: 25px; right: 25px; background-color: #3B82F6; color: white !important; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); z-index: 99999; font-size: 1.2rem; font-weight: bold; text-decoration: none !important; transition: all 0.2s ease; cursor: pointer; }
+    .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; box-gradient: none; }
 </style>
+
+<!-- Injected HTML Anchor for Scrolling Home -->
+<div id="top-anchor"></div>
 """, unsafe_allow_html=True)
 
-# STANDARD HEADER STYLE FOR CONSISTENCY
 SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;"
-THIN_DIVIDER = "<div style='height: 1px; background-color: #1E293B; margin: 16px 0;'></div>"
 
 # --- DEEP DIVE MODAL ---
 def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, t_dict):
     @st.dialog(t_dict.get("modal_title", "Deep Dive"), width="large")
     def render_modal():
-        # Sleek text-only back button
         if st.button(t_dict.get("btn_back", "« Back"), key="close_modal_btn"):
             st.session_state.modal_is_open = False
             st.rerun()
@@ -332,7 +303,6 @@ def open_article_modal(row, clean_bullets, perspective_html, src_str, bg_style, 
         pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
         obj = int(float(row.get('avg_objectivity', 0.5)) * 100) 
         
-        # Translate the geography pin dynamically based on dictionary index
         db_geo = row.get('cluster_geo_scope', '')
         geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
         display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
@@ -380,7 +350,7 @@ def open_blindspots_modal(t_dict):
     st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub', 'Narratives you might have missed.')}</div>", unsafe_allow_html=True)
     
     for idx, row in get_blindspot_stories().iterrows():
-        b_title = row.get('cluster_title_sq') or row.get('title_en') or "Titulli Mungon"
+        b_title = row.get('title_sq') or row.get('title_en') or "Titulli Mungon"
         st.markdown(f"""
         <div style='background: transparent; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid rgba(148, 163, 184, 0.3); border-right: 1px solid rgba(148, 163, 184, 0.3); border-bottom: 1px solid rgba(148, 163, 184, 0.3);'>
             <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{row.get('cluster_category', 'News')}</div>
@@ -394,7 +364,7 @@ def open_blindspots_modal(t_dict):
 
 if "modal_is_open" not in st.session_state: st.session_state.modal_is_open = False
 
-# --- NATIVE IN-FLOW HEADER ---
+# --- HEADER ---
 st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 10px 0 10px;">
     <div style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.05em;">
@@ -408,39 +378,30 @@ st.markdown("""
 <hr style='margin-top: 0.5rem; margin-bottom: 1rem; border-color: #E2E8F0;'/>
 """, unsafe_allow_html=True)
 
-# Data Fetch & Dedup
 df = get_database_data()
 if not df.empty:
-    df = df[df['title_en'] != "Gabim në përpunim"]
+    df = df[df['title_en'] != "Processing Error"]
     
 # --- SIDEBAR ---
 with st.sidebar:
     LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"]
     LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski", "🇧🇦 BS": "Bosanski"}
     
-    # Grab the current language from session state to translate headers before the radio renders
     current_lang_code = st.session_state.get("lang_choice", "🇬🇧 EN")
     current_dict = UI_TEXT[LANG_MAP[current_lang_code]]
     
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{current_dict['lang_header']}</div>", unsafe_allow_html=True)
-    
-    # Render the radio button once, using the session_state key
     short_lang = st.radio("Lang", LANG_OPTIONS, horizontal=True, label_visibility="collapsed", key="lang_choice")
     t = UI_TEXT[LANG_MAP[short_lang]]
     
-    # Reduced spacer
     st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
-    
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['geo_header']}</div>", unsafe_allow_html=True)
     
     display_geo = st.radio("Geo", t["geo_labels"], label_visibility="collapsed")
     geo_index = t["geo_labels"].index(display_geo)
     backend_geo = UI_TEXT["English"]["geos"][geo_index]
 
-    # Reduced spacer
     st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
-    
-    # --- NEWSLETTER INTEGRATION ---
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['db_header']}</div>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['db_sub']}</p>", unsafe_allow_html=True)
     with st.form("newsletter_form", clear_on_submit=True):
@@ -449,32 +410,22 @@ with st.sidebar:
         if submitted:
             st.success(t['success'])
 
-    # Reduced spacer
     st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
-
-    # --- B2B API INTEGRATION ---
     st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['api_header']}</div>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 0.75rem; color: #94A3B8; margin-bottom: 8px; line-height: 1.3;'>{t['api_sub']}</p>", unsafe_allow_html=True)
-    st.markdown(f"<a href='http://localhost:8000/docs' target='_blank' class='b2b-btn' style='margin-top:0;'>{t['api_btn']}</a>", unsafe_allow_html=True)
-    
-    st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
+    st.markdown(f"<a href='#' class='b2b-btn' style='margin-top:0;'>{t['api_btn']}</a>", unsafe_allow_html=True)
 
 # --- MAIN INTERFACE ---
-# Category Selector
 display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
 cat_index = t["topics"].index(display_cat)
 backend_cat = UI_TEXT["English"]["topics"][cat_index]
 
-# Blindspots Button
 if st.button(f"👁️ {t.get('blindspots')} (3)", type="secondary", use_container_width=True):
     open_blindspots_modal(t)
 
-# Negative margin to pull the grid up to the button
 st.markdown("<div style='margin-top: -12px;'></div>", unsafe_allow_html=True)
 
-# Filtering Logic
 filtered_df = df.copy()
-
 if backend_geo != "All Regions": 
     target_geo = backend_geo.strip().lower()
     filtered_df = filtered_df[filtered_df['cluster_geo_scope'].apply(lambda x: target_geo in str(x).strip().lower())]
@@ -496,7 +447,7 @@ else:
         display_title = row.get(col_title) or row.get('title_en') or "Title Missing"
         
         raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "").split("||")[0]
-        clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip() and len(b) > 15]
+        clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip() and len(b) > 5]
         
         persp_text = row.get(col_persp) or row.get('perspective_en') or ""
         persp = f"<div style='padding: 12px; border-left: 3px solid #3B82F6; font-size: 0.9rem; font-style: italic; border-radius: 0 8px 8px 0; opacity: 0.85;'>{persp_text}</div>" if persp_text else ""
@@ -541,3 +492,6 @@ else:
                 open_article_modal(row_dict, clean_b, persp, "", bg, t)
             
             st.markdown("<div style='margin-bottom: 24px;'></div>", unsafe_allow_html=True)
+
+# Inject the Floating "Back to Top" HTML button at the end
+st.markdown('<a href="#top-anchor" class="scroll-top-btn">▲</a>', unsafe_allow_html=True)
