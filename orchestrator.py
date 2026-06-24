@@ -200,35 +200,50 @@ def run_pipeline():
     init_db()
     
     target_feeds = {
-    # North Macedonia
-    "MIA (MK)": "https://mia.mk/feed/",
-    "Alsat (MK/SQ)": "https://alsat.mk/feed/",
-    "Kanal 5 (MK)": "https://kanal5.com.mk/rss",
-    
-    # Kosovo
-    "Koha (KS)": "https://koha.net/rss",
-    "Telegrafi (KS)": "https://telegrafi.com/feed/",
-    "Gazeta Express (KS)": "https://www.gazetaexpress.com/feed/",
-    
-    # Albania
-    "Top Channel (AL)": "https://top-channel.tv/feed/",
-    "Euronews (AL)": "https://euronews.al/feed/",
-    
-    # Serbia
-    "RTS (SR)": "https://www.rts.rs/page/stories/sr/rss.html",
-    "N1 Srbija (SR)": "https://n1info.rs/feed/",
-    "B92 (SR)": "https://www.b92.net/info/rss/vesti.xml",
-    
-    # Bosnia & Herzegovina
-    "Klix (BA)": "https://www.klix.ba/rss",
-    "N1 BiH (BA)": "https://n1info.ba/feed/",
-    "Al Jazeera Balkans (BA)": "https://balkans.aljazeera.net/rss"
-}
+        # North Macedonia
+        "MIA (MK)": "https://mia.mk/feed/",
+        "Alsat (MK/SQ)": "https://alsat.mk/feed/",
+        "Kanal 5 (MK)": "https://kanal5.com.mk/rss",
+        
+        # Kosovo
+        "Koha (KS)": "https://koha.net/rss",
+        "Telegrafi (KS)": "https://telegrafi.com/feed/",
+        "Gazeta Express (KS)": "https://www.gazetaexpress.com/feed/",
+        
+        # Albania
+        "Top Channel (AL)": "https://top-channel.tv/feed/",
+        "Euronews (AL)": "https://euronews.al/feed/",
+        
+        # Serbia
+        "RTS (SR)": "https://www.rts.rs/page/stories/sr/rss.html",
+        "N1 Srbija (SR)": "https://n1info.rs/feed/",
+        "B92 (SR)": "https://www.b92.net/info/rss/vesti.xml",
+        
+        # Bosnia & Herzegovina
+        "Klix (BA)": "https://www.klix.ba/rss",
+        "N1 BiH (BA)": "https://n1info.ba/feed/",
+        "Al Jazeera Balkans (BA)": "https://balkans.aljazeera.net/rss"
+    }
     
     print("1. Fetching articles from RSS feeds...")
+    
+    # --- DEBUG TRACKING INSIDE RUN_PIPELINE ---
+    import feedparser
+    print("--- Diagnostic: Testing feed connections individually ---")
+    for name, url in target_feeds.items():
+        try:
+            parsed = feedparser.parse(url)
+            print(f"  [Feed Check] {name}: Found {len(parsed.entries)} entries")
+        except Exception as e:
+            print(f"  [Feed Check] {name}: FAILED to parse due to error: {e}")
+    print("-------------------------------------------------------")
+    # --- END OF DEBUG TRACKING ---
+
     raw_articles = fetch_rss_feeds(target_feeds)
     
+    print(f"Total articles compiled by scraper: {len(raw_articles) if raw_articles else 0}")
     if not raw_articles:
+        print("⚠️ CRITICAL: No articles collected. Exiting pipeline to prevent database erasure.")
         return
 
     print(f"2. Processing {len(raw_articles)} articles through AI Engine...")
