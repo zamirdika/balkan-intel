@@ -133,10 +133,11 @@ def analyze_article_with_llm(text):
     Then translate the headline, bullets, and perspective accurately into Albanian. 
     Translate the headline and perspective into Macedonian and Serbian.
 
+    CRITICAL LINGUISTIC RULE: For all translated headlines and bullets (Albanian, Macedonian, Serbian), you must use strict sentence-case formatting. Capitalize ONLY the first letter of the sentence and proper nouns (e.g., countries, names of people, cities, institutions). Never capitalize every word in a headline.
+
     Text:
     {text}
-    """
-    
+    """    
     for index, key in enumerate(API_KEYS):
         for attempt in range(2):
             try:
