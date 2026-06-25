@@ -17,13 +17,12 @@ UI_TEXT = {
         "subscribe": "Subscribe",
         "success": "Thank you! You are subscribed.",
         "api_btn": "View API Docs",
-        "blindspots_btn": "👁️ View Blindspots",
+        "blindspots_btn": "👁️ View Strategic Blindspots",
         "blindspots": "Strategic Blindspots",
         "blindspots_sub": "Regional narratives and crucial information updates you might have missed completely from mainstream local coverage.",
         "modal_title": "Deep Dive Analysis",
         "pw": "Pro-Western Alignment",
         "obj": "Factual Objectivity",
-        "div": "Divergence Level",
         "btn_back": "Close",
         "sources": "Original Sources Matrix",
         "how_ai_works": "🧠 How Platform AI Works",
@@ -45,13 +44,12 @@ UI_TEXT = {
         "subscribe": "Abonohu",
         "success": "Faleminderit! Jeni abonuar.",
         "api_btn": "Shiko Dokumentacionin",
-        "blindspots_btn": "👁️ Të pathënat",
-        "blindspots": "Të pathënat Strategjike",
+        "blindspots_btn": "👁️ Shiko Të Pathënat",
+        "blindspots": "Të Pathënat Strategjike",
         "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar plotësisht nga mbulimi kryesor medial lokal.",
         "modal_title": "Analiza e Thelluar",
         "pw": "Qëndrimi Pro-Perëndimor",
         "obj": "Objektiviteti Faktik",
-        "div": "Anashkalimi",
         "btn_back": "Mbyll",
         "sources": "Burimet Origjinale",
         "how_ai_works": "🧠 Si funksionon AI?",
@@ -73,13 +71,12 @@ UI_TEXT = {
         "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.",
         "api_btn": "Види API Документација",
-        "blindspots_btn": "👁️ Игнорирани вести",
+        "blindspots_btn": "👁️ Види Игнорирани Вести",
         "blindspots": "Стратешки Игнорирани Вести",
         "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле во главните локални медиуми.",
         "modal_title": "Длабинска Анализа",
         "pw": "Про-Западна Ориентација",
         "obj": "Фактуелна Објективност",
-        "div": "Дивергенција",
         "btn_back": "Затвори",
         "sources": "Оригинални Извори",
         "how_ai_works": "🧠 Како работи ВИ?",
@@ -89,11 +86,10 @@ UI_TEXT = {
         "db_col_persp": "perspective_mk"
     }
 }
-# Defaults for SR and BS mapped internally to EN structure logic for brevity if needed.
 UI_TEXT["Srpski"] = UI_TEXT["English"].copy()
-UI_TEXT["Srpski"].update({"topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"], "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno"], "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan"], "lang_header": "Jezik Sistema", "geo_header": "Geografski Filter", "db_header": "Dnevni Brifing", "blindspots_btn": "👁️ Slepe tačke", "blindspots": "Strateške Slepe Tačke", "how_ai_works": "🧠 Kako radi AI?", "db_col_title": "title_sr", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_sr"})
+UI_TEXT["Srpski"].update({"topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"], "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno"], "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan"], "lang_header": "Jezik Sistema", "geo_header": "Geografski Filter", "db_header": "Dnevni Brifing", "blindspots_btn": "👁️ Vidi Slepe tačke", "blindspots": "Strateške Slepe Tačke", "how_ai_works": "🧠 Kako radi AI?", "db_col_title": "title_sr", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_sr"})
 UI_TEXT["Bosanski"] = UI_TEXT["Srpski"].copy()
-UI_TEXT["Bosanski"].update({"blindspots_btn": "👁️ Slijepe tačke", "blindspots": "Strateške Slijepe Tačke", "db_header": "Dnevni Briefing"})
+UI_TEXT["Bosanski"].update({"blindspots_btn": "👁️ Vidi Slijepe tačke", "blindspots": "Strateške Slijepe Tačke", "db_header": "Dnevni Briefing"})
 
 # --- DATABASE FETCH FUNCTIONS ---
 def get_connection():
@@ -132,7 +128,7 @@ def get_blindspot_stories():
         return pd.DataFrame()
 
 
-# --- TOP LEVEL DIALOG MODALS (Fixes NameError) ---
+# --- TOP LEVEL DIALOG MODALS ---
 @st.dialog("Balkan Intel Dashboard", width="large")
 def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
@@ -146,8 +142,10 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
         f'<div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;">📊 {t_dict.get("modal_title")}</div>',
-        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
+        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
+        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div>',
+        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
 
@@ -176,9 +174,9 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
                 links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
                 
         if links_html:
-            st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources', 'Sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
     
-    if st.button(t_dict.get("btn_back", "Close")):
+    if st.button(t_dict.get("btn_back")):
         st.rerun()
 
 @st.dialog("Balkan Intel Data", width="large")
@@ -208,7 +206,7 @@ def open_methodology_modal(t_dict):
 # --- INTERFACE APPLICATION SYSTEM MATRIX ---
 def run_app():
     st.set_page_config(page_title="Balkan Intel", layout="wide", initial_sidebar_state="expanded")
-    SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em; display: block; text-align: center;"
+    SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em; display: block;"
 
     st.markdown("""
     <style>
@@ -232,7 +230,7 @@ def run_app():
         [data-testid="stForm"] button p { color: #FFFFFF !important; font-weight: 700 !important; font-size: 0.85rem !important; }
         [data-testid="stForm"] button:hover { background-color: #2563EB !important; }
 
-        /* ALIGNED TABS SYSTEM (MOBILE & DESKTOP) */
+        /* HORIZONTAL SWIPE FOR TOPICS */
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
             display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; 
             overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; 
@@ -240,13 +238,13 @@ def run_app():
         }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
         
-        /* CENTERED GRID FOR SIDEBAR FILTERS (FLAGS/GEOGRAPHY) */
+        /* FLUID WRAP CHIPS FOR SIDEBAR TABS (NO RIGID COLUMNS) */
         [data-testid="stSidebar"] div[role="radiogroup"] { 
-            display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; width: 100% !important; 
+            display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 8px !important; width: 100% !important; 
         }
         [data-testid="stSidebar"] div[role="radiogroup"] label { 
-            flex: 1 1 45% !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
-            padding: 8px 4px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
+            flex: 1 1 auto !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
+            padding: 8px 12px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
         }
 
         div[role="radiogroup"] label > div:first-child { display: none !important; }
@@ -264,12 +262,6 @@ def run_app():
         .card-tag { background: #3B82F6; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; display: inline-block; margin-bottom: 12px; }
         .card-title { font-size: clamp(1.05rem, 1.15vw, 1.2rem); font-weight: 800; color: #FFFFFF !important; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 6px rgba(0,0,0,0.8) !important; }
         .card-footer { height: 100px; padding: 16px 24px; background: #FFFFFF; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
-        
-        /* DUAL BAR SEPARATION POLISH */
-        .metric-track-wrapper { display: flex; flex-direction: column; gap: 2px; width: 100%; }
-        .metric-label-container { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 700; color: #475569; }
-        .metric-bar-bg { width: 100%; height: 5px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden; }
-        .metric-bar-fill { height: 100%; border-radius: 999px; }
 
         /* INVISIBLE CLICK ELEMENT TRIGGER */
         div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; overflow: visible !important; }
@@ -281,25 +273,26 @@ def run_app():
         .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF !important; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; margin-top: 4px; }
         .b2b-btn:hover { background-color: #2563EB !important; }
 
-        /* METHODOLOGY & INTEGRATED INLINE BUTTONS */
-        button[kind="secondary"]:has(div:contains("🧠")), button[kind="secondary"]:has(div:contains("👁️")) { 
+        /* METHODOLOGY MODAL TRIGGER */
+        button[kind="secondary"]:has(div:contains("🧠")) { 
             border: 1px solid #334155 !important; background-color: transparent !important; color: #F8FAFC !important; justify-content: center !important; 
             border-radius: 8px !important; padding: 8px !important; width: 100%; margin-top: 10px !important; transition: all 0.2s ease !important; 
         }
-        button[kind="secondary"]:has(div:contains("🧠")) p, button[kind="secondary"]:has(div:contains("👁️")) p { 
+        button[kind="secondary"]:has(div:contains("🧠")) p { 
             font-size: 0.8rem !important; font-weight: 700 !important; color: #F8FAFC !important; 
         }
-        button[kind="secondary"]:has(div:contains("🧠")):hover, button[kind="secondary"]:has(div:contains("👁️")):hover { 
+        button[kind="secondary"]:has(div:contains("🧠")):hover { 
             background-color: rgba(255,255,255,0.05) !important; border-color: #64748B !important; 
         }
         
-        /* BLINDSPOT INLINE INTEGRATION (MAIN PAGE) */
-        button[kind="secondary"].blindspot-inline {
-            background-color: #FEF2F2 !important; border: 1px solid #FECACA !important; color: #DC2626 !important; 
-            border-radius: 8px !important; padding: 6px 14px !important; margin: 0 !important; font-size: 0.8rem !important;
+        /* BLINDSPOT INTEGRATED BANNER UI */
+        button[kind="secondary"]:has(div:contains("👁️")) {
+            background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-left: 4px solid #EF4444 !important; color: #0F172A !important; 
+            border-radius: 8px !important; padding: 12px 16px !important; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 16px !important;
+            justify-content: flex-start !important; transition: all 0.2s ease !important;
         }
-        button[kind="secondary"].blindspot-inline p { color: #DC2626 !important; }
-        button[kind="secondary"].blindspot-inline:hover { background-color: #FEE2E2 !important; }
+        button[kind="secondary"]:has(div:contains("👁️")) p { color: #0F172A !important; font-size: 0.95rem !important; font-weight: 700 !important; margin:0 !important; }
+        button[kind="secondary"]:has(div:contains("👁️")):hover { transform: translateX(2px) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; }
 
         .scroll-top-btn { position: fixed; bottom: 25px; right: 25px; background-color: #3B82F6; color: white !important; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); z-index: 99999; font-weight: bold; text-decoration: none !important; transition: all 0.2s ease; }
         .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; }
@@ -362,21 +355,15 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
-    # Horizontal Swipe Navigation Layer for Content Categories & Inline Blindspots
-    col_nav, col_bs = st.columns([3, 1], gap="small")
+    display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
+    cat_index = t["topics"].index(display_cat)
+    backend_cat = UI_TEXT["English"]["topics"][cat_index]
     
-    with col_nav:
-        display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
-        cat_index = t["topics"].index(display_cat)
-        backend_cat = UI_TEXT["English"]["topics"][cat_index]
-        
-    with col_bs:
-        # Native, integrated look for the Blindspots trigger alongside Topics
-        st.markdown("<div style='height: 2px;'></div>", unsafe_allow_html=True) # minor alignment tweak
-        if st.button(t.get('blindspots_btn'), key="bs_trigger", help="View Strategic Omissions"):
-            open_blindspots_modal(t)
+    st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
 
-    st.markdown("<div style='margin-bottom: 12px;'></div>", unsafe_allow_html=True)
+    # Clean Integrated Blindspot Component Banner
+    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
+        open_blindspots_modal(t)
 
     filtered_df = df.copy()
     if backend_geo != "All Regions": 
@@ -396,7 +383,7 @@ def run_app():
             col_bullets = t.get("db_col_bullets", "bullets_en")
             col_persp = t.get("db_col_persp", "perspective_en")
             
-            # Reverted to Raw Original Strings (Removes broken Albanian formatting)
+            # Displays the raw AI string. No forced Python formatting.
             display_title = row.get(col_title) or row.get('title_en') or "Title Missing"
             
             raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "").split("||")[0]
@@ -423,21 +410,13 @@ def run_app():
                         </div>
                     </div>
                     <div class="card-footer">
-                        <div class="metric-track-wrapper">
-                            <div class="metric-label-container">
-                                <span>{t.get("pw")}: {pw}%</span>
-                            </div>
-                            <div class="metric-bar-bg">
-                                <div class="metric-bar-fill" style="width: {pw}%; background-color: #3B82F6;"></div>
-                            </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;">
+                            <span>🇪🇺 {t.get("pw")}: <span style="color:#0F172A;">{pw}%</span></span>
+                            <span>🔍 {t.get("obj")}: <span style="color:#0F172A;">{obj}%</span></span>
                         </div>
-                        <div class="metric-track-wrapper">
-                            <div class="metric-label-container">
-                                <span>{t.get("obj")}: {obj}%</span>
-                            </div>
-                            <div class="metric-bar-bg">
-                                <div class="metric-bar-fill" style="width: {obj}%; background-color: #10B981;"></div>
-                            </div>
+                        <div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;">
+                            <div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div>
+                            <div style="position: absolute; right: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div>
                         </div>
                     </div>
                 </div>
