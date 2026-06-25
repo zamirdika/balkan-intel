@@ -123,22 +123,20 @@ class ArticleAnalysis(BaseModel):
     narrative_objectivity: float = Field(description="Float between 0.0 and 1.0.")
     narrative_divergence_score: float = Field(description="Float between 0.0 and 1.0.")
 
-# ==========================================
-# 3. THE AI ENGINE 
-# ==========================================
-def analyze_article_with_llm(text):
-    prompt = f"""
+prompt = f"""
     Analyze the following news text. Extract the metrics, write an objective English headline, 
     3 English summary bullets, and a 1-sentence English perspective analysis. 
     Then translate the headline, bullets, and perspective accurately into Albanian. 
     Translate the headline and perspective into Macedonian and Serbian.
 
-    CRITICAL LINGUISTIC RULE: For all translated headlines and bullets (Albanian, Macedonian, Serbian), you must use strict sentence-case formatting. Capitalize ONLY the first letter of the sentence and proper nouns (e.g., countries, names of people, cities, institutions). Never capitalize every word in a headline.
+    CRITICAL LINGUISTIC RULE FOR ALL TRANSLATIONS: You MUST use strict sentence case for headlines and bullets. 
+    INCORRECT: "Kryeministri I Kosovës Shkon Në Bruksel Për Bisedime" (Do not capitalize every word).
+    CORRECT: "Kryeministri i Kosovës shkon në Bruksel për bisedime" (Only capitalize the first letter and proper nouns).
 
     Text:
     {text}
-    """    
-    for index, key in enumerate(API_KEYS):
+    """
+for index, key in enumerate(API_KEYS):
         for attempt in range(2):
             try:
                 client = genai.Client(api_key=key)
