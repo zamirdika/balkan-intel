@@ -7,7 +7,7 @@ UI_TEXT = {
     "English": {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment", "Sports"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional"],
-        "geo_labels": ["Global", "MKD", "KOS", "ALB", "Balkans"],
+        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkans"],
         "lang_header": "🌐 Language",
         "geo_header": "📍 Geography",
         "db_header": "📬 Daily Briefing",
@@ -34,7 +34,7 @@ UI_TEXT = {
     "Shqip": {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz", "Sport"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale"],
-        "geo_labels": ["Global", "MKD", "KOS", "ALB", "Ballkan"],
+        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Ballkan"],
         "lang_header": "🌐 Gjuha",
         "geo_header": "📍 Gjeografia",
         "db_header": "📬 Informimi Ditor",
@@ -61,7 +61,7 @@ UI_TEXT = {
     "Македонски": {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава", "Спорт"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално"],
-        "geo_labels": ["Глобално", "MKD", "KOS", "ALB", "Балкан"],
+        "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Балкан"],
         "lang_header": "🌐 Јазик",
         "geo_header": "📍 Географија",
         "db_header": "📬 Дневен Брифинг",
@@ -88,7 +88,7 @@ UI_TEXT = {
     "Srpski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno"],
-        "geo_labels": ["Globalno", "MKD", "KOS", "ALB", "Balkan"],
+        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan"],
         "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
         "db_header": "📬 Dnevni Brifing",
@@ -115,7 +115,7 @@ UI_TEXT = {
     "Bosanski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno"],
-        "geo_labels": ["Globalno", "MKD", "KOS", "ALB", "Balkan"],
+        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan"],
         "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
         "db_header": "📬 Dnevni Briefing",
@@ -177,7 +177,8 @@ def get_blindspot_stories():
     except Exception:
         return pd.DataFrame()
 
-# --- MODALS (Defined at root to prevent NameError) ---
+
+# --- TOP LEVEL DIALOG MODALS ---
 @st.dialog(" ", width="large")
 def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
@@ -189,12 +190,11 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
+    # Deep dive bars - both fill naturally from left to right
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
-        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div>',
-        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; right: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
+        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
 
@@ -278,34 +278,31 @@ def run_app():
         [data-testid="stForm"] button p { color: #FFFFFF !important; font-weight: 700 !important; font-size: 0.85rem !important; }
         [data-testid="stForm"] button:hover { background-color: #2563EB !important; }
 
-        /* HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) */
-        [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
-            display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important;
-            overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; 
-            padding-bottom: 8px !important; gap: 6px !important; justify-content: flex-start !important;
-        }
+        /* FIXED: HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) */
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
-            display: inline-flex !important; flex-direction: row !important;
+            display: inline-flex !important; flex-direction: row !important; align-items: center !important;
+            white-space: nowrap !important; padding: 6px 14px !important; border-radius: 999px !important; border: 1px solid #CBD5E1 !important; margin: 0 4px 0 0 !important;
+        }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p {
+            white-space: nowrap !important; display: inline !important; color: #475569 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important;
+        }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
+            display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; 
+            overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; padding-bottom: 8px !important;
         }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
         
-        /* STRICT GRID COLUMNS FOR SIDEBAR TABS */
+        /* FIXED: FLUID TABS FOR SIDEBAR (Flags/Geo) */
         [data-testid="stSidebar"] div[role="radiogroup"] { 
-            display: grid !important; gap: 6px !important; width: 100% !important; 
+            display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 8px !important; width: 100% !important; 
         }
-        /* Language: 3 Columns */
-        [data-testid="stSidebar"] div[role="radiogroup"]:nth-of-type(1) { grid-template-columns: repeat(3, 1fr) !important; }
-        /* Geography: 2 Columns */
-        [data-testid="stSidebar"] div[role="radiogroup"]:nth-of-type(2) { grid-template-columns: repeat(2, 1fr) !important; }
-        
         [data-testid="stSidebar"] div[role="radiogroup"] label { 
-            background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
-            padding: 8px 4px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
+            flex: 1 1 auto !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
+            padding: 8px 12px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
         }
 
         div[role="radiogroup"] label > div:first-child { display: none !important; }
-        div[role="radiogroup"] label p { color: #475569 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; }
-        [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; }
+        [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; }
         div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
         div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         
@@ -341,7 +338,7 @@ def run_app():
             background-color: rgba(255,255,255,0.05) !important; border-color: #64748B !important; 
         }
         
-        /* BLINDSPOT INTEGRATED BANNER UI */
+        /* FIXED: BLINDSPOT INTEGRATED BANNER UI */
         button[kind="secondary"]:has(div:contains("👁️")) {
             background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-left: 4px solid #EF4444 !important; color: #0F172A !important; 
             border-radius: 8px !important; padding: 12px 16px !important; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 16px !important;
@@ -376,10 +373,10 @@ def run_app():
 
     # --- SIDEBAR STRATEGIC CONTROL PIPELINE ---
     with st.sidebar:
-        LANG_OPTIONS = ["EN", "SQ", "MK", "SR", "BS"]
-        LANG_MAP = {"EN": "English", "SQ": "Shqip", "MK": "Македонски", "SR": "Srpski", "BS": "Bosanski"}
+        LANG_OPTIONS = ["🇬🇧 EN", "🇦🇱 SQ", "🇲🇰 MK", "🇷🇸 SR", "🇧🇦 BS"]
+        LANG_MAP = {"🇬🇧 EN": "English", "🇦🇱 SQ": "Shqip", "🇲🇰 MK": "Македонски", "🇷🇸 SR": "Srpski", "🇧🇦 BS": "Bosanski"}
         
-        current_lang_code = st.session_state.get("lang_choice", "EN")
+        current_lang_code = st.session_state.get("lang_choice", "🇬🇧 EN")
         current_dict = UI_TEXT[LANG_MAP[current_lang_code]]
         
         st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{current_dict['lang_header']}</div>", unsafe_allow_html=True)
@@ -457,7 +454,7 @@ def run_app():
             obj = int(float(row.get('avg_objectivity', 0.5)) * 100)
 
             with (grid_col1 if idx % 2 == 0 else grid_col2):
-                # The Beautiful Split Bar Implementation
+                # FIXED: The Single Bar - Logically split at 50%. Blue fills from left. Green fills from right.
                 card_html = f"""
                 <div class="particle-card">
                     <div class="card-img-area" style="background-image: {bg};">
@@ -471,9 +468,13 @@ def run_app():
                             <span>🇪🇺 {t.get("pw")}: <span style="color:#0F172A;">{pw}%</span></span>
                             <span>🔍 {t.get("obj")}: <span style="color:#0F172A;">{obj}%</span></span>
                         </div>
-                        <div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;">
-                            <div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div>
-                            <div style="position: absolute; right: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div>
+                        <div style="display: flex; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;">
+                            <div style="width: 50%; display: flex; justify-content: flex-start; border-right: 1px solid #FFFFFF;">
+                                <div style="width: {pw}%; background-color: #3B82F6; height: 100%;"></div>
+                            </div>
+                            <div style="width: 50%; display: flex; justify-content: flex-end;">
+                                <div style="width: {obj}%; background-color: #10B981; height: 100%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
