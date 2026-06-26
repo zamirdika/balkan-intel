@@ -194,6 +194,7 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
+    # Deep dive Objectivity Bar fixed: Now fills from left: 0
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
         f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
@@ -306,17 +307,17 @@ def run_app():
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
         
-        /* SIDEBAR FLEX TABS (FLAGS/GEO) */
+        /* 2-COLUMN CSS GRID FOR SIDEBAR TABS (FLAGS/GEO) */
         [data-testid="stSidebar"] div[role="radiogroup"] { 
-            display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 8px !important; width: 100% !important; 
+            display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 6px !important; width: 100% !important; 
         }
         [data-testid="stSidebar"] div[role="radiogroup"] label { 
-            flex: 1 1 45% !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
-            padding: 8px 4px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important; white-space: nowrap !important;
+            background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
+            padding: 8px 4px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important; white-space: nowrap !important; width: 100% !important;
         }
 
         div[role="radiogroup"] label > div:first-child { display: none !important; }
-        [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; white-space: nowrap !important; }
+        [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; white-space: nowrap !important; line-height: 1.2 !important; }
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         
@@ -351,7 +352,7 @@ def run_app():
         button[kind="secondary"]:has(div:contains("👁️")) {
             background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-left: 4px solid #EF4444 !important; color: #0F172A !important; 
             border-radius: 8px !important; padding: 10px 16px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 12px !important;
-            justify-content: flex-start !important; transition: all 0.2s ease !important; display: inline-flex !important;
+            justify-content: flex-start !important; transition: all 0.2s ease !important; display: inline-flex !important; width: auto !important;
         }
         button[kind="secondary"]:has(div:contains("👁️")) p { color: #0F172A !important; font-size: 0.95rem !important; font-weight: 700 !important; margin:0 !important; padding-right: 8px; }
         button[kind="secondary"]:has(div:contains("👁️")):hover { transform: translateX(2px) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; }
@@ -415,11 +416,14 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
+    # Unlinked Categories so it takes 100% width and does not squish
     display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
     cat_index = t["topics"].index(display_cat)
     backend_cat = UI_TEXT["English"]["topics"][cat_index]
         
     st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
+    
+    # Blindspot button securely placed on its own row below Categories
     if st.button(t.get('blindspots_btn'), key="bs_trigger"):
         open_blindspots_modal(t)
 
