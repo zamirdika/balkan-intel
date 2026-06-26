@@ -166,7 +166,8 @@ def get_database_data():
     """
     try:
         df = pd.read_sql_query(query, conn)
-    except Exception:
+    except Exception as e:
+        st.error(f"⚠️ SQL Database Error: {e} -> The schema has changed. Please run orchestrator.py to refresh the database!")
         df = pd.DataFrame()
     conn.close()
     return df
@@ -178,7 +179,8 @@ def get_blindspot_stories():
         df = pd.read_sql_query(query, conn)
         conn.close()
         return df
-    except Exception:
+    except Exception as e:
+        st.error(f"⚠️ SQL Database Error: {e}")
         return pd.DataFrame()
 
 # --- TOP LEVEL DIALOG MODALS ---
@@ -406,28 +408,31 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
-    # We removed the st.columns layout here to prevent squishing the Topics menu.
-    display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
-    cat_index = t["topics"].index(display_cat)
-    backend_cat = UI_TEXT["English"]["topics"][cat_index]
+    col_nav, col_bs = st.columns([3, 1], gap="small")
+    
+    with col_nav:
+        display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
+        cat_index = t["topics"].index(display_cat)
+        backend_cat = UI_TEXT["English"]["topics"][cat_index]
         
-    st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
-    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
-        open_blindspots_modal(t)
+    with col_bs:
+        st.markdown("<div style='height: 2px;'></div>", unsafe_allow_html=True)
+        if st.button(t.get('blindspots_btn'), key="bs_trigger"):
+            open_blindspots_modal(t)
 
-    st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 12px;'></div>", unsafe_allow_html=True)
 
     filtered_df = df.copy()
-    if backend_geo != "All Regions": 
+    if backend_geo != "All Regions" and not filtered_df.empty: 
         target_geo = backend_geo.strip().lower()
         filtered_df = filtered_df[filtered_df['cluster_geo_scope'].apply(lambda x: target_geo in str(x).strip().lower())]
         
-    if backend_cat != "All Topics": 
+    if backend_cat != "All Topics" and not filtered_df.empty: 
         target_cat = backend_cat.strip().lower()
         filtered_df = filtered_df[filtered_df['cluster_category'].apply(lambda x: target_cat in str(x).strip().lower())]
 
     if filtered_df.empty:
-        st.warning("No articles found.")
+        st.warning("No articles found matching the current filters.")
     else:
         grid_col1, grid_col2 = st.columns(2, gap="medium")
         for idx, row in filtered_df.reset_index(drop=True).iterrows():
