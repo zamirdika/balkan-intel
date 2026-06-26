@@ -5,6 +5,7 @@ import json
 import uuid
 from datetime import datetime
 import os
+import re
 import time 
 from google import genai
 from google.genai import types
@@ -73,7 +74,11 @@ def init_db(db_name="news_aggregator.db"):
 def fetch_rss_feeds(feed_urls):
     articles = []
     for source_name, url in feed_urls.items():
-        parsed_feed = feedparser.parse(url)
+        try:
+            parsed_feed = feedparser.parse(url)
+        except Exception:
+            continue
+            
         valid_entries_count = 0
         for entry in parsed_feed.entries:
             if valid_entries_count >= 3: 
@@ -83,9 +88,29 @@ def fetch_rss_feeds(feed_urls):
             raw_text = summary if summary else title
             if not title or len(raw_text) < 15 or "Titulli mungon" in title:
                 continue
+            
+            # --- UPGRADED IMAGE HUNTER ---
             image_url = ""
-            if 'media_content' in entry and entry['media_content']:
-                image_url = entry['media_content'][0].get('url', '')
+            # 1. Try standard media content
+            if 'media_content' in entry and entry.media_content:
+                image_url = entry.media_content[0].get('url', '')
+            
+            # 2. Try RSS enclosures
+            elif 'enclosures' in entry and entry.enclosures:
+                for enc in entry.enclosures:
+                    if 'image' in enc.get('type', ''):
+                        image_url = enc.get('href', '')
+                        break
+                if not image_url:
+                    image_url = entry.enclosures[0].get('href', '')
+            
+            # 3. Try extracting embedded HTML images from the summary
+            if not image_url and summary:
+                img_match = re.search(r'<img[^>]+src=["\'](.*?)["\']', summary, re.IGNORECASE)
+                if img_match:
+                    image_url = img_match.group(1)
+            # -----------------------------
+                    
             articles.append({
                 "article_id": str(uuid.uuid4()),
                 "original_title": title,
