@@ -26,7 +26,7 @@ if not API_KEYS:
     raise ValueError("CRITICAL: No API keys found in .env file.")
 
 # ==========================================
-# 1. DATABASE SETUP
+# 1. DATABASE SETUP (Fixed Missing Bullets)
 # ==========================================
 def init_db(db_name="news_aggregator.db"):
     conn = sqlite3.connect(db_name)
@@ -47,13 +47,17 @@ def init_db(db_name="news_aggregator.db"):
             bullets_en TEXT,
             perspective_en TEXT,
             
-            -- Localized
+            -- Localized (Added missing bullet columns)
             title_sq TEXT,
             bullets_sq TEXT,
             perspective_sq TEXT,
+            
             title_mk TEXT,
+            bullets_mk TEXT,
             perspective_mk TEXT,
+            
             title_sr TEXT,
+            bullets_sr TEXT,
             perspective_sr TEXT,
             
             -- Universal Categories & Metrics
@@ -69,14 +73,20 @@ def init_db(db_name="news_aggregator.db"):
     conn.close()
 
 # ==========================================
-# 2. DATA INGESTION 
+# 2. DATA INGESTION (Upgraded Cloudflare Bypass)
 # ==========================================
 def fetch_rss_feeds(feed_urls):
     articles = []
+    # Disguise the scraper as a real Chrome browser to bypass firewalls
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+    
     for source_name, url in feed_urls.items():
         try:
-            parsed_feed = feedparser.parse(url)
-        except Exception:
+            # Fetch the raw XML with the disguised browser first
+            response = requests.get(url, headers=headers, timeout=15)
+            parsed_feed = feedparser.parse(response.content)
+        except Exception as e:
+            print(f"Failed to fetch {source_name}: {e}")
             continue
             
         valid_entries_count = 0
@@ -91,11 +101,8 @@ def fetch_rss_feeds(feed_urls):
             
             # --- UPGRADED IMAGE HUNTER ---
             image_url = ""
-            # 1. Try standard media content
             if 'media_content' in entry and entry.media_content:
                 image_url = entry.media_content[0].get('url', '')
-            
-            # 2. Try RSS enclosures
             elif 'enclosures' in entry and entry.enclosures:
                 for enc in entry.enclosures:
                     if 'image' in enc.get('type', ''):
@@ -103,8 +110,6 @@ def fetch_rss_feeds(feed_urls):
                         break
                 if not image_url:
                     image_url = entry.enclosures[0].get('href', '')
-            
-            # 3. Try extracting embedded HTML images from the summary
             if not image_url and summary:
                 img_match = re.search(r'<img[^>]+src=["\'](.*?)["\']', summary, re.IGNORECASE)
                 if img_match:
@@ -124,7 +129,7 @@ def fetch_rss_feeds(feed_urls):
     return articles
 
 # ==========================================
-# STRICT DATA SCHEMA 
+# STRICT DATA SCHEMA (Added Missing MK/SR Bullets)
 # ==========================================
 class ArticleAnalysis(BaseModel):
     cluster_category: str = Field(description="Must be exactly one of: Politics, Economy, Technology, Culture, Infrastructure, Entertainment, Sports.")  
@@ -139,20 +144,25 @@ class ArticleAnalysis(BaseModel):
     perspective_sq: str = Field(description="Albanian translation of the perspective analysis.")
     
     title_mk: str = Field(description="Macedonian translation of the headline.")
+    bullets_mk: str = Field(description="Macedonian translation of the 3 bullets, separated by \\n.")
     perspective_mk: str = Field(description="Macedonian translation of the perspective analysis.")
     
     title_sr: str = Field(description="Serbian/Bosnian/Croatian translation of the headline.")
+    bullets_sr: str = Field(description="Serbian/Bosnian translation of the 3 bullets, separated by \\n.")
     perspective_sr: str = Field(description="Serbian/Bosnian/Croatian translation of the perspective analysis.")
     
     geo_pro_western: float = Field(description="Float between 0.0 and 1.0.")
     narrative_objectivity: float = Field(description="Float between 0.0 and 1.0.")
     narrative_divergence_score: float = Field(description="Float between 0.0 and 1.0.")
 
-prompt = f"""
+# ==========================================
+# 3. THE AI ENGINE 
+# ==========================================
+def analyze_article_with_llm(text):
+    prompt = f"""
     Analyze the following news text. Extract the metrics, write an objective English headline, 
     3 English summary bullets, and a 1-sentence English perspective analysis. 
-    Then translate the headline, bullets, and perspective accurately into Albanian. 
-    Translate the headline and perspective into Macedonian and Serbian.
+    Then translate ALL elements (headline, bullets, and perspective) accurately into Albanian, Macedonian, and Serbian.
 
     CRITICAL LINGUISTIC RULE FOR ALL TRANSLATIONS: You MUST use strict sentence case for headlines and bullets. 
     INCORRECT: "Kryeministri I Kosovës Shkon Në Bruksel Për Bisedime" (Do not capitalize every word).
@@ -161,7 +171,7 @@ prompt = f"""
     Text:
     {text}
     """
-for index, key in enumerate(API_KEYS):
+    for index, key in enumerate(API_KEYS):
         for attempt in range(2):
             try:
                 client = genai.Client(api_key=key)
@@ -207,8 +217,10 @@ for index, key in enumerate(API_KEYS):
         "bullets_sq": "Gabim në përpunim",
         "perspective_sq": "E dhëna e padisponueshme.",
         "title_mk": "Грешка",
+        "bullets_mk": "Грешка",
         "perspective_mk": "Недостапно.",
         "title_sr": "Greška",
+        "bullets_sr": "Greška",
         "perspective_sr": "Nedostupno.",
         "geo_pro_western": 0.5,
         "narrative_objectivity": 0.5,
@@ -238,13 +250,6 @@ def run_pipeline():
     }
     
     print("1. Fetching articles from RSS feeds...")
-    import feedparser
-    for name, url in target_feeds.items():
-        try:
-            parsed = feedparser.parse(url)
-        except Exception:
-            pass
-
     raw_articles = fetch_rss_feeds(target_feeds)
     print(f"Total articles compiled by scraper: {len(raw_articles) if raw_articles else 0}")
     
@@ -261,7 +266,7 @@ def run_pipeline():
         art['cluster_id'] = f"cluster_{idx}" 
         processed_articles.append(art)
         
-        # PACE THE ROBOT: Wait 12 seconds between articles to prevent burning out API keys
+        # PACE THE ROBOT: Wait 12 seconds between articles
         if idx < len(raw_articles) - 1:
             time.sleep(12)
             
@@ -275,18 +280,18 @@ def run_pipeline():
             (article_id, cluster_id, original_title, original_url, source_domain, image_url, raw_text, 
              title_en, bullets_en, perspective_en, 
              title_sq, bullets_sq, perspective_sq, 
-             title_mk, perspective_mk, 
-             title_sr, perspective_sr,
+             title_mk, bullets_mk, perspective_mk, 
+             title_sr, bullets_sr, perspective_sr,
              cluster_category, cluster_geo_scope, geo_pro_western, narrative_objectivity, 
              narrative_divergence_score, published_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             art['article_id'], art['cluster_id'], art['original_title'], art['original_url'], 
             art['source_domain'], art['image_url'], art['raw_text'], 
             art.get('title_en', ''), art.get('bullets_en', ''), art.get('perspective_en', ''), 
             art.get('title_sq', ''), art.get('bullets_sq', ''), art.get('perspective_sq', ''),
-            art.get('title_mk', ''), art.get('perspective_mk', ''), 
-            art.get('title_sr', ''), art.get('perspective_sr', ''),
+            art.get('title_mk', ''), art.get('bullets_mk', ''), art.get('perspective_mk', ''), 
+            art.get('title_sr', ''), art.get('bullets_sr', ''), art.get('perspective_sr', ''),
             art.get('cluster_category', 'News'), art.get('cluster_geo_scope', 'Regional'), 
             art.get('geo_pro_western', 0.5), art.get('narrative_objectivity', 0.5), 
             art.get('narrative_divergence_score', 0.5), art['published_at']
