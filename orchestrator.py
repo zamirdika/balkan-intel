@@ -128,7 +128,7 @@ def fetch_rss_feeds(feed_urls):
 # STRICT DATA SCHEMA (UPDATED WITH LAYER 2 COUNTRIES)
 # ==========================================
 class ArticleAnalysis(BaseModel):
-    cluster_category: str = Field(description="Must be exactly one of: Politics, Economy, Technology, Culture, Infrastructure, Entertainment, Sports.")  
+    cluster_category: str = Field(description="Must be exactly one of: Politics, Economy, Technology, Culture, Infrastructure, Entertainment, Sports, Crime & Accidents.")  
     cluster_geo_scope: str = Field(description="Must be exactly one of: North Macedonia, Kosovo, Albania, Serbia, Bosnia and Herzegovina, Montenegro, Regional, International.")
     
     title_en: str = Field(description="A strong, objective English headline.")
