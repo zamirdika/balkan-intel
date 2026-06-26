@@ -6,8 +6,8 @@ import pandas as pd
 UI_TEXT = {
     "English": {
         "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment", "Sports"],
-        "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Regional"],
-        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkans"],
+        "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Serbia", "Bosnia and Herzegovina", "Montenegro", "Regional"],
+        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkans"],
         "lang_header": "🌐 Language",
         "geo_header": "📍 Geography",
         "db_header": "📬 Daily Briefing",
@@ -33,8 +33,8 @@ UI_TEXT = {
     },
     "Shqip": {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz", "Sport"],
-        "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Rajonale"],
-        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Ballkan"],
+        "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Serbia", "Bosnja dhe Hercegovina", "Mali i Zi", "Rajonale"],
+        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Ballkan"],
         "lang_header": "🌐 Gjuha",
         "geo_header": "📍 Gjeografia",
         "db_header": "📬 Informimi Ditor",
@@ -60,8 +60,8 @@ UI_TEXT = {
     },
     "Македонски": {
         "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава", "Спорт"],
-        "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Регионално"],
-        "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Балкан"],
+        "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално"],
+        "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан"],
         "lang_header": "🌐 Јазик",
         "geo_header": "📍 Географија",
         "db_header": "📬 Дневен Брифинг",
@@ -87,8 +87,8 @@ UI_TEXT = {
     },
     "Srpski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"],
-        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Regionalno"],
-        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan"],
+        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
+        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
         "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
         "db_header": "📬 Dnevni Brifing",
@@ -114,8 +114,8 @@ UI_TEXT = {
     },
     "Bosanski": {
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport"],
-        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Regionalno"],
-        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🗺️ Balkan"],
+        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
+        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
         "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
         "db_header": "📬 Dnevni Briefing",
@@ -123,7 +123,7 @@ UI_TEXT = {
         "api_header": "⚙️ Enterprise API",
         "api_sub": "Integrišite grupisanje narativa.",
         "subscribe": "Pretplati se",
-        "success": "Hvala! Pretplatili ste se.",
+        "success": "Hvala!",
         "api_btn": "Vidi API Dokumentaciju",
         "blindspots_btn": "👁️ Slijepe tačke",
         "blindspots": "Slijepe tačke",
@@ -194,7 +194,6 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
-    # FIXED: Deep Dive objectivity bar now explicitly fills from left: 0
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
         f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
@@ -242,7 +241,6 @@ def open_blindspots_modal(t_dict):
         col_title = t_dict.get("db_col_title", "title_en")
         b_title = row.get(col_title) or row.get('title_en') or "Title Missing"
         
-        # Translating Blindspot category tag
         db_cat = row.get('cluster_category', 'News')
         if db_cat in UI_TEXT["English"]["topics"]:
             cat_idx = UI_TEXT["English"]["topics"].index(db_cat)
@@ -417,15 +415,15 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
-    # FIXED: The Blindspots button now sits securely on its own row, leaving 100% width for Categories
-    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
-        open_blindspots_modal(t)
-
     display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
     cat_index = t["topics"].index(display_cat)
     backend_cat = UI_TEXT["English"]["topics"][cat_index]
+        
+    st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
+    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
+        open_blindspots_modal(t)
 
-    st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
 
     filtered_df = df.copy()
     if backend_geo != "All Regions" and not filtered_df.empty: 
@@ -460,7 +458,6 @@ def run_app():
             pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
             obj = int(float(row.get('avg_objectivity', 0.5)) * 100)
 
-            # FIXED: Translate Category tags directly on the images
             db_cat = row.get('cluster_category', 'News')
             if db_cat in UI_TEXT["English"]["topics"]:
                 cat_idx = UI_TEXT["English"]["topics"].index(db_cat)
