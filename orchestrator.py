@@ -157,13 +157,11 @@ class ArticleAnalysis(BaseModel):
 def analyze_article_with_llm(text):
     prompt = f"""
     Analyze the following news text. Extract the metrics, write an objective English headline, 
-    3 English summary bullets, and a 1-sentence English perspective analysis. 
-    Then translate ALL elements (headline, bullets, and perspective) accurately into Albanian, Macedonian, and Serbian.
+    3 English summary bullets, and a COMPREHENSIVE 3-to-4 sentence English perspective analysis that explains the broader implications. 
+    Then translate ALL elements accurately into Albanian, Macedonian, and Serbian.
 
-    CRITICAL LINGUISTIC RULE FOR ALL TRANSLATIONS: You MUST use strict sentence case for headlines and bullets. 
-    INCORRECT: "Kryeministri I Kosovës Shkon Në Bruksel Për Bisedime" (Do not capitalize every word).
-    CORRECT: "Kryeministri i Kosovës shkon në Bruksel për bisedime" (Only capitalize the first letter and proper nouns).
-
+    CRITICAL LINGUISTIC RULE FOR ALL TRANSLATIONS: Use strict sentence case (only capitalize the first letter and proper nouns). 
+    
     Text:
     {text}
     """
