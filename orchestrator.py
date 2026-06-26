@@ -26,7 +26,7 @@ if not API_KEYS:
     raise ValueError("CRITICAL: No API keys found in .env file.")
 
 # ==========================================
-# 1. DATABASE SETUP (Fixed Missing Bullets)
+# 1. DATABASE SETUP
 # ==========================================
 def init_db(db_name="news_aggregator.db"):
     conn = sqlite3.connect(db_name)
@@ -47,7 +47,7 @@ def init_db(db_name="news_aggregator.db"):
             bullets_en TEXT,
             perspective_en TEXT,
             
-            -- Localized (Added missing bullet columns)
+            -- Localized
             title_sq TEXT,
             bullets_sq TEXT,
             perspective_sq TEXT,
@@ -73,16 +73,14 @@ def init_db(db_name="news_aggregator.db"):
     conn.close()
 
 # ==========================================
-# 2. DATA INGESTION (Upgraded Cloudflare Bypass)
+# 2. DATA INGESTION
 # ==========================================
 def fetch_rss_feeds(feed_urls):
     articles = []
-    # Disguise the scraper as a real Chrome browser to bypass firewalls
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     
     for source_name, url in feed_urls.items():
         try:
-            # Fetch the raw XML with the disguised browser first
             response = requests.get(url, headers=headers, timeout=15)
             parsed_feed = feedparser.parse(response.content)
         except Exception as e:
@@ -99,7 +97,6 @@ def fetch_rss_feeds(feed_urls):
             if not title or len(raw_text) < 15 or "Titulli mungon" in title:
                 continue
             
-            # --- UPGRADED IMAGE HUNTER ---
             image_url = ""
             if 'media_content' in entry and entry.media_content:
                 image_url = entry.media_content[0].get('url', '')
@@ -114,7 +111,6 @@ def fetch_rss_feeds(feed_urls):
                 img_match = re.search(r'<img[^>]+src=["\'](.*?)["\']', summary, re.IGNORECASE)
                 if img_match:
                     image_url = img_match.group(1)
-            # -----------------------------
                     
             articles.append({
                 "article_id": str(uuid.uuid4()),
@@ -129,11 +125,11 @@ def fetch_rss_feeds(feed_urls):
     return articles
 
 # ==========================================
-# STRICT DATA SCHEMA (Added Missing MK/SR Bullets)
+# STRICT DATA SCHEMA (UPDATED WITH LAYER 2 COUNTRIES)
 # ==========================================
 class ArticleAnalysis(BaseModel):
     cluster_category: str = Field(description="Must be exactly one of: Politics, Economy, Technology, Culture, Infrastructure, Entertainment, Sports.")  
-    cluster_geo_scope: str = Field(description="Must be exactly one of: North Macedonia, Kosovo, Albania, Regional, International.")
+    cluster_geo_scope: str = Field(description="Must be exactly one of: North Macedonia, Kosovo, Albania, Serbia, Bosnia and Herzegovina, Montenegro, Regional, International.")
     
     title_en: str = Field(description="A strong, objective English headline.")
     bullets_en: str = Field(description="Three short English bullet points, separated by \\n.")
@@ -266,7 +262,6 @@ def run_pipeline():
         art['cluster_id'] = f"cluster_{idx}" 
         processed_articles.append(art)
         
-        # PACE THE ROBOT: Wait 12 seconds between articles
         if idx < len(raw_articles) - 1:
             time.sleep(12)
             
