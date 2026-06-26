@@ -17,7 +17,7 @@ UI_TEXT = {
         "subscribe": "Subscribe",
         "success": "Thank you! You are subscribed.",
         "api_btn": "View API Docs",
-        "blindspots_btn": "👁️ Blindspots",
+        "blindspots_btn": "👁️ View Strategic Blindspots",
         "blindspots": "Strategic Blindspots",
         "blindspots_sub": "Regional narratives and crucial information updates you might have missed completely from mainstream local coverage.",
         "modal_title": "Deep Dive Analysis",
@@ -26,7 +26,7 @@ UI_TEXT = {
         "btn_back": "Close",
         "sources": "Original Sources",
         "how_ai_works": "🧠 How AI Works",
-        "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.<br><br><b>What is a Blindspot?</b> A Blindspot is a high-impact regional development that carries a high divergence score, meaning the story is being significantly omitted, downplayed, or selectively framed by specific local media clusters compared to the baseline factual event timeline.",
+        "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.<br><br><b>What is a Blindspot?</b> A Blindspot is a high-impact regional development that carries a high divergence score, meaning the story is being significantly omitted, downplayed, or selectively framed by specific local media clusters.",
         "db_col_title": "title_en",
         "db_col_bullets": "bullets_en",
         "db_col_persp": "perspective_en"
@@ -44,7 +44,7 @@ UI_TEXT = {
         "subscribe": "Abonohu",
         "success": "Faleminderit! Jeni abonuar.",
         "api_btn": "Shiko Dokumentacionin",
-        "blindspots_btn": "👁️ Të pathënat",
+        "blindspots_btn": "👁️ Shiko Të pathënat",
         "blindspots": "Të pathënat Strategjike",
         "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar plotësisht nga mbulimi kryesor medial lokal.",
         "modal_title": "Analiza e Thelluar",
@@ -53,7 +53,7 @@ UI_TEXT = {
         "btn_back": "Mbyll",
         "sources": "Burimet Origjinale",
         "how_ai_works": "🧠 Si funksionon AI?",
-        "ai_desc": "<b>Grumbullimi i të Dhënave:</b> Balkan Intel grumbullon në mënyrë të vazhdueshme lajmet automatike nga rajoni i Ballkanit Perëndimor përmes RSS.<br><br><b>Motori i Inteligjencës Artificiale:</b> Teksti bruto i burimit strukturohet dhe analizohet duke përdorur modelin Gemini 2.5 Flash të Google për të nxjerrë metrika të qëndrimit gjeopolitik dhe për të vlerësuar objektivitetin faktik.<br><br><b>Çfarë është një e Pathënë (Blindspot)?</b> Një 'E Pathënë' përfaqëson një zhvillim rajonal me ndikim të lartë që mbart një shkallë të lartë divergjence, që do të thotë se ngjarja po anashkalohet ose po kornizohet në mënyrë selektive nga klastere të caktuara mediale lokale në krahasim me rrjedhën bazë të fakteve.",
+        "ai_desc": "<b>Grumbullimi i të Dhënave:</b> Balkan Intel grumbullon në mënyrë të vazhdueshme lajmet automatike nga rajoni i Ballkanit Perëndimor përmes RSS.<br><br><b>Motori i Inteligjencës Artificiale:</b> Teksti bruto i burimit strukturohet dhe analizohet duke përdorur modelin Gemini 2.5 Flash të Google për të nxjerrë metrika të qëndrimit gjeopolitik dhe për të vlerësuar objektivitetin faktik.",
         "db_col_title": "title_sq",
         "db_col_bullets": "bullets_sq",
         "db_col_persp": "perspective_sq"
@@ -71,7 +71,7 @@ UI_TEXT = {
         "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.",
         "api_btn": "Види API Документација",
-        "blindspots_btn": "👁️ Игнорирани вести",
+        "blindspots_btn": "👁️ Види Игнорирани вести",
         "blindspots": "Игнорирани вести",
         "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле во главните локални медиуми.",
         "modal_title": "Длабинска Анализа",
@@ -80,7 +80,7 @@ UI_TEXT = {
         "btn_back": "Затвори",
         "sources": "Оригинални Извори",
         "how_ai_works": "🧠 Како работи ВИ?",
-        "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.<br><br><b>Аналитички мотор на ВИ:</b> Текстот се анализира со помош на моделот Gemini 2.5 Flash на Google за да се извлечат геополитички метрики и да се оцени фактуелната објективност.<br><br><b>Што е Игнорирана вест (Blindspot)?</b> Тоа е значаен регионален настан кој има висок резултат на дивергенција, што значи дека настанот е испуштен или селективно прикажан од одредени локални медиуми во споредба со реалните факти.",
+        "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.",
         "db_col_title": "title_mk",
         "db_col_bullets": "bullets_mk",
         "db_col_persp": "perspective_mk"
@@ -107,7 +107,7 @@ UI_TEXT = {
         "btn_back": "Zatvori",
         "sources": "Originalni Izvori",
         "how_ai_works": "🧠 Kako radi AI?",
-        "ai_desc": "Balkan Intel agregira RSS vesti, prevodi ih na engleski i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika, pre nego što ih ponovo prevede za lokalizovanu isporuku.",
+        "ai_desc": "Balkan Intel agregira RSS vesti i koristi Gemini 2.5 Flash.",
         "db_col_title": "title_sr",
         "db_col_bullets": "bullets_sr",
         "db_col_persp": "perspective_sr"
@@ -119,9 +119,9 @@ UI_TEXT = {
         "lang_header": "🌐 Jezik",
         "geo_header": "📍 Geografija",
         "db_header": "📬 Dnevni Briefing",
-        "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.",
+        "db_sub": "Narativi koje ste možda propustili.",
         "api_header": "⚙️ Enterprise API",
-        "api_sub": "Integrišite grupisanje narativa u realnom vremenu.",
+        "api_sub": "Integrišite grupisanje narativa.",
         "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.",
         "api_btn": "Vidi API Dokumentaciju",
@@ -134,7 +134,7 @@ UI_TEXT = {
         "btn_back": "Zatvori",
         "sources": "Originalni Izvori",
         "how_ai_works": "🧠 Kako radi AI?",
-        "ai_desc": "Balkan Intel agregira RSS vijesti, prevodi ih na engleski i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika, prije nego što ih ponovo prevede za lokalizovanu isporuku.",
+        "ai_desc": "Balkan Intel agregira RSS vijesti i koristi Gemini 2.5 Flash.",
         "db_col_title": "title_sr", 
         "db_col_bullets": "bullets_sr",
         "db_col_persp": "perspective_sr"
@@ -167,7 +167,7 @@ def get_database_data():
     try:
         df = pd.read_sql_query(query, conn)
     except Exception as e:
-        st.error(f"⚠️ SQL Database Error: {e} -> The schema has changed. Please run orchestrator.py to refresh the database!")
+        st.error(f"⚠️ SQL Database Error: {e} -> Please run orchestrator.py!")
         df = pd.DataFrame()
     conn.close()
     return df
@@ -179,8 +179,7 @@ def get_blindspot_stories():
         df = pd.read_sql_query(query, conn)
         conn.close()
         return df
-    except Exception as e:
-        st.error(f"⚠️ SQL Database Error: {e}")
+    except Exception:
         return pd.DataFrame()
 
 # --- TOP LEVEL DIALOG MODALS ---
@@ -195,12 +194,13 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
+    # FIXED: Deep Dive objectivity bar now explicitly fills from left: 0
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
         f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
         f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
         f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div>',
-        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; right: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
+        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
 
@@ -241,9 +241,18 @@ def open_blindspots_modal(t_dict):
     for idx, row in get_blindspot_stories().iterrows():
         col_title = t_dict.get("db_col_title", "title_en")
         b_title = row.get(col_title) or row.get('title_en') or "Title Missing"
+        
+        # Translating Blindspot category tag
+        db_cat = row.get('cluster_category', 'News')
+        if db_cat in UI_TEXT["English"]["topics"]:
+            cat_idx = UI_TEXT["English"]["topics"].index(db_cat)
+            display_tag = t_dict["topics"][cat_idx]
+        else:
+            display_tag = db_cat
+
         st.markdown(f"""
         <div style='background: transparent; padding: 1.2rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid rgba(148, 163, 184, 0.3); border-right: 1px solid rgba(148, 163, 184, 0.3); border-bottom: 1px solid rgba(148, 163, 184, 0.3);'>
-            <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{row.get('cluster_category', 'News')}</div>
+            <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;'>{display_tag}</div>
             <a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none; color: inherit;">
                 <div style='font-weight: 800; font-size: 1rem; line-height: 1.4; margin-bottom: 8px;'>
                     {b_title} <span style="color: #3B82F6; font-size: 0.85rem;">↗</span>
@@ -343,7 +352,7 @@ def run_app():
         
         button[kind="secondary"]:has(div:contains("👁️")) {
             background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-left: 4px solid #EF4444 !important; color: #0F172A !important; 
-            border-radius: 8px !important; padding: 12px 16px !important; width: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 16px !important;
+            border-radius: 8px !important; padding: 10px 16px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 12px !important;
             justify-content: flex-start !important; transition: all 0.2s ease !important; display: inline-flex !important;
         }
         button[kind="secondary"]:has(div:contains("👁️")) p { color: #0F172A !important; font-size: 0.95rem !important; font-weight: 700 !important; margin:0 !important; padding-right: 8px; }
@@ -408,19 +417,15 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
-    col_nav, col_bs = st.columns([3, 1], gap="small")
-    
-    with col_nav:
-        display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
-        cat_index = t["topics"].index(display_cat)
-        backend_cat = UI_TEXT["English"]["topics"][cat_index]
-        
-    with col_bs:
-        st.markdown("<div style='height: 2px;'></div>", unsafe_allow_html=True)
-        if st.button(t.get('blindspots_btn'), key="bs_trigger"):
-            open_blindspots_modal(t)
+    # FIXED: The Blindspots button now sits securely on its own row, leaving 100% width for Categories
+    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
+        open_blindspots_modal(t)
 
-    st.markdown("<div style='margin-bottom: 12px;'></div>", unsafe_allow_html=True)
+    display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
+    cat_index = t["topics"].index(display_cat)
+    backend_cat = UI_TEXT["English"]["topics"][cat_index]
+
+    st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
     filtered_df = df.copy()
     if backend_geo != "All Regions" and not filtered_df.empty: 
@@ -449,20 +454,26 @@ def run_app():
             persp = f"<div style='padding: 12px; border-left: 3px solid #3B82F6; font-size: 0.9rem; font-style: italic; border-radius: 0 8px 8px 0; opacity: 0.85;'>{persp_text}</div>" if persp_text else ""
             
             raw_img = str(row.get('cluster_image', '')).strip()
-            # Professional abstract background fallback instead of random photos
             fallback = "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop"
             bg = f"url('{fallback}')" if pd.isna(row.get('cluster_image')) or raw_img in ('None', 'nan', '') or not raw_img.startswith('http') else f"url('{raw_img}'), url('{fallback}')"
 
             pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
             obj = int(float(row.get('avg_objectivity', 0.5)) * 100)
 
+            # FIXED: Translate Category tags directly on the images
+            db_cat = row.get('cluster_category', 'News')
+            if db_cat in UI_TEXT["English"]["topics"]:
+                cat_idx = UI_TEXT["English"]["topics"].index(db_cat)
+                display_tag = t["topics"][cat_idx]
+            else:
+                display_tag = db_cat
+
             with (grid_col1 if idx % 2 == 0 else grid_col2):
-                # The exact split bar from the screenshot: Blue left-aligned, Green right-aligned.
                 card_html = f"""
                 <div class="particle-card">
                     <div class="card-img-area" style="background-image: {bg};">
                         <div class="card-img-content">
-                            <span class="card-tag">{row.get("cluster_category", "News")}</span>
+                            <span class="card-tag">{display_tag}</span>
                             <div class="card-title">{display_title}</div>
                         </div>
                     </div>
