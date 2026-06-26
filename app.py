@@ -163,7 +163,10 @@ def get_database_data():
                MAX(image_url) as cluster_image
         FROM articles WHERE cluster_id IS NOT NULL GROUP BY cluster_id ORDER BY article_id DESC
     """
-    df = pd.read_sql_query(query, conn)
+    try:
+        df = pd.read_sql_query(query, conn)
+    except Exception:
+        df = pd.DataFrame()
     conn.close()
     return df
 
@@ -177,7 +180,6 @@ def get_blindspot_stories():
     except Exception:
         return pd.DataFrame()
 
-
 # --- TOP LEVEL DIALOG MODALS ---
 @st.dialog(" ", width="large")
 def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
@@ -190,11 +192,12 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
-    # Deep dive bars - both fill naturally from left to right
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div><div style="width: 100%; height: 6px; background-color: rgba(148, 163, 184, 0.3); border-radius: 999px; display: flex;"><div style="width: {obj}%; background-color: #10B981;"></div></div></div>',
+        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
+        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div>',
+        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
 
@@ -278,33 +281,33 @@ def run_app():
         [data-testid="stForm"] button p { color: #FFFFFF !important; font-weight: 700 !important; font-size: 0.85rem !important; }
         [data-testid="stForm"] button:hover { background-color: #2563EB !important; }
 
-        /* FIXED: HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) */
-        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
-            display: inline-flex !important; flex-direction: row !important; align-items: center !important;
-            white-space: nowrap !important; padding: 6px 14px !important; border-radius: 999px !important; border: 1px solid #CBD5E1 !important; margin: 0 4px 0 0 !important;
-        }
-        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p {
-            white-space: nowrap !important; display: inline !important; color: #475569 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important;
-        }
+        /* HIGH-CONTRAST HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) */
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
-            display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; 
-            overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; padding-bottom: 8px !important;
+            display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important;
+            overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; 
+            padding-bottom: 8px !important; gap: 6px !important; justify-content: flex-start !important;
         }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
+            display: inline-flex !important; flex-direction: row !important; background-color: #FFFFFF !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; padding: 8px 16px !important;
+        }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p { color: #0F172A !important; font-weight: 700 !important; font-size: 0.85rem !important; margin: 0 !important; }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
         
-        /* FIXED: FLUID TABS FOR SIDEBAR (Flags/Geo) */
+        /* SIDEBAR FLEX TABS (FLAGS/GEO) */
         [data-testid="stSidebar"] div[role="radiogroup"] { 
             display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important; gap: 8px !important; width: 100% !important; 
         }
         [data-testid="stSidebar"] div[role="radiogroup"] label { 
-            flex: 1 1 auto !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
-            padding: 8px 12px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
+            flex: 1 1 45% !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
+            padding: 8px 4px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
         }
 
         div[role="radiogroup"] label > div:first-child { display: none !important; }
         [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; }
-        div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
-        div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
+        [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
+        [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         
         /* VISUAL DISPLAY CARDS */
         .particle-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); border: 1px solid #F1F5F9; transition: transform 0.25s ease, box-shadow 0.25s ease; height: 380px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
@@ -326,19 +329,14 @@ def run_app():
         .b2b-btn { display: block; text-align: center; background: #3B82F6; color: #FFFFFF !important; padding: 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; margin-top: 4px; }
         .b2b-btn:hover { background-color: #2563EB !important; }
 
-        /* METHODOLOGY MODAL TRIGGER */
+        /* METHODOLOGY & BLINDSPOT BUTTON TRIGGERS */
         button[kind="secondary"]:has(div:contains("🧠")) { 
             border: 1px solid #334155 !important; background-color: transparent !important; color: #F8FAFC !important; justify-content: center !important; 
             border-radius: 8px !important; padding: 8px !important; width: 100%; margin-top: 10px !important; transition: all 0.2s ease !important; 
         }
-        button[kind="secondary"]:has(div:contains("🧠")) p { 
-            font-size: 0.8rem !important; font-weight: 700 !important; color: #F8FAFC !important; 
-        }
-        button[kind="secondary"]:has(div:contains("🧠")):hover { 
-            background-color: rgba(255,255,255,0.05) !important; border-color: #64748B !important; 
-        }
+        button[kind="secondary"]:has(div:contains("🧠")) p { font-size: 0.8rem !important; font-weight: 700 !important; color: #F8FAFC !important; }
+        button[kind="secondary"]:has(div:contains("🧠")):hover { background-color: rgba(255,255,255,0.05) !important; border-color: #64748B !important; }
         
-        /* FIXED: BLINDSPOT INTEGRATED BANNER UI */
         button[kind="secondary"]:has(div:contains("👁️")) {
             background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-left: 4px solid #EF4444 !important; color: #0F172A !important; 
             border-radius: 8px !important; padding: 12px 16px !important; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 16px !important;
@@ -368,8 +366,6 @@ def run_app():
     """, unsafe_allow_html=True)
 
     df = get_database_data()
-    if not df.empty:
-        df = df[df['title_en'] != "Processing Error"]
 
     # --- SIDEBAR STRATEGIC CONTROL PIPELINE ---
     with st.sidebar:
@@ -408,15 +404,19 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
-    display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
-    cat_index = t["topics"].index(display_cat)
-    backend_cat = UI_TEXT["English"]["topics"][cat_index]
+    col_nav, col_bs = st.columns([3, 1], gap="small")
     
-    st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
+    with col_nav:
+        display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
+        cat_index = t["topics"].index(display_cat)
+        backend_cat = UI_TEXT["English"]["topics"][cat_index]
+        
+    with col_bs:
+        st.markdown("<div style='height: 2px;'></div>", unsafe_allow_html=True)
+        if st.button(t.get('blindspots_btn'), key="bs_trigger"):
+            open_blindspots_modal(t)
 
-    # Clean Integrated Blindspot Component Banner
-    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
-        open_blindspots_modal(t)
+    st.markdown("<div style='margin-bottom: 12px;'></div>", unsafe_allow_html=True)
 
     filtered_df = df.copy()
     if backend_geo != "All Regions": 
@@ -436,7 +436,6 @@ def run_app():
             col_bullets = t.get("db_col_bullets", "bullets_en")
             col_persp = t.get("db_col_persp", "perspective_en")
             
-            # Displays the raw AI string. No forced Python formatting.
             display_title = row.get(col_title) or row.get('title_en') or "Title Missing"
             
             raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "").split("||")[0]
@@ -446,15 +445,15 @@ def run_app():
             persp = f"<div style='padding: 12px; border-left: 3px solid #3B82F6; font-size: 0.9rem; font-style: italic; border-radius: 0 8px 8px 0; opacity: 0.85;'>{persp_text}</div>" if persp_text else ""
             
             raw_img = str(row.get('cluster_image', '')).strip()
-            unique_seed = row.get('cluster_id', f"rand_{idx}")
-            fallback = f"https://picsum.photos/seed/{unique_seed}/800/500"
+            # Professional abstract background fallback instead of random photos
+            fallback = "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop"
             bg = f"url('{fallback}')" if pd.isna(row.get('cluster_image')) or raw_img in ('None', 'nan', '') or not raw_img.startswith('http') else f"url('{raw_img}'), url('{fallback}')"
 
             pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
             obj = int(float(row.get('avg_objectivity', 0.5)) * 100)
 
             with (grid_col1 if idx % 2 == 0 else grid_col2):
-                # FIXED: The Single Bar - Logically split at 50%. Blue fills from left. Green fills from right.
+                # The exact split bar from the screenshot: Blue left-aligned, Green right-aligned.
                 card_html = f"""
                 <div class="particle-card">
                     <div class="card-img-area" style="background-image: {bg};">
