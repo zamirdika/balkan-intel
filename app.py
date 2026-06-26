@@ -82,7 +82,7 @@ UI_TEXT = {
         "how_ai_works": "🧠 Како работи ВИ?",
         "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.<br><br><b>Аналитички мотор на ВИ:</b> Текстот се анализира со помош на моделот Gemini 2.5 Flash на Google за да се извлечат геополитички метрики и да се оцени фактуелната објективност.<br><br><b>Што е Игнорирана вест (Blindspot)?</b> Тоа е значаен регионален настан кој има висок резултат на дивергенција, што значи дека настанот е испуштен или селективно прикажан од одредени локални медиуми во споредба со реалните факти.",
         "db_col_title": "title_mk",
-        "db_col_bullets": "bullets_en",
+        "db_col_bullets": "bullets_mk",
         "db_col_persp": "perspective_mk"
     },
     "Srpski": {
@@ -109,7 +109,7 @@ UI_TEXT = {
         "how_ai_works": "🧠 Kako radi AI?",
         "ai_desc": "Balkan Intel agregira RSS vesti, prevodi ih na engleski i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika, pre nego što ih ponovo prevede za lokalizovanu isporuku.",
         "db_col_title": "title_sr",
-        "db_col_bullets": "bullets_en",
+        "db_col_bullets": "bullets_sr",
         "db_col_persp": "perspective_sr"
     },
     "Bosanski": {
@@ -136,7 +136,7 @@ UI_TEXT = {
         "how_ai_works": "🧠 Kako radi AI?",
         "ai_desc": "Balkan Intel agregira RSS vijesti, prevodi ih na engleski i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika, prije nego što ih ponovo prevede za lokalizovanu isporuku.",
         "db_col_title": "title_sr", 
-        "db_col_bullets": "bullets_en",
+        "db_col_bullets": "bullets_sr",
         "db_col_persp": "perspective_sr"
     }
 }
@@ -152,6 +152,7 @@ def get_database_data():
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, 
                MAX(title_mk) as title_mk, MAX(title_sr) as title_sr,
                MAX(bullets_en) as bullets_en, MAX(bullets_sq) as bullets_sq,
+               MAX(bullets_mk) as bullets_mk, MAX(bullets_sr) as bullets_sr,
                MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq,
                MAX(perspective_mk) as perspective_mk, MAX(perspective_sr) as perspective_sr,
                AVG(geo_pro_western) as avg_pro_western, 
@@ -254,7 +255,7 @@ def open_methodology_modal(t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('how_ai_works')}</h3>", unsafe_allow_html=True)
     st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; color: #334155;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
 
-# --- INTERFACE SYSTEM ---
+# --- MAIN APP EXECUTION ---
 def run_app():
     st.set_page_config(page_title="Balkan Intel", layout="wide", initial_sidebar_state="expanded")
     SIDEBAR_HEADER_STYLE = "font-size: 0.75rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em; display: block;"
@@ -281,21 +282,17 @@ def run_app():
         [data-testid="stForm"] button p { color: #FFFFFF !important; font-weight: 700 !important; font-size: 0.85rem !important; }
         [data-testid="stForm"] button:hover { background-color: #2563EB !important; }
 
-        /* HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) - WITH NO WRAP AND MIN CONTENT FIXED */
+        /* HIGH-CONTRAST HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) */
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
             display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important;
             overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; 
             padding-bottom: 8px !important; gap: 6px !important; justify-content: flex-start !important;
         }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
-            display: inline-flex !important; flex-direction: row !important; background-color: #FFFFFF !important; 
-            border: 1px solid #CBD5E1 !important; border-radius: 8px !important; padding: 8px 16px !important;
+            display: inline-flex !important; flex-direction: row !important; background-color: #FFFFFF !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; padding: 8px 16px !important;
             white-space: nowrap !important; min-width: max-content !important;
         }
-        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p { 
-            color: #0F172A !important; font-weight: 700 !important; font-size: 0.85rem !important; 
-            margin: 0 !important; white-space: nowrap !important; display: inline-block !important;
-        }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p { color: #0F172A !important; font-weight: 700 !important; font-size: 0.85rem !important; margin: 0 !important; white-space: nowrap !important; display: inline-block !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
@@ -306,8 +303,7 @@ def run_app():
         }
         [data-testid="stSidebar"] div[role="radiogroup"] label { 
             flex: 1 1 45% !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
-            padding: 8px 4px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
-            white-space: nowrap !important;
+            padding: 8px 4px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important; white-space: nowrap !important;
         }
 
         div[role="radiogroup"] label > div:first-child { display: none !important; }
@@ -345,10 +341,10 @@ def run_app():
         
         button[kind="secondary"]:has(div:contains("👁️")) {
             background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-left: 4px solid #EF4444 !important; color: #0F172A !important; 
-            border-radius: 8px !important; padding: 12px 16px !important; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 16px !important;
-            justify-content: flex-start !important; transition: all 0.2s ease !important;
+            border-radius: 8px !important; padding: 12px 16px !important; width: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important; margin-bottom: 16px !important;
+            justify-content: flex-start !important; transition: all 0.2s ease !important; display: inline-flex !important;
         }
-        button[kind="secondary"]:has(div:contains("👁️")) p { color: #0F172A !important; font-size: 0.95rem !important; font-weight: 700 !important; margin:0 !important; }
+        button[kind="secondary"]:has(div:contains("👁️")) p { color: #0F172A !important; font-size: 0.95rem !important; font-weight: 700 !important; margin:0 !important; padding-right: 8px; }
         button[kind="secondary"]:has(div:contains("👁️")):hover { transform: translateX(2px) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; }
 
         .scroll-top-btn { position: fixed; bottom: 25px; right: 25px; background-color: #3B82F6; color: white !important; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); z-index: 99999; font-weight: bold; text-decoration: none !important; transition: all 0.2s ease; }
@@ -410,19 +406,16 @@ def run_app():
             open_methodology_modal(t)
 
     # --- MAIN APPLICATION WORKSPACE ---
-    col_nav, col_bs = st.columns([3, 1], gap="small")
-    
-    with col_nav:
-        display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
-        cat_index = t["topics"].index(display_cat)
-        backend_cat = UI_TEXT["English"]["topics"][cat_index]
+    # We removed the st.columns layout here to prevent squishing the Topics menu.
+    display_cat = st.radio("Topics", t["topics"], horizontal=True, label_visibility="collapsed")
+    cat_index = t["topics"].index(display_cat)
+    backend_cat = UI_TEXT["English"]["topics"][cat_index]
         
-    with col_bs:
-        st.markdown("<div style='height: 2px;'></div>", unsafe_allow_html=True)
-        if st.button(t.get('blindspots_btn'), key="bs_trigger"):
-            open_blindspots_modal(t)
+    st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
+    if st.button(t.get('blindspots_btn'), key="bs_trigger"):
+        open_blindspots_modal(t)
 
-    st.markdown("<div style='margin-bottom: 12px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 8px;'></div>", unsafe_allow_html=True)
 
     filtered_df = df.copy()
     if backend_geo != "All Regions": 
