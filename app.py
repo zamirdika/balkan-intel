@@ -197,7 +197,7 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
         f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
         f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
         f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div>',
-        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
+        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; right: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
 
@@ -281,16 +281,21 @@ def run_app():
         [data-testid="stForm"] button p { color: #FFFFFF !important; font-weight: 700 !important; font-size: 0.85rem !important; }
         [data-testid="stForm"] button:hover { background-color: #2563EB !important; }
 
-        /* HIGH-CONTRAST HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) */
+        /* HORIZONTAL SWIPE FOR TOPICS (MAIN MENU) - WITH NO WRAP AND MIN CONTENT FIXED */
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] {
             display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important;
             overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; 
             padding-bottom: 8px !important; gap: 6px !important; justify-content: flex-start !important;
         }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
-            display: inline-flex !important; flex-direction: row !important; background-color: #FFFFFF !important; border: 1px solid #CBD5E1 !important; border-radius: 8px !important; padding: 8px 16px !important;
+            display: inline-flex !important; flex-direction: row !important; background-color: #FFFFFF !important; 
+            border: 1px solid #CBD5E1 !important; border-radius: 8px !important; padding: 8px 16px !important;
+            white-space: nowrap !important; min-width: max-content !important;
         }
-        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p { color: #0F172A !important; font-weight: 700 !important; font-size: 0.85rem !important; margin: 0 !important; }
+        [data-testid="stMainBlockContainer"] div[role="radiogroup"] label p { 
+            color: #0F172A !important; font-weight: 700 !important; font-size: 0.85rem !important; 
+            margin: 0 !important; white-space: nowrap !important; display: inline-block !important;
+        }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         [data-testid="stMainBlockContainer"] div[role="radiogroup"]::-webkit-scrollbar { display: none !important; }
@@ -302,10 +307,11 @@ def run_app():
         [data-testid="stSidebar"] div[role="radiogroup"] label { 
             flex: 1 1 45% !important; background-color: #1E293B !important; border: 1px solid #334155 !important; border-radius: 8px !important; 
             padding: 8px 4px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; margin: 0 !important;
+            white-space: nowrap !important;
         }
 
         div[role="radiogroup"] label > div:first-child { display: none !important; }
-        [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; }
+        [data-testid="stSidebar"] div[role="radiogroup"] label p { color: #94A3B8 !important; font-weight: 700 !important; font-size: 0.8rem !important; margin: 0 !important; text-align: center !important; width: 100% !important; white-space: nowrap !important; }
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
         [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p { color: #FFFFFF !important; }
         
