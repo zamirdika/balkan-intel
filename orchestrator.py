@@ -125,7 +125,7 @@ def fetch_rss_feeds(feed_urls):
     return articles
 
 # ==========================================
-# STRICT DATA SCHEMA (UPDATED WITH LAYER 2 COUNTRIES)
+# STRICT DATA SCHEMA
 # ==========================================
 class ArticleAnalysis(BaseModel):
     cluster_category: str = Field(description="Must be exactly one of: Politics, Economy, Technology, Culture, Infrastructure, Entertainment, Sports, Crime & Accidents.")  
@@ -133,19 +133,19 @@ class ArticleAnalysis(BaseModel):
     
     title_en: str = Field(description="A strong, objective English headline.")
     bullets_en: str = Field(description="Three short English bullet points, separated by \\n.")
-    perspective_en: str = Field(description="One-sentence English analysis of the underlying geopolitical narrative.")
+    perspective_en: str = Field(description="Detailed 3-4 sentence English narrative analysis of the underlying geopolitical context and bias.")
     
     title_sq: str = Field(description="Albanian translation of the headline.")
     bullets_sq: str = Field(description="Albanian translation of the 3 bullets, separated by \\n.")
-    perspective_sq: str = Field(description="Albanian translation of the perspective analysis.")
+    perspective_sq: str = Field(description="Albanian translation of the 3-4 sentence narrative analysis.")
     
     title_mk: str = Field(description="Macedonian translation of the headline.")
     bullets_mk: str = Field(description="Macedonian translation of the 3 bullets, separated by \\n.")
-    perspective_mk: str = Field(description="Macedonian translation of the perspective analysis.")
+    perspective_mk: str = Field(description="Macedonian translation of the 3-4 sentence narrative analysis.")
     
     title_sr: str = Field(description="Serbian/Bosnian/Croatian translation of the headline.")
     bullets_sr: str = Field(description="Serbian/Bosnian translation of the 3 bullets, separated by \\n.")
-    perspective_sr: str = Field(description="Serbian/Bosnian/Croatian translation of the perspective analysis.")
+    perspective_sr: str = Field(description="Serbian/Bosnian/Croatian translation of the 3-4 sentence narrative analysis.")
     
     geo_pro_western: float = Field(description="Float between 0.0 and 1.0.")
     narrative_objectivity: float = Field(description="Float between 0.0 and 1.0.")
@@ -157,11 +157,13 @@ class ArticleAnalysis(BaseModel):
 def analyze_article_with_llm(text):
     prompt = f"""
     Analyze the following news text. Extract the metrics, write an objective English headline, 
-    3 English summary bullets, and a COMPREHENSIVE 3-to-4 sentence English perspective analysis that explains the broader implications. 
-    Then translate ALL elements accurately into Albanian, Macedonian, and Serbian.
+    3 English summary bullets, and a detailed 3-4 sentence English narrative summary explaining the underlying geopolitical context, potential bias, and framing. 
+    Then translate ALL elements (headline, bullets, and narrative summary) accurately into Albanian, Macedonian, and Serbian.
 
-    CRITICAL LINGUISTIC RULE FOR ALL TRANSLATIONS: Use strict sentence case (only capitalize the first letter and proper nouns). 
-    
+    CRITICAL LINGUISTIC RULE FOR ALL TRANSLATIONS: You MUST use strict sentence case for headlines and bullets. 
+    INCORRECT: "Kryeministri I Kosovës Shkon Në Bruksel Për Bisedime" (Do not capitalize every word).
+    CORRECT: "Kryeministri i Kosovës shkon në Bruksel për bisedime" (Only capitalize the first letter and proper nouns).
+
     Text:
     {text}
     """
@@ -260,6 +262,7 @@ def run_pipeline():
         art['cluster_id'] = f"cluster_{idx}" 
         processed_articles.append(art)
         
+        # PACE THE ROBOT: Wait 12 seconds between articles
         if idx < len(raw_articles) - 1:
             time.sleep(12)
             
