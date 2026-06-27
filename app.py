@@ -144,12 +144,12 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
-    # FIXED: Added ⓘ tooltips to modal spectrum bars
+    # PERFECTED SUPERSCRIPT TOOLTIPS FOR THE MODAL
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span title="{t_dict.get("pw_help")}" style="cursor:help;">{t_dict.get("pw")} &#9416; : {pw}%</span></div>',
+        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}<span class="tooltip-sup" title="{t_dict.get("pw_help")}">?</span> : {pw}%</span></div>',
         f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span title="{t_dict.get("obj_help")}" style="cursor:help;">{t_dict.get("obj")} &#9416; : {obj}%</span></div>',
+        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}<span class="tooltip-sup" title="{t_dict.get("obj_help")}">?</span> : {obj}%</span></div>',
         f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
@@ -167,7 +167,7 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
             for b in clean_bullets[:4]: 
                 st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
         
-        # 2. NARRATIVE SUMMARY (MOVED HERE)
+        # 2. NARRATIVE SUMMARY 
         if perspective_text:
             st.markdown(f"""
             <div style='margin-top: 16px; margin-bottom: 16px; background-color: #F8FAFC; padding: 20px; border-radius: 12px; border-left: 4px solid #3B82F6;'>
@@ -176,7 +176,7 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
             </div>
             """, unsafe_allow_html=True)
 
-        # 3. SOURCES (MOVED TO BOTTOM)
+        # 3. SOURCES 
         titles = str(row.get('orig_titles', '')).split("||")
         urls = str(row.get('orig_urls', '')).split("||")
         sources_raw = str(row.get('sources', '')).split(", ")
@@ -289,6 +289,23 @@ def run_app():
         .card-tag { background: #3B82F6; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; display: inline-block; margin-bottom: 12px; }
         .card-title { font-size: clamp(1.05rem, 1.15vw, 1.2rem); font-weight: 800; color: #FFFFFF !important; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 6px rgba(0,0,0,0.8) !important; }
         .card-footer { height: 100px; padding: 16px 24px; background: #FFFFFF; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+
+        /* TOOLTIP CSS */
+        .tooltip-sup {
+            font-size: 0.6rem;
+            vertical-align: super;
+            background-color: #CBD5E1;
+            color: #0F172A;
+            border-radius: 50%;
+            width: 13px;
+            height: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+            font-weight: 800;
+            cursor: help;
+        }
 
         /* INVISIBLE CLICK ELEMENT TRIGGER */
         div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; overflow: visible !important; }
@@ -424,7 +441,7 @@ def run_app():
                 display_tag = db_cat
 
             with (grid_col1 if idx % 2 == 0 else grid_col2):
-                # FIXED: Added ⓘ tooltips to grid card metrics
+                # PERFECTED SUPERSCRIPT TOOLTIPS FOR THE GRID CARDS
                 card_html = f"""
                 <div class="particle-card">
                     <div class="card-img-area" style="background-image: {bg};">
@@ -435,8 +452,8 @@ def run_app():
                     </div>
                     <div class="card-footer">
                         <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;">
-                            <span title="{t.get('pw_help')}" style="cursor:help;">🇪🇺 {t.get("pw")} &#9416; : <span style="color:#0F172A;">{pw}%</span></span>
-                            <span title="{t.get('obj_help')}" style="cursor:help;">🔍 {t.get("obj")} &#9416; : <span style="color:#0F172A;">{obj}%</span></span>
+                            <span>🇪🇺 {t.get("pw")}<span class="tooltip-sup" title="{t.get('pw_help')}">?</span> : <span style="color:#0F172A;">{pw}%</span></span>
+                            <span>🔍 {t.get("obj")}<span class="tooltip-sup" title="{t.get('obj_help')}">?</span> : <span style="color:#0F172A;">{obj}%</span></span>
                         </div>
                         <div style="display: flex; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;">
                             <div style="width: 50%; display: flex; justify-content: flex-start; border-right: 1px solid #FFFFFF;">
