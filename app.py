@@ -18,9 +18,10 @@ UI_TEXT = {
         "analysis_title": "Narrative Summary",
         "pw_help": "Measures alignment with EU/US/NATO geopolitical positions.",
         "obj_help": "Measures factual reporting vs. emotional or biased language.",
-        "div_reason": "Why is this a blindspot? This narrative carries a high divergence score, meaning it is significantly underreported or selectively framed elsewhere in the region.",
+        "divergence": "Divergence",
+        "div_help": "Measures how much this story is omitted or selectively framed compared to the regional baseline.",
         "read_source": "Read Original ↗",
-        "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.<br><br><b>What is a Blindspot?</b> A Blindspot is a high-impact regional development that carries a high divergence score, meaning the story is being significantly omitted, downplayed, or selectively framed by specific local media clusters.",
+        "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.",
         "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
     },
     "Shqip": {
@@ -37,7 +38,8 @@ UI_TEXT = {
         "analysis_title": "Përmbledhja e Narrativës",
         "pw_help": "Mat përafrimin me qëndrimet gjeopolitike të BE/SHBA/NATO-s.",
         "obj_help": "Mat raportimin faktik kundrejt gjuhës emocionale apo të anashme.",
-        "div_reason": "Pse është kjo një e pathënë? Kjo narrativë mbart divergjencë të lartë, që do të thotë se raportohet shumë pak ose kornizohet në mënyrë selektive diku tjetër në rajon.",
+        "divergence": "Divergjenca",
+        "div_help": "Mat shkallën në të cilën kjo ngjarje anashkalohet ose kornizohet në mënyrë selektive krahasuar me rajonin.",
         "read_source": "Lexo Origjinalin ↗",
         "ai_desc": "<b>Grumbullimi i të Dhënave:</b> Balkan Intel grumbullon në mënyrë të vazhdueshme lajmet automatike nga rajoni i Ballkanit Perëndimor përmes RSS.<br><br><b>Motori i Inteligjencës Artificiale:</b> Teksti bruto i burimit strukturohet dhe analizohet duke përdorur modelin Gemini 2.5 Flash të Google.",
         "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq"
@@ -50,13 +52,14 @@ UI_TEXT = {
         "db_sub": "Наративни слепи точки доставени директно во вашето сандаче.", "api_header": "⚙️ Enterprise API",
         "api_sub": "Интегрирајте групирање на наративи во реално време.", "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.", "api_btn": "Види API Документација", "blindspots_btn": "👁️ Игнорирани вести",
-        "blindspots": "Игнорирани вести", "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле во главните локални медиуми.",
+        "blindspots": "Игнорирани вести", "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштеле во главните локални медиуми.",
         "modal_title": "Длабинска Анализа", "pw": "Про-Западно", "obj": "Објективност", "btn_back": "Затвори",
         "sources": "Оригинални Извори", "how_ai_works": "🧠 Како работи ВИ?", 
         "analysis_title": "Наративно Резиме",
         "pw_help": "Го мери усогласувањето со геополитичките позиции на ЕУ/САД/НАТО.",
         "obj_help": "Го мери фактуелното известување наспроти емотивниот или пристрасен јазик.",
-        "div_reason": "Зошто е ова игнорирана вест? Овој наратив носи висок резултат на дивергенција, што значи дека слабо се известува или селективно се врамува на друго место во регионот.",
+        "divergence": "Дивергенција",
+        "div_help": "Мери колку оваа вест е изоставена или селективно врамена во споредба со регионалниот просек.",
         "read_source": "Оригинален Напис ↗",
         "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.",
         "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk"
@@ -75,7 +78,8 @@ UI_TEXT = {
         "analysis_title": "Narativni Sažetak",
         "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
         "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
-        "div_reason": "Zašto je ovo slepa tačka? Ovaj narativ nosi visoku ocenu divergencije, što znači da je slabo izveštavan ili selektivno uokviren na drugim mestima u regionu.",
+        "divergence": "Divergencija",
+        "div_help": "Meri koliko je ova vest izostavljena ili selektivno uokvirena u poređenju sa regionalnim prosekom.",
         "read_source": "Pročitaj Original ↗",
         "ai_desc": "Balkan Intel agregira RSS vesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
         "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
@@ -94,7 +98,8 @@ UI_TEXT = {
         "analysis_title": "Narativni Sažetak",
         "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
         "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
-        "div_reason": "Zašto je ovo slijepa tačka? Ovaj narativ nosi visoku ocjenu divergencije, što znači da je slabo izvještavan ili selektivno uokviren na drugim mjestima u regiji.",
+        "divergence": "Divergencija",
+        "div_help": "Mjeri koliko je ova vijest izostavljena ili selektivno uokvirena u poređenju sa regionalnim prosjekom.",
         "read_source": "Pročitaj Original ↗",
         "ai_desc": "Balkan Intel agregira RSS vijesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
         "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
@@ -175,11 +180,12 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
             for b in clean_bullets[:4]: 
                 st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
         
+        # FIXED: Removed the heavy contrasting background block for a cleaner mobile layout
         if perspective_text:
             st.markdown(f"""
-            <div style='margin-top: 16px; margin-bottom: 16px; background-color: #F8FAFC; padding: 20px; border-radius: 12px; border-left: 4px solid #3B82F6;'>
-                <h4 style='font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #1E293B; margin-bottom: 8px;'>{t_dict.get('analysis_title')}</h4>
-                <div style='font-size: 0.95rem; line-height: 1.6; color: #334155;'>{perspective_text}</div>
+            <div style='margin-top: 16px; margin-bottom: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3);'>
+                <h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('analysis_title')}</h4>
+                <div style='font-size: 0.95rem; line-height: 1.6; color: #0F172A;'>{perspective_text}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -227,7 +233,7 @@ def open_blindspots_modal(t_dict):
         orig_url = row.get('original_url', '#')
         div_score = int(float(row.get('narrative_divergence_score', 0.8)) * 100)
 
-        # FIXED HTML INDENTATION TO PREVENT STREAMLIT FROM RENDERING IT AS A CODE BLOCK
+        # FIXED: Removed the red warning box and seamlessly integrated the Divergence metric + Tooltip
         card_html = f"""<div style='background: #FFFFFF; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;'>
 <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>
 <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase;'>{display_tag}</div>
@@ -235,12 +241,11 @@ def open_blindspots_modal(t_dict):
 <div style='font-weight: 800; font-size: 1.1rem; line-height: 1.4; margin-bottom: 12px; color: #0F172A;'>
 {b_title}
 </div>
-<div style='margin-bottom: 16px;'>
+<div style='margin-bottom: 12px;'>
 {bullets_html}
 </div>
-<div style='background-color: #FEF2F2; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border: 1px dashed #FECACA;'>
-<div style='font-size: 0.8rem; font-weight: 700; color: #991B1B; margin-bottom: 4px;'>⚠️ Divergence Score: {div_score}%</div>
-<div style='font-size: 0.85rem; color: #7F1D1D; line-height: 1.4;'>{t_dict.get('div_reason')}</div>
+<div style='display: flex; align-items: center; margin-bottom: 16px; font-size: 0.85rem; font-weight: 700; color: #475569;'>
+<span>{t_dict.get('divergence')} <span class="tooltip-sup" data-tooltip="{t_dict.get('div_help')}">?</span> : <span style="color: #EF4444;">{div_score}%</span></span>
 </div>
 <div style='border-top: 1px solid #E2E8F0; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;'>
 <div style='font-size: 0.8rem; font-weight: 700; color: #64748B;'>{source_domain}</div>
