@@ -14,7 +14,10 @@ UI_TEXT = {
         "success": "Thank you! You are subscribed.", "api_btn": "View API Docs", "blindspots_btn": "👁️ Blindspots",
         "blindspots": "Strategic Blindspots", "blindspots_sub": "Regional narratives and crucial information updates you might have missed completely from mainstream local coverage.",
         "modal_title": "Deep Dive Analysis", "pw": "Pro-Western", "obj": "Objectivity", "btn_back": "Close",
-        "sources": "Original Sources", "how_ai_works": "🧠 How AI Works", "analysis_title": "Strategic Analysis",
+        "sources": "Original Sources", "how_ai_works": "🧠 How AI Works", 
+        "analysis_title": "Narrative Summary",
+        "pw_help": "Measures alignment with EU/US/NATO geopolitical positions.",
+        "obj_help": "Measures factual reporting vs. emotional or biased language.",
         "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.<br><br><b>What is a Blindspot?</b> A Blindspot is a high-impact regional development that carries a high divergence score, meaning the story is being significantly omitted, downplayed, or selectively framed by specific local media clusters.",
         "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
     },
@@ -28,7 +31,10 @@ UI_TEXT = {
         "success": "Faleminderit! Jeni abonuar.", "api_btn": "Shiko Dokumentacionin", "blindspots_btn": "👁️ Të pathënat",
         "blindspots": "Të pathënat Strategjike", "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar plotësisht nga mbulimi kryesor medial lokal.",
         "modal_title": "Analiza e Thelluar", "pw": "Pro-Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
-        "sources": "Burimet Origjinale", "how_ai_works": "🧠 Si funksionon AI?", "analysis_title": "Analiza Strategjike",
+        "sources": "Burimet Origjinale", "how_ai_works": "🧠 Si funksionon AI?", 
+        "analysis_title": "Përmbledhja e Narrativës",
+        "pw_help": "Mat përafrimin me qëndrimet gjeopolitike të BE/SHBA/NATO-s.",
+        "obj_help": "Mat raportimin faktik kundrejt gjuhës emocionale apo të anashme.",
         "ai_desc": "<b>Grumbullimi i të Dhënave:</b> Balkan Intel grumbullon në mënyrë të vazhdueshme lajmet automatike nga rajoni i Ballkanit Perëndimor përmes RSS.<br><br><b>Motori i Inteligjencës Artificiale:</b> Teksti bruto i burimit strukturohet dhe analizohet duke përdorur modelin Gemini 2.5 Flash të Google.",
         "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq"
     },
@@ -42,7 +48,10 @@ UI_TEXT = {
         "success": "Ви благодариме! Претплатени сте.", "api_btn": "Види API Документација", "blindspots_btn": "👁️ Игнорирани вести",
         "blindspots": "Игнорирани вести", "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле во главните локални медиуми.",
         "modal_title": "Длабинска Анализа", "pw": "Про-Западно", "obj": "Објективност", "btn_back": "Затвори",
-        "sources": "Оригинални Извори", "how_ai_works": "🧠 Како работи ВИ?", "analysis_title": "Стратешка Анализа",
+        "sources": "Оригинални Извори", "how_ai_works": "🧠 Како работи ВИ?", 
+        "analysis_title": "Наративно Резиме",
+        "pw_help": "Го мери усогласувањето со геополитичките позиции на ЕУ/САД/НАТО.",
+        "obj_help": "Го мери фактуелното известување наспроти емотивниот или пристрасен јазик.",
         "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.",
         "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk"
     },
@@ -56,7 +65,10 @@ UI_TEXT = {
         "success": "Hvala! Pretplatili ste se.", "api_btn": "Vidi API Dokumentaciju", "blindspots_btn": "👁️ Slepe tačke",
         "blindspots": "Slepe tačke", "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza", "pw": "Pro-Zapadno", "obj": "Objektivnost", "btn_back": "Zatvori",
-        "sources": "Originalni Izvori", "how_ai_works": "🧠 Kako radi AI?", "analysis_title": "Strateška Analiza",
+        "sources": "Originalni Izvori", "how_ai_works": "🧠 Kako radi AI?", 
+        "analysis_title": "Narativni Sažetak",
+        "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
+        "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
         "ai_desc": "Balkan Intel agregira RSS vesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
         "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
     },
@@ -70,7 +82,10 @@ UI_TEXT = {
         "success": "Hvala! Pretplatili ste se.", "api_btn": "Vidi API Dokumentaciju", "blindspots_btn": "👁️ Slijepe tačke",
         "blindspots": "Slijepe tačke", "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza", "pw": "Pro-Zapadno", "obj": "Objektivnost", "btn_back": "Zatvori",
-        "sources": "Originalni Izvori", "how_ai_works": "🧠 Kako radi AI?", "analysis_title": "Strateška Analiza",
+        "sources": "Originalni Izvori", "how_ai_works": "🧠 Kako radi AI?", 
+        "analysis_title": "Narativni Sažetak",
+        "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
+        "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
         "ai_desc": "Balkan Intel agregira RSS vijesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
         "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
     }
@@ -119,7 +134,7 @@ def get_blindspot_stories():
 
 # --- TOP LEVEL DIALOG MODALS ---
 @st.dialog(" ", width="large")
-def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
+def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
     pw = int(float(row.get('avg_pro_western', 0.5)) * 100)
@@ -129,11 +144,12 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
 
+    # FIXED: Added ⓘ tooltips to modal spectrum bars
     spectrum_html = "".join([
         '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")}: {pw}%</span></div>',
+        f'<div style="margin-bottom: 8px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span title="{t_dict.get("pw_help")}" style="cursor:help;">{t_dict.get("pw")} &#9416; : {pw}%</span></div>',
         f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")}: {obj}%</span></div>',
+        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span title="{t_dict.get("obj_help")}" style="cursor:help;">{t_dict.get("obj")} &#9416; : {obj}%</span></div>',
         f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
         '</div>'
     ])
@@ -145,10 +161,22 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
         
     with header_col2:
         st.markdown(f"<h3 style='margin-top: 4px; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row['display_title']}</h3>", unsafe_allow_html=True)
+        
+        # 1. BULLETS
         if clean_bullets:
             for b in clean_bullets[:4]: 
                 st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
+        
+        # 2. NARRATIVE SUMMARY (MOVED HERE)
+        if perspective_text:
+            st.markdown(f"""
+            <div style='margin-top: 16px; margin-bottom: 16px; background-color: #F8FAFC; padding: 20px; border-radius: 12px; border-left: 4px solid #3B82F6;'>
+                <h4 style='font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #1E293B; margin-bottom: 8px;'>{t_dict.get('analysis_title')}</h4>
+                <div style='font-size: 0.95rem; line-height: 1.6; color: #334155;'>{perspective_text}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
+        # 3. SOURCES (MOVED TO BOTTOM)
         titles = str(row.get('orig_titles', '')).split("||")
         urls = str(row.get('orig_urls', '')).split("||")
         sources_raw = str(row.get('sources', '')).split(", ")
@@ -160,17 +188,8 @@ def open_article_modal(row, clean_bullets, perspective_html, bg_style, t_dict):
                 links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
                 
         if links_html:
-            st.markdown(f"<div style='margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
             
-    # FIXED: Full width strategic analysis section at the bottom
-    if perspective_html:
-        st.markdown(f"""
-        <div style='margin-top: 16px; background-color: #F8FAFC; padding: 20px; border-radius: 12px; border-left: 4px solid #3B82F6;'>
-            <h4 style='font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #1E293B; margin-bottom: 8px;'>{t_dict.get('analysis_title', 'Strategic Analysis')}</h4>
-            <div style='font-size: 0.95rem; line-height: 1.6; color: #334155;'>{perspective_html}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
     if st.button(t_dict.get("btn_back")):
         st.rerun()
 
@@ -405,6 +424,7 @@ def run_app():
                 display_tag = db_cat
 
             with (grid_col1 if idx % 2 == 0 else grid_col2):
+                # FIXED: Added ⓘ tooltips to grid card metrics
                 card_html = f"""
                 <div class="particle-card">
                     <div class="card-img-area" style="background-image: {bg};">
@@ -415,8 +435,8 @@ def run_app():
                     </div>
                     <div class="card-footer">
                         <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px;">
-                            <span>🇪🇺 {t.get("pw")}: <span style="color:#0F172A;">{pw}%</span></span>
-                            <span>🔍 {t.get("obj")}: <span style="color:#0F172A;">{obj}%</span></span>
+                            <span title="{t.get('pw_help')}" style="cursor:help;">🇪🇺 {t.get("pw")} &#9416; : <span style="color:#0F172A;">{pw}%</span></span>
+                            <span title="{t.get('obj_help')}" style="cursor:help;">🔍 {t.get("obj")} &#9416; : <span style="color:#0F172A;">{obj}%</span></span>
                         </div>
                         <div style="display: flex; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;">
                             <div style="width: 50%; display: flex; justify-content: flex-start; border-right: 1px solid #FFFFFF;">
