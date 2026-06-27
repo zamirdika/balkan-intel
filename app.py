@@ -180,12 +180,12 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
             for b in clean_bullets[:4]: 
                 st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
         
-        # FIXED: Removed the heavy contrasting background block for a cleaner mobile layout
+        # FIXED: Removed hardcoded dark colors to prevent mobile Dark Mode clash
         if perspective_text:
             st.markdown(f"""
             <div style='margin-top: 16px; margin-bottom: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3);'>
                 <h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('analysis_title')}</h4>
-                <div style='font-size: 0.95rem; line-height: 1.6; color: #0F172A;'>{perspective_text}</div>
+                <div style='font-size: 0.95rem; line-height: 1.6; opacity: 0.9;'>{perspective_text}</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -233,7 +233,6 @@ def open_blindspots_modal(t_dict):
         orig_url = row.get('original_url', '#')
         div_score = int(float(row.get('narrative_divergence_score', 0.8)) * 100)
 
-        # FIXED: Removed the red warning box and seamlessly integrated the Divergence metric + Tooltip
         card_html = f"""<div style='background: #FFFFFF; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;'>
 <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>
 <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase;'>{display_tag}</div>
@@ -259,7 +258,8 @@ def open_blindspots_modal(t_dict):
 @st.dialog(" ", width="small")
 def open_methodology_modal(t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('how_ai_works')}</h3>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; color: #334155;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
+    # FIXED: Removed dark font color for dark-mode compatibility
+    st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; opacity: 0.9;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
 
 # --- MAIN APP EXECUTION ---
 def run_app():
