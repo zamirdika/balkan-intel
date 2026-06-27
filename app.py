@@ -20,7 +20,7 @@ UI_TEXT = {
         "obj_help": "Measures factual reporting vs. emotional or biased language.",
         "div_reason": "Why is this a blindspot? This narrative carries a high divergence score, meaning it is significantly underreported or selectively framed elsewhere in the region.",
         "read_source": "Read Original ↗",
-        "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.",
+        "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.<br><br><b>What is a Blindspot?</b> A Blindspot is a high-impact regional development that carries a high divergence score, meaning the story is being significantly omitted, downplayed, or selectively framed by specific local media clusters.",
         "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
     },
     "Shqip": {
@@ -50,7 +50,7 @@ UI_TEXT = {
         "db_sub": "Наративни слепи точки доставени директно во вашето сандаче.", "api_header": "⚙️ Enterprise API",
         "api_sub": "Интегрирајте групирање на наративи во реално време.", "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.", "api_btn": "Види API Документација", "blindspots_btn": "👁️ Игнорирани вести",
-        "blindspots": "Игнорирани вести", "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштеле во главните локални медиуми.",
+        "blindspots": "Игнорирани вести", "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле во главните локални медиуми.",
         "modal_title": "Длабинска Анализа", "pw": "Про-Западно", "obj": "Објективност", "btn_back": "Затвори",
         "sources": "Оригинални Извори", "how_ai_works": "🧠 Како работи ВИ?", 
         "analysis_title": "Наративно Резиме",
@@ -199,18 +199,15 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     if st.button(t_dict.get("btn_back")):
         st.rerun()
 
-# --- BLINDSPOTS MODAL (UPDATED WITH BULLETS & REASONING) ---
 @st.dialog(" ", width="large")
 def open_blindspots_modal(t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('blindspots')}</h3>", unsafe_allow_html=True)
     st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub')}</div>", unsafe_allow_html=True)
     
     for idx, row in get_blindspot_stories().iterrows():
-        # Get localized title
         col_title = t_dict.get("db_col_title", "title_en")
         b_title = row.get(col_title) or row.get('title_en') or "Title Missing"
         
-        # Get localized category tag
         db_cat = row.get('cluster_category', 'News')
         if db_cat in UI_TEXT["English"]["topics"]:
             cat_idx = UI_TEXT["English"]["topics"].index(db_cat)
@@ -218,7 +215,6 @@ def open_blindspots_modal(t_dict):
         else:
             display_tag = db_cat
 
-        # Get localized bullets for the Blindspot summary
         col_bullets = t_dict.get("db_col_bullets", "bullets_en")
         raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "").split("||")[0]
         clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip()]
@@ -227,41 +223,33 @@ def open_blindspots_modal(t_dict):
         for b in clean_b[:3]:
             bullets_html += f"<div style='margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4; color: #334155;'>• {b}</div>"
 
-        # Construct Card Variables
         source_domain = row.get('source_domain', 'Unknown Source')
         orig_url = row.get('original_url', '#')
         div_score = int(float(row.get('narrative_divergence_score', 0.8)) * 100)
 
-        # Draw the advanced Blindspot Card
-        st.markdown(f"""
-        <div style='background: #FFFFFF; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;'>
-            
-            <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>
-                <div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase;'>{display_tag}</div>
-            </div>
-            
-            <div style='font-weight: 800; font-size: 1.1rem; line-height: 1.4; margin-bottom: 12px; color: #0F172A;'>
-                {b_title}
-            </div>
-            
-            <div style='margin-bottom: 16px;'>
-                {bullets_html}
-            </div>
-            
-            <div style='background-color: #FEF2F2; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border: 1px dashed #FECACA;'>
-                <div style='font-size: 0.8rem; font-weight: 700; color: #991B1B; margin-bottom: 4px;'>⚠️ Divergence Score: {div_score}%</div>
-                <div style='font-size: 0.85rem; color: #7F1D1D; line-height: 1.4;'>{t_dict.get('div_reason')}</div>
-            </div>
-            
-            <div style='border-top: 1px solid #E2E8F0; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;'>
-                <div style='font-size: 0.8rem; font-weight: 700; color: #64748B;'>{source_domain}</div>
-                <a href="{orig_url}" target="_blank" style="text-decoration: none; font-size: 0.85rem; font-weight: 700; color: #3B82F6; background: #EFF6FF; padding: 6px 12px; border-radius: 6px; transition: background 0.2s;">
-                    {t_dict.get('read_source')}
-                </a>
-            </div>
-            
-        </div>
-        """, unsafe_allow_html=True)
+        # FIXED HTML INDENTATION TO PREVENT STREAMLIT FROM RENDERING IT AS A CODE BLOCK
+        card_html = f"""<div style='background: #FFFFFF; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;'>
+<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'>
+<div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase;'>{display_tag}</div>
+</div>
+<div style='font-weight: 800; font-size: 1.1rem; line-height: 1.4; margin-bottom: 12px; color: #0F172A;'>
+{b_title}
+</div>
+<div style='margin-bottom: 16px;'>
+{bullets_html}
+</div>
+<div style='background-color: #FEF2F2; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border: 1px dashed #FECACA;'>
+<div style='font-size: 0.8rem; font-weight: 700; color: #991B1B; margin-bottom: 4px;'>⚠️ Divergence Score: {div_score}%</div>
+<div style='font-size: 0.85rem; color: #7F1D1D; line-height: 1.4;'>{t_dict.get('div_reason')}</div>
+</div>
+<div style='border-top: 1px solid #E2E8F0; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;'>
+<div style='font-size: 0.8rem; font-weight: 700; color: #64748B;'>{source_domain}</div>
+<a href="{orig_url}" target="_blank" style="text-decoration: none; font-size: 0.85rem; font-weight: 700; color: #3B82F6; background: #EFF6FF; padding: 6px 12px; border-radius: 6px; transition: background 0.2s;">
+{t_dict.get('read_source')}
+</a>
+</div>
+</div>"""
+        st.markdown(card_html, unsafe_allow_html=True)
 
 @st.dialog(" ", width="small")
 def open_methodology_modal(t_dict):
@@ -357,7 +345,6 @@ def run_app():
             transition: opacity 0.15s ease-in-out;
             text-align: center;
         }
-        /* Triangle indicator for the tooltip window */
         .tooltip-sup::before {
             content: "";
             position: absolute;
@@ -372,7 +359,6 @@ def run_app():
             pointer-events: none;
             transition: opacity 0.15s ease-in-out;
         }
-        /* Triggers tooltips on desktop hover and mobile active-press states */
         .tooltip-sup:hover::after, .tooltip-sup:hover::before,
         .tooltip-sup:active::after, .tooltip-sup:active::before {
             opacity: 1;
@@ -405,6 +391,10 @@ def run_app():
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 10px 0 10px;">
         <div style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.05em;">
             <span style="color: #3B82F6;">Balkan</span><span style="color: #94A3B8;">Intel</span>
+        </div>
+        <div style="display: flex; gap: 1.5rem; font-size: 0.85rem; font-weight: 700; color: #64748B;">
+            <a href="#" style="color: inherit; text-decoration: none;">Briefing</a>
+            <a href="#" style="color: inherit; text-decoration: none;">API</a>
         </div>
     </div>
     <hr style='margin-top: 0.5rem; margin-bottom: 1rem; border-color: #E2E8F0;'/>
