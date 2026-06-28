@@ -5,12 +5,15 @@ import pandas as pd
 # --- UI TRANSLATION DICTIONARY ---
 UI_TEXT = {
     "English": {
-        "nav": ["🏠 Home", "🔍 Search", "🌐 Lang"],
+        "nav_home": "🏠 Home", "nav_search": "🔍 Search", "nav_lang": "🌐 Lang",
         "topics": ["All Topics", "Politics", "Economy", "Technology", "Culture", "Entertainment", "Sports", "Crime & Accidents"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Serbia", "Bosnia and Herzegovina", "Montenegro", "Regional"],
         "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkans"],
+        "lang_header": "🌐 Language Selection", "geo_header": "📍 Geography",
         "search_label": "Search narratives, topics, or keywords...",
         "filter_geo": "Geographies", "filter_cat": "Categories",
+        "blindspots_btn": "👁️ Blindspots", "blindspots": "Strategic Blindspots", 
+        "blindspots_sub": "Regional narratives and crucial information updates you might have missed.",
         "modal_title": "Deep Dive Analysis", "pw": "Pro-Western", "obj": "Objectivity", "btn_back": "Close",
         "sources": "Original Sources", "analysis_title": "Narrative Summary",
         "pw_help": "Measures alignment with EU/US/NATO geopolitical positions.",
@@ -21,28 +24,34 @@ UI_TEXT = {
         "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
     },
     "Shqip": {
-        "nav": ["🏠 Kryefaqja", "🔍 Kërko", "🌐 Gjuha"],
+        "nav_home": "🏠 Kryefaqja", "nav_search": "🔍 Kërko", "nav_lang": "🌐 Gjuha",
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Teknologji", "Kulturë", "Show Biz", "Sport", "Kronika e Zezë"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Serbia", "Bosnja dhe Hercegovina", "Mali i Zi", "Rajonale"],
         "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Ballkan"],
+        "lang_header": "🌐 Zgjedhja e Gjuhës", "geo_header": "📍 Gjeografia",
         "search_label": "Kërko narrativa, tema ose fjalë kyçe...",
         "filter_geo": "Gjeografitë", "filter_cat": "Kategoritë",
+        "blindspots_btn": "👁️ Të pathënat", "blindspots": "Të pathënat Strategjike", 
+        "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar.",
         "modal_title": "Analiza e Thelluar", "pw": "Pro-Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
         "sources": "Burimet Origjinale", "analysis_title": "Përmbledhja e Narrativës",
         "pw_help": "Mat përafrimin me qëndrimet gjeopolitike të BE/SHBA/NATO-s.",
         "obj_help": "Mat raportimin faktik kundrejt gjuhës emocionale apo të anashme.",
         "divergence": "Divergjenca",
-        "div_help": "Mat shkallën në të cilën kjo ngjarje anashkalohet ose kornizohet në mënyrë selektive krahasuar me rajonin.",
+        "div_help": "Mat shkallën në të cilën kjo ngjarje anashkalohet ose kornizohet në mënyrë selektive.",
         "read_source": "Lexo Origjinalin ↗",
         "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq"
     },
     "Македонски": {
-        "nav": ["🏠 Дома", "🔍 Пребарај", "🌐 Јазик"],
+        "nav_home": "🏠 Дома", "nav_search": "🔍 Пребарај", "nav_lang": "🌐 Јазик",
         "topics": ["Сите Теми", "Политика", "Економија", "Технологија", "Култура", "Забава", "Спорт", "Црна Хроника"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално"],
         "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан"],
+        "lang_header": "🌐 Избор на јазик", "geo_header": "📍 Географија",
         "search_label": "Пребарајте наративи, теми или клучни зборови...",
         "filter_geo": "Географии", "filter_cat": "Категории",
+        "blindspots_btn": "👁️ Игнорирани", "blindspots": "Игнорирани вести", 
+        "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа", "pw": "Про-Западно", "obj": "Објективност", "btn_back": "Затвори",
         "sources": "Оригинални Извори", "analysis_title": "Наративно Резиме",
         "pw_help": "Го мери усогласувањето со геополитичките позиции на ЕУ/САД/НАТО.",
@@ -79,6 +88,15 @@ def get_database_data():
     except: df = pd.DataFrame()
     conn.close()
     return df
+
+def get_blindspot_stories():
+    try:
+        conn = get_connection()
+        query = "SELECT * FROM articles WHERE title_en != 'Processing Error' AND title_en IS NOT NULL ORDER BY narrative_divergence_score DESC LIMIT 3"
+        df = pd.read_sql_query(query, conn)
+        conn.close()
+        return df
+    except: return pd.DataFrame()
 
 # --- MODALS ---
 @st.dialog(" ", width="large")
@@ -122,6 +140,39 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
             
     if st.button(t_dict.get("btn_back")): st.rerun()
 
+@st.dialog(" ", width="large")
+def open_blindspots_modal(t_dict):
+    st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('blindspots')}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:0.9rem; opacity: 0.7; margin-bottom: 1.5rem;'>{t_dict.get('blindspots_sub')}</div>", unsafe_allow_html=True)
+    
+    for idx, row in get_blindspot_stories().iterrows():
+        b_title = row.get(t_dict.get("db_col_title", "title_en")) or "Title Missing"
+        db_cat = row.get('cluster_category', 'News')
+        if db_cat == 'Infrastructure': db_cat = 'Economy'
+        display_tag = t_dict["topics"][UI_TEXT["English"]["topics"].index(db_cat)] if db_cat in UI_TEXT["English"]["topics"] else db_cat
+
+        raw_b = str(row.get(t_dict.get("db_col_bullets", "bullets_en")) or "").split("||")[0]
+        clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip()]
+        bullets_html = "".join([f"<div style='margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4; opacity: 0.9;'>• {b}</div>" for b in clean_b[:3]])
+        
+        persp_text = row.get(t_dict.get("db_col_persp", "perspective_en")) or ""
+        persp_html = f"<div style='margin-top: 12px; margin-bottom: 16px; padding: 12px; background-color: rgba(59, 130, 246, 0.05); border-left: 3px solid #3B82F6; border-radius: 0 8px 8px 0; font-size: 0.9rem; line-height: 1.5; opacity: 0.9;'>{persp_text}</div>" if persp_text else ""
+        
+        div_score = int(float(row.get('narrative_divergence_score', 0.8)) * 100)
+
+        card_html = f"""<div style='background: #1E293B; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #334155; border-left: 4px solid #EF4444;'>
+<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'><div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase;'>{display_tag}</div></div>
+<div style='font-weight: 800; font-size: 1.1rem; line-height: 1.4; margin-bottom: 12px; color: #F8FAFC;'>{b_title}</div>
+<div style='margin-bottom: 8px;'>{bullets_html}</div>{persp_html}
+<div style='display: flex; align-items: center; margin-bottom: 16px; font-size: 0.85rem; font-weight: 700; color: #94A3B8;'>
+<span>{t_dict.get('divergence')} <span class="tooltip-sup" data-tooltip="{t_dict.get('div_help')}">?</span> : <span style="color: #EF4444;">{div_score}%</span></span>
+</div>
+<div style='border-top: 1px solid #334155; padding-top: 12px; display: flex; justify-content: space-between; align-items: center;'>
+<div style='font-size: 0.8rem; font-weight: 700; color: #64748B;'>{row.get('source_domain', 'Unknown')}</div>
+<a href="{row.get('original_url', '#')}" target="_blank" style="text-decoration: none; font-size: 0.85rem; font-weight: 700; color: #3B82F6; background: rgba(59, 130, 246, 0.1); padding: 6px 12px; border-radius: 6px;">{t_dict.get('read_source')}</a>
+</div></div>"""
+        st.markdown(card_html, unsafe_allow_html=True)
+
 # --- MAIN APP ---
 def run_app():
     st.set_page_config(page_title="Balkan Intel", layout="wide", initial_sidebar_state="collapsed")
@@ -132,39 +183,15 @@ def run_app():
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0B0F19; color: #F8FAFC; }
         [data-testid="collapsedControl"], [data-testid="stSidebar"] { display: none !important; }
-        header { display: none !important; }
-        .block-container { padding-top: 2rem !important; padding-bottom: 100px !important; }
-
-        /* BRAND HEADER */
-        .brand-header { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.05em; margin-bottom: 1rem; }
-        .brand-header span:first-child { color: #3B82F6; }
-        .brand-header span:last-child { color: #F8FAFC; }
-        
-        /* BOTTOM NAVIGATION BAR ROUTING HACK */
-        div[data-testid="stRadio"]:has(> label[data-testid="stWidgetLabel"] > div > p:contains("NAV_ROUTER")) {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
-            z-index: 999999; padding: 12px 10px; border-top: 1px solid #1E293B; margin: 0; display: flex; justify-content: center;
-        }
-        div[data-testid="stRadio"]:has(> label[data-testid="stWidgetLabel"] > div > p:contains("NAV_ROUTER")) > label { display: none; }
-        div[data-testid="stRadio"]:has(> label[data-testid="stWidgetLabel"] > div > p:contains("NAV_ROUTER")) > div[role="radiogroup"] {
-            display: flex; flex-direction: row; justify-content: space-around; width: 100%; max-width: 600px;
-        }
-        div[data-testid="stRadio"]:has(> label[data-testid="stWidgetLabel"] > div > p:contains("NAV_ROUTER")) label {
-            background: transparent !important; border: none !important; flex: 1; text-align: center; justify-content: center;
-        }
-        div[data-testid="stRadio"]:has(> label[data-testid="stWidgetLabel"] > div > p:contains("NAV_ROUTER")) label p {
-            color: #64748B !important; font-size: 0.85rem !important; font-weight: 700 !important; display: flex; flex-direction: column; align-items: center; gap: 4px;
-        }
-        div[data-testid="stRadio"]:has(> label[data-testid="stWidgetLabel"] > div > p:contains("NAV_ROUTER")) label:has(input:checked) p { color: #3B82F6 !important; }
+        .block-container { padding-top: 1.5rem !important; padding-bottom: 50px !important; }
 
         /* SEARCH SCREEN GRID BUTTONS */
-        div.stButton > button { background-color: #1E293B; color: #F8FAFC; border: 1px solid #334155; border-radius: 12px; height: 60px; font-weight: 700; width: 100%; }
-        div.stButton > button:hover { border-color: #3B82F6; color: #3B82F6; background-color: #0F172A; }
+        div.stButton > button { border-radius: 12px; font-weight: 700; }
         
         /* SEARCH BAR STYLING */
-        div[data-testid="stTextInput"] input { background-color: #1E293B !important; color: #F8FAFC !important; border: 1px solid #334155 !important; border-radius: 20px; padding: 15px 20px; font-size: 1.1rem; }
+        div[data-testid="stTextInput"] input { background-color: #1E293B !important; color: #F8FAFC !important; border: 1px solid #334155 !important; border-radius: 12px; padding: 15px 20px; font-size: 1.1rem; }
         
-        /* FEED CARDS (Dark Theme adapted) */
+        /* FEED CARDS */
         .particle-card { background: #1E293B; border-radius: 20px; border: 1px solid #334155; height: 380px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         .card-img-area { height: 280px; background-color: #0F172A; background-size: cover; background-position: center; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 24px; }
         .card-img-area::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(15,23,42, 0.95) 0%, rgba(15,23,42, 0.5) 30%, rgba(15,23,42, 0) 50%); z-index: 1; }
@@ -180,20 +207,38 @@ def run_app():
 
         /* TOOLTIP */
         .tooltip-sup { font-size: 0.65rem; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; }
+        .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.15s ease-in-out; text-align: center; border: 1px solid #334155; }
+        .tooltip-sup:hover::after, .tooltip-sup:active::after { opacity: 1; }
     </style>
     """, unsafe_allow_html=True)
 
-    # BRAND HEADER
-    st.markdown("""<div class="brand-header"><span>Balkan</span><span>Intel</span></div>""", unsafe_allow_html=True)
-
-    # BOTTOM NAVIGATION ROUTER
-    # We use a completely hidden label text "NAV_ROUTER" so our CSS knows exactly which radio button to stick to the bottom
-    nav_selection = st.radio("NAV_ROUTER", t["nav"], horizontal=True, index=t["nav"].index(next((x for x in t["nav"] if st.session_state.current_view in x), t["nav"][0])))
+    # --- TOP BAR (BRAND & BLINDSPOTS) ---
+    colA, colB = st.columns([3, 1])
+    with colA:
+        st.markdown("<h2 style='margin:0; padding:0; color:#3B82F6;'>Balkan <span style='color:#F8FAFC;'>Intel</span></h2>", unsafe_allow_html=True)
+    with colB:
+        st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True) # spacing
+        if st.button(t['blindspots_btn'], use_container_width=True):
+            open_blindspots_modal(t)
     
-    # Update state based on nav click
-    if t["nav"][0] in nav_selection: st.session_state.current_view = "Home"
-    elif t["nav"][1] in nav_selection: st.session_state.current_view = "Search"
-    elif t["nav"][2] in nav_selection: st.session_state.current_view = "Language"
+    st.markdown("<hr style='margin: 0.5rem 0 1rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+
+    # --- CLICKABLE NAVIGATION TABS ---
+    nav1, nav2, nav3 = st.columns(3)
+    with nav1:
+        if st.button(t['nav_home'], type="primary" if st.session_state.current_view == "Home" else "secondary", use_container_width=True):
+            st.session_state.current_view = "Home"
+            st.rerun()
+    with nav2:
+        if st.button(t['nav_search'], type="primary" if st.session_state.current_view == "Search" else "secondary", use_container_width=True):
+            st.session_state.current_view = "Search"
+            st.rerun()
+    with nav3:
+        if st.button(t['nav_lang'], type="primary" if st.session_state.current_view == "Language" else "secondary", use_container_width=True):
+            st.session_state.current_view = "Language"
+            st.rerun()
+            
+    st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
     df = get_database_data()
 
@@ -223,7 +268,6 @@ def run_app():
         geo_cols = st.columns(2)
         for i, geo in enumerate(t["geos"][1:]): # Skip 'All Regions'
             with geo_cols[i % 2]:
-                # Combine Flag and Name
                 display_label = f"{t['geo_labels'][i+1].split(' ')[0]} {geo}" 
                 if st.button(display_label, key=f"geo_{i}", use_container_width=True):
                     st.session_state.active_geo = UI_TEXT["English"]["geos"][i+1]
@@ -236,11 +280,11 @@ def run_app():
     # ==========================================
     elif st.session_state.current_view == "Language":
         st.markdown(f"### {t['lang_header']}")
-        st.markdown("<p style='color: #94A3B8;'>Select your preferred language interface and translation perspective.</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #94A3B8;'>Select your preferred language interface.</p>", unsafe_allow_html=True)
         
         lang_options = ["English", "Shqip", "Македонски"]
         for l_opt in lang_options:
-            if st.button(f"{'✅ ' if st.session_state.lang_code == l_opt else ''}{l_opt}", key=f"lang_{l_opt}"):
+            if st.button(f"{'✅ ' if st.session_state.lang_code == l_opt else ''}{l_opt}", key=f"lang_{l_opt}", use_container_width=True):
                 st.session_state.lang_code = l_opt
                 st.session_state.current_view = "Home"
                 st.rerun()
@@ -248,27 +292,24 @@ def run_app():
     # ==========================================
     # VIEW: HOME FEED
     # ==========================================
-    else: # "Home"
-        # Display Active Filters
+    else:
         active_filters = []
-        if st.session_state.active_cat != "All Topics": active_filters.append(st.session_state.active_cat)
-        if st.session_state.active_geo != "All Regions": active_filters.append(st.session_state.active_geo)
+        if st.session_state.active_cat != "All Topics": active_filters.append(t['topics'][UI_TEXT["English"]["topics"].index(st.session_state.active_cat)])
+        if st.session_state.active_geo != "All Regions": active_filters.append(t['geos'][UI_TEXT["English"]["geos"].index(st.session_state.active_geo)])
         if st.session_state.search_query: active_filters.append(f'"{st.session_state.search_query}"')
         
         if active_filters:
             st.markdown(f"""
             <div style='display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;'>
-                <div style='background: #1E293B; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: #94A3B8;'>Active Filters:</div>
-                {''.join([f"<div style='background: #3B82F6; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: #FFF;'>{f}</div>" for f in active_filters])}
+                {''.join([f"<div style='background: #3B82F6; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; color: #FFF;'>{f}</div>" for f in active_filters])}
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Clear Filters", type="secondary"):
+            if st.button("✖ Clear Filters", type="secondary"):
                 st.session_state.active_cat = "All Topics"
                 st.session_state.active_geo = "All Regions"
                 st.session_state.search_query = ""
                 st.rerun()
 
-        # Apply Filters to Data
         filtered_df = df.copy()
         
         if st.session_state.search_query and not filtered_df.empty:
