@@ -209,7 +209,6 @@ def open_blindspots_modal(t_dict):
         raw_b = str(row.get(t_dict.get("db_col_bullets", "bullets_en")) or "").split("||")[0]
         clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip()]
         
-        # Explicit contrast colors included directly in the HTML rendering
         bullets_html = "".join([f"<div style='margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4; color: #E2E8F0;'>• {b}</div>" for b in clean_b[:3]])
         div_score = int(float(row.get('narrative_divergence_score', 0.8)) * 100)
 
@@ -307,7 +306,7 @@ def run_app():
         .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; }
 
         /* TOOLTIP 'i' */
-        .tooltip-sup { font-size: 0.65rem; font-style: italic; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; }
+        .tooltip-sup { font-size: 0.65rem; font-style: italic; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; border: 1px solid #475569; }
         .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; font-style: normal; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; text-align: center; }
         .tooltip-sup:hover::after, .tooltip-sup:active::after { opacity: 1; }
     </style>
@@ -474,7 +473,7 @@ def run_app():
                         <div class="card-footer">
                             <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
                                 <span>🇪🇺 {t.get("pw")} <span class="tooltip-sup" data-tooltip="{t.get('pw_help')}">i</span> : <span style="color:#F8FAFC;">{pw}%</span></span>
-                                <span>🔍 {t.get("obj")} <span class="tooltip-sup" data-tooltip="{t_dict.get('obj_help')}">i</span> : <span style="color:#F8FAFC;">{obj}%</span></span>
+                                <span>🔍 {t.get("obj")} <span class="tooltip-sup" data-tooltip="{t.get('obj_help')}">i</span> : <span style="color:#F8FAFC;">{obj}%</span></span>
                             </div>
                             <div style="display: flex; width: 100%; height: 6px; background-color: #334155; border-radius: 999px; overflow: hidden;">
                                 <div style="width: 50%; display: flex; justify-content: flex-start; border-right: 1px solid #1E293B;"><div style="width: {pw}%; background-color: #3B82F6; height: 100%;"></div></div>
