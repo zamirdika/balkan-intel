@@ -5,10 +5,11 @@ import pandas as pd
 # --- UI TRANSLATION DICTIONARY ---
 UI_TEXT = {
     "English": {
-        "topics": ["All Topics", "Politics", "Economy", "Infrastructure", "Technology", "Culture", "Entertainment", "Sports", "Crime & Accidents"],
+        "topics": ["All Topics", "Politics", "Economy", "Technology", "Culture", "Entertainment", "Sports", "Crime & Accidents"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Serbia", "Bosnia and Herzegovina", "Montenegro", "Regional"],
         "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkans"],
         "lang_header": "🌐 Language", "geo_header": "📍 Geography", "db_header": "📬 Daily Briefing",
+        "search_label": "🔍 Search News...",
         "db_sub": "Narrative blindspots delivered straight to your inbox.", "api_header": "⚙️ Enterprise API",
         "api_sub": "Integrate real-time narrative clustering into your dashboards.", "subscribe": "Subscribe",
         "success": "Thank you! You are subscribed.", "api_btn": "View API Docs", "blindspots_btn": "👁️ Blindspots",
@@ -25,10 +26,11 @@ UI_TEXT = {
         "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
     },
     "Shqip": {
-        "topics": ["Të gjitha", "Politikë", "Ekonomi", "Infrastrukturë", "Teknologji", "Kulturë", "Show Biz", "Sport", "Kronika e Zezë"],
+        "topics": ["Të gjitha", "Politikë", "Ekonomi", "Teknologji", "Kulturë", "Show Biz", "Sport", "Kronika e Zezë"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Serbia", "Bosnja dhe Hercegovina", "Mali i Zi", "Rajonale"],
         "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Ballkan"],
         "lang_header": "🌐 Gjuha", "geo_header": "📍 Gjeografia", "db_header": "📬 Informimi Ditor",
+        "search_label": "🔍 Kërko...",
         "db_sub": "Të pathënat e narrativave direkt në emailin tuaj.", "api_header": "⚙️ API për Biznese",
         "api_sub": "Integroni grupimin e narrativave në kohë reale.", "subscribe": "Abonohu",
         "success": "Faleminderit! Jeni abonuar.", "api_btn": "Shiko Dokumentacionin", "blindspots_btn": "👁️ Të pathënat",
@@ -45,10 +47,11 @@ UI_TEXT = {
         "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq"
     },
     "Македонски": {
-        "topics": ["Сите Теми", "Политика", "Економија", "Инфраструктура", "Технологија", "Култура", "Забава", "Спорт", "Црна Хроника"],
+        "topics": ["Сите Теми", "Политика", "Економија", "Технологија", "Култура", "Забава", "Спорт", "Црна Хроника"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално"],
         "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан"],
         "lang_header": "🌐 Јазик", "geo_header": "📍 Географија", "db_header": "📬 Дневен Брифинг",
+        "search_label": "🔍 Пребарај...",
         "db_sub": "Наративни слепи точки доставени директно во вашето сандаче.", "api_header": "⚙️ Enterprise API",
         "api_sub": "Интегрирајте групирање на наративи во реално време.", "subscribe": "Претплати се",
         "success": "Ви благодариме! Претплатени сте.", "api_btn": "Види API Документација", "blindspots_btn": "👁️ Игнорирани вести",
@@ -65,10 +68,11 @@ UI_TEXT = {
         "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk"
     },
     "Srpski": {
-        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
         "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
         "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
         "lang_header": "🌐 Jezik", "geo_header": "📍 Geografija", "db_header": "📬 Dnevni Brifing",
+        "search_label": "🔍 Pretraži...",
         "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "api_header": "⚙️ Enterprise API",
         "api_sub": "Integrišite grupisanje narativa u realnom vremenu.", "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.", "api_btn": "Vidi API Dokumentaciju", "blindspots_btn": "👁️ Slepe tačke",
@@ -85,10 +89,11 @@ UI_TEXT = {
         "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
     },
     "Bosanski": {
-        "topics": ["Sve Teme", "Politika", "Ekonomija", "Infrastruktura", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
         "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
         "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
         "lang_header": "🌐 Jezik", "geo_header": "📍 Geografija", "db_header": "📬 Dnevni Briefing",
+        "search_label": "🔍 Pretraži...",
         "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "api_header": "⚙️ Enterprise API",
         "api_sub": "Integrišite grupisanje narativa u realnom vremenu.", "subscribe": "Pretplati se",
         "success": "Hvala! Pretplatili ste se.", "api_btn": "Vidi API Dokumentaciju", "blindspots_btn": "👁️ Slijepe tačke",
@@ -180,7 +185,6 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
             for b in clean_bullets[:4]: 
                 st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
         
-        # FIXED: Removed hardcoded dark colors to prevent mobile Dark Mode clash
         if perspective_text:
             st.markdown(f"""
             <div style='margin-top: 16px; margin-bottom: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3);'>
@@ -215,6 +219,10 @@ def open_blindspots_modal(t_dict):
         b_title = row.get(col_title) or row.get('title_en') or "Title Missing"
         
         db_cat = row.get('cluster_category', 'News')
+        # Handle the merged infrastructure tag logic here as well
+        if db_cat == 'Infrastructure':
+            db_cat = 'Economy'
+            
         if db_cat in UI_TEXT["English"]["topics"]:
             cat_idx = UI_TEXT["English"]["topics"].index(db_cat)
             display_tag = t_dict["topics"][cat_idx]
@@ -227,7 +235,15 @@ def open_blindspots_modal(t_dict):
         
         bullets_html = ""
         for b in clean_b[:3]:
-            bullets_html += f"<div style='margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4; color: #334155;'>• {b}</div>"
+            bullets_html += f"<div style='margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4; opacity: 0.9;'>• {b}</div>"
+
+        # Inject the perspective text directly into the blindspot summary
+        col_persp = t_dict.get("db_col_persp", "perspective_en")
+        persp_text = row.get(col_persp) or row.get('perspective_en') or ""
+        
+        persp_html = ""
+        if persp_text:
+            persp_html = f"<div style='margin-top: 12px; margin-bottom: 16px; padding: 12px; background-color: rgba(59, 130, 246, 0.05); border-left: 3px solid #3B82F6; border-radius: 0 8px 8px 0; font-size: 0.9rem; line-height: 1.5; opacity: 0.9;'>{persp_text}</div>"
 
         source_domain = row.get('source_domain', 'Unknown Source')
         orig_url = row.get('original_url', '#')
@@ -240,9 +256,10 @@ def open_blindspots_modal(t_dict):
 <div style='font-weight: 800; font-size: 1.1rem; line-height: 1.4; margin-bottom: 12px; color: #0F172A;'>
 {b_title}
 </div>
-<div style='margin-bottom: 12px;'>
+<div style='margin-bottom: 8px;'>
 {bullets_html}
 </div>
+{persp_html}
 <div style='display: flex; align-items: center; margin-bottom: 16px; font-size: 0.85rem; font-weight: 700; color: #475569;'>
 <span>{t_dict.get('divergence')} <span class="tooltip-sup" data-tooltip="{t_dict.get('div_help')}">?</span> : <span style="color: #EF4444;">{div_score}%</span></span>
 </div>
@@ -258,7 +275,6 @@ def open_blindspots_modal(t_dict):
 @st.dialog(" ", width="small")
 def open_methodology_modal(t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('how_ai_works')}</h3>", unsafe_allow_html=True)
-    # FIXED: Removed dark font color for dark-mode compatibility
     st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; opacity: 0.9;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
 
 # --- MAIN APP EXECUTION ---
@@ -417,6 +433,10 @@ def run_app():
         st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{current_dict['lang_header']}</div>", unsafe_allow_html=True)
         short_lang = st.radio("Lang", LANG_OPTIONS, horizontal=True, label_visibility="collapsed", key="lang_choice")
         t = UI_TEXT[LANG_MAP[short_lang]]
+
+        st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+        # SEARCH BAR ADDED HERE
+        search_term = st.text_input(t.get('search_label', "🔍 Search..."), key="search_bar")
         
         st.markdown("<hr style='margin: 0.75rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
         st.markdown(f"<div style='{SIDEBAR_HEADER_STYLE}'>{t['geo_header']}</div>", unsafe_allow_html=True)
@@ -451,16 +471,31 @@ def run_app():
     st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
     filtered_df = df.copy()
+
+    # APPLY SEARCH FILTER IF TEXT ENTERED
+    if search_term and not filtered_df.empty:
+        filtered_df = filtered_df[
+            filtered_df['title_en'].str.contains(search_term, case=False, na=False) |
+            filtered_df['title_sq'].str.contains(search_term, case=False, na=False) |
+            filtered_df['title_mk'].str.contains(search_term, case=False, na=False) |
+            filtered_df['title_sr'].str.contains(search_term, case=False, na=False)
+        ]
+
+    # APPLY GEOGRAPHY FILTER
     if backend_geo != "All Regions" and not filtered_df.empty: 
         target_geo = backend_geo.strip().lower()
         filtered_df = filtered_df[filtered_df['cluster_geo_scope'].apply(lambda x: target_geo in str(x).strip().lower())]
         
+    # APPLY CATEGORY FILTER (INTEGRATING INFRASTRUCTURE INTO ECONOMY)
     if backend_cat != "All Topics" and not filtered_df.empty: 
-        target_cat = backend_cat.strip().lower()
-        filtered_df = filtered_df[filtered_df['cluster_category'].apply(lambda x: target_cat in str(x).strip().lower())]
+        if backend_cat == "Economy":
+            filtered_df = filtered_df[filtered_df['cluster_category'].isin(["Economy", "Infrastructure"])]
+        else:
+            target_cat = backend_cat.strip().lower()
+            filtered_df = filtered_df[filtered_df['cluster_category'].apply(lambda x: target_cat in str(x).strip().lower())]
 
     if filtered_df.empty:
-        st.warning("No articles found matching the current filters.")
+        st.warning("No articles found matching the current filters or search.")
     else:
         grid_col1, grid_col2 = st.columns(2, gap="medium")
         for idx, row in filtered_df.reset_index(drop=True).iterrows():
@@ -483,6 +518,8 @@ def run_app():
             obj = int(float(row.get('avg_objectivity', 0.5)) * 100)
 
             db_cat = row.get('cluster_category', 'News')
+            # Ensure "Infrastructure" renders as "Economy" locally
+            if db_cat == 'Infrastructure': db_cat = 'Economy'
             if db_cat in UI_TEXT["English"]["topics"]:
                 cat_idx_display = UI_TEXT["English"]["topics"].index(db_cat)
                 display_tag = t["topics"][cat_idx_display]
@@ -516,7 +553,7 @@ def run_app():
                 """
                 st.markdown(card_html, unsafe_allow_html=True)
                 
-                if st.button(" ", key=f"btn_{row.get('cluster_id', idx)}", type="primary", use_container_width=True):
+                if st.button(" ", key=f"btn_{row.get('cluster_id', idx)}_{idx}", type="primary", use_container_width=True):
                     row_dict = row.to_dict()
                     row_dict['display_title'] = display_title 
                     open_article_modal(row_dict, clean_b, persp_text, bg, t)
