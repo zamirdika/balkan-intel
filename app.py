@@ -9,17 +9,14 @@ UI_TEXT = {
         "topics": ["All Topics", "Politics", "Economy", "Technology", "Culture", "Entertainment", "Sports", "Crime & Accidents"],
         "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Serbia", "Bosnia and Herzegovina", "Montenegro", "Regional"],
         "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkans"],
-        "lang_header": "🌐 Language Selection", "geo_header": "📍 Geography",
-        "search_label": "Search narratives, topics, or keywords...",
-        "filter_geo": "Geographies", "filter_cat": "Categories",
-        "blindspots_btn": "👁️ Blindspots", "blindspots": "Strategic Blindspots", 
-        "blindspots_sub": "Regional narratives and crucial information updates you might have missed.",
+        "lang_header": "🌐 Language Selection", "geo_header": "📍 Geography", "search_label": "Search narratives, topics, or keywords...",
+        "filter_geo": "Geographies", "filter_cat": "Categories", "blindspots_btn": "👁️ Blindspots", 
+        "blindspots": "Strategic Blindspots", "blindspots_sub": "Regional narratives and crucial information updates you might have missed.",
         "modal_title": "Deep Dive Analysis", "pw": "Pro-Western", "obj": "Objectivity", "btn_back": "Close",
         "sources": "Original Sources", "analysis_title": "Narrative Summary",
         "pw_help": "Measures alignment with EU/US/NATO geopolitical positions.",
         "obj_help": "Measures factual reporting vs. emotional or biased language.",
-        "divergence": "Divergence",
-        "div_help": "Measures how much this story is omitted or selectively framed compared to the regional baseline.",
+        "divergence": "Divergence", "div_help": "Measures how much this story is omitted or selectively framed compared to the regional baseline.",
         "read_source": "Read Original ↗",
         "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
     },
@@ -28,17 +25,14 @@ UI_TEXT = {
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Teknologji", "Kulturë", "Show Biz", "Sport", "Kronika e Zezë"],
         "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Serbia", "Bosnja dhe Hercegovina", "Mali i Zi", "Rajonale"],
         "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Ballkan"],
-        "lang_header": "🌐 Zgjedhja e Gjuhës", "geo_header": "📍 Gjeografia",
-        "search_label": "Kërko narrativa, tema ose fjalë kyçe...",
-        "filter_geo": "Gjeografitë", "filter_cat": "Kategoritë",
-        "blindspots_btn": "👁️ Të pathënat", "blindspots": "Të pathënat Strategjike", 
-        "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar.",
+        "lang_header": "🌐 Zgjedhja e Gjuhës", "geo_header": "📍 Gjeografia", "search_label": "Kërko narrativa, tema ose fjalë kyçe...",
+        "filter_geo": "Gjeografitë", "filter_cat": "Kategoritë", "blindspots_btn": "👁️ Të pathënat", 
+        "blindspots": "Të pathënat Strategjike", "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar.",
         "modal_title": "Analiza e Thelluar", "pw": "Pro-Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
         "sources": "Burimet Origjinale", "analysis_title": "Përmbledhja e Narrativës",
         "pw_help": "Mat përafrimin me qëndrimet gjeopolitike të BE/SHBA/NATO-s.",
         "obj_help": "Mat raportimin faktik kundrejt gjuhës emocionale apo të anashme.",
-        "divergence": "Divergjenca",
-        "div_help": "Mat shkallën në të cilën kjo ngjarje anashkalohet ose kornizohet në mënyrë selektive.",
+        "divergence": "Divergjenca", "div_help": "Mat shkallën në të cilën kjo ngjarje anashkalohet ose kornizohet në mënyrë selektive.",
         "read_source": "Lexo Origjinalin ↗",
         "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq"
     },
@@ -47,28 +41,57 @@ UI_TEXT = {
         "topics": ["Сите Теми", "Политика", "Економија", "Технологија", "Култура", "Забава", "Спорт", "Црна Хроника"],
         "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално"],
         "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан"],
-        "lang_header": "🌐 Избор на јазик", "geo_header": "📍 Географија",
-        "search_label": "Пребарајте наративи, теми или клучни зборови...",
-        "filter_geo": "Географии", "filter_cat": "Категории",
-        "blindspots_btn": "👁️ Игнорирани", "blindspots": "Игнорирани вести", 
-        "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле.",
+        "lang_header": "🌐 Избор на јазик", "geo_header": "📍 Географија", "search_label": "Пребарајте наративи, теми или клучни зборови...",
+        "filter_geo": "Географии", "filter_cat": "Категории", "blindspots_btn": "👁️ Игнорирани", 
+        "blindspots": "Игнорирани вести", "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа", "pw": "Про-Западно", "obj": "Објективност", "btn_back": "Затвори",
         "sources": "Оригинални Извори", "analysis_title": "Наративно Резиме",
         "pw_help": "Го мери усогласувањето со геополитичките позиции на ЕУ/САД/НАТО.",
         "obj_help": "Го мери фактуелното известување наспроти емотивниот или пристрасен јазик.",
-        "divergence": "Дивергенција",
-        "div_help": "Мери колку оваа вест е изоставена или селективно врамена во споредба со регионалниот просек.",
+        "divergence": "Дивергенција", "div_help": "Мери колку оваа вест е изоставена или селективно врамена во споредба со регионалниот просек.",
         "read_source": "Оригинален Напис ↗",
         "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk"
+    },
+    "Srpski": {
+        "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_lang": "🌐 Jezik",
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
+        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
+        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
+        "lang_header": "🌐 Izbor jezika", "geo_header": "📍 Geografija", "search_label": "Pretraži narative, teme ili ključne reči...",
+        "filter_geo": "Geografije", "filter_cat": "Kategorije", "blindspots_btn": "👁️ Slepe tačke", 
+        "blindspots": "Slepe tačke", "blindspots_sub": "Narativi koje ste možda propustili.",
+        "modal_title": "Dubinska Analiza", "pw": "Pro-Zapadno", "obj": "Objektivnost", "btn_back": "Zatvori",
+        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
+        "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
+        "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
+        "divergence": "Divergencija", "div_help": "Meri koliko je ova vest izostavljena u poređenju sa regionom.",
+        "read_source": "Pročitaj Original ↗",
+        "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
+    },
+    "Bosanski": {
+        "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_lang": "🌐 Jezik",
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
+        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
+        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
+        "lang_header": "🌐 Izbor jezika", "geo_header": "📍 Geografija", "search_label": "Pretraži narative, teme ili ključne riječi...",
+        "filter_geo": "Geografije", "filter_cat": "Kategorije", "blindspots_btn": "👁️ Slijepe tačke", 
+        "blindspots": "Slijepe tačke", "blindspots_sub": "Narativi koje ste možda propustili.",
+        "modal_title": "Dubinska Analiza", "pw": "Pro-Zapadno", "obj": "Objektivnost", "btn_back": "Zatvori",
+        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
+        "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
+        "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
+        "divergence": "Divergencija", "div_help": "Mjeri koliko je ova vijest izostavljena u poređenju sa regionom.",
+        "read_source": "Pročitaj Original ↗",
+        "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
     }
 }
 
 # --- STATE MANAGEMENT ---
-if 'current_view' not in st.session_state: st.session_state.current_view = "Home"
 if 'lang_code' not in st.session_state: st.session_state.lang_code = "English"
 if 'active_cat' not in st.session_state: st.session_state.active_cat = "All Topics"
 if 'active_geo' not in st.session_state: st.session_state.active_geo = "All Regions"
 if 'search_query' not in st.session_state: st.session_state.search_query = ""
+if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
 
 # --- DATABASE FETCH FUNCTIONS ---
 def get_connection(): return sqlite3.connect('news_aggregator.db')
@@ -76,9 +99,9 @@ def get_database_data():
     conn = get_connection()
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
-               MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, 
-               MAX(bullets_en) as bullets_en, MAX(bullets_sq) as bullets_sq, MAX(bullets_mk) as bullets_mk, 
-               MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq, MAX(perspective_mk) as perspective_mk, 
+               MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
+               MAX(bullets_en) as bullets_en, MAX(bullets_sq) as bullets_sq, MAX(bullets_mk) as bullets_mk, MAX(bullets_sr) as bullets_sr, 
+               MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq, MAX(perspective_mk) as perspective_mk, MAX(perspective_sr) as perspective_sr, 
                AVG(geo_pro_western) as avg_pro_western, AVG(narrative_objectivity) as avg_objectivity, AVG(narrative_divergence_score) as avg_divergence,
                GROUP_CONCAT(source_domain, ', ') as sources, GROUP_CONCAT(original_title, '||') as orig_titles,
                GROUP_CONCAT(original_url, '||') as orig_urls, MAX(image_url) as cluster_image
@@ -104,7 +127,6 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
     pw, obj = int(float(row.get('avg_pro_western', 0.5)) * 100), int(float(row.get('avg_objectivity', 0.5)) * 100) 
-    
     db_geo = row.get('cluster_geo_scope', '')
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
@@ -185,20 +207,43 @@ def run_app():
         [data-testid="collapsedControl"], [data-testid="stSidebar"] { display: none !important; }
         .block-container { padding-top: 1.5rem !important; padding-bottom: 50px !important; }
 
-        /* SEARCH SCREEN GRID BUTTONS */
-        div.stButton > button { border-radius: 12px; font-weight: 700; }
+        /* HEADER MOBILE LOCK */
+        div[data-testid="stHorizontalBlock"]:has(h2:contains("Balkan")) { flex-wrap: nowrap !important; align-items: center !important; }
+        div[data-testid="stHorizontalBlock"]:has(h2:contains("Balkan")) > div[data-testid="column"] { min-width: 0 !important; width: auto !important; flex: 1 1 auto !important; }
+        div[data-testid="stHorizontalBlock"]:has(h2:contains("Balkan")) > div[data-testid="column"]:first-child { flex: 3 1 auto !important; }
         
-        /* SEARCH BAR STYLING */
+        /* BLINDSPOTS BUTTON SIZE */
+        button[kind="secondary"]:has(div:contains("👁️")) { padding: 6px 10px !important; min-height: 36px !important; height: auto !important; }
+        button[kind="secondary"]:has(div:contains("👁️")) p { font-size: 0.8rem !important; }
+
+        /* TABS STYLING (REPLACES RADIO BUTTONS WITH NATIVE LOOK) */
+        div[data-testid="stRadio"]:has(p:contains("🏠")) > label { display: none !important; }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) div[role="radiogroup"] {
+            display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+            background-color: #1E293B !important; border-radius: 12px !important; padding: 4px !important; gap: 4px !important; width: 100%;
+        }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) label {
+            background-color: transparent !important; border: none !important; padding: 8px 4px !important; border-radius: 8px !important;
+            flex: 1 !important; text-align: center !important; justify-content: center !important; margin: 0 !important;
+        }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) label:has(input:checked) { background-color: #3B82F6 !important; }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) label p { color: #94A3B8 !important; font-size: 0.85rem !important; font-weight: 700 !important; }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) label:has(input:checked) p { color: #FFFFFF !important; }
+
+        /* SEARCH GRID BUTTONS */
+        div.stButton > button { border-radius: 12px; font-weight: 700; background-color: #1E293B; border: 1px solid #334155; }
+        div.stButton > button:hover { border-color: #3B82F6; color: #3B82F6; background-color: #0F172A; }
         div[data-testid="stTextInput"] input { background-color: #1E293B !important; color: #F8FAFC !important; border: 1px solid #334155 !important; border-radius: 12px; padding: 15px 20px; font-size: 1.1rem; }
         
         /* FEED CARDS */
         .particle-card { background: #1E293B; border-radius: 20px; border: 1px solid #334155; height: 380px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .particle-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); border-color: #475569; }
         .card-img-area { height: 280px; background-color: #0F172A; background-size: cover; background-position: center; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 24px; }
         .card-img-area::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(15,23,42, 0.95) 0%, rgba(15,23,42, 0.5) 30%, rgba(15,23,42, 0) 50%); z-index: 1; }
         .card-img-content { position: relative; z-index: 2; width: 100%; }
         .card-tag { background: #3B82F6; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; display: inline-block; margin-bottom: 12px; }
         .card-title { font-size: clamp(1.05rem, 1.15vw, 1.2rem); font-weight: 800; color: #F8FAFC !important; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 6px rgba(0,0,0,0.8) !important; }
-        .card-footer { height: 100px; padding: 16px 24px; background: #1E293B; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+        .card-footer { height: 100px; padding: 16px 24px; background: #1E293B; display: flex; flex-direction: column; justify-content: center; gap: 8px; border-top: 1px solid #334155; }
         
         /* INVISIBLE CLICK ELEMENT TRIGGER FOR CARDS */
         div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; overflow: visible !important; }
@@ -206,37 +251,34 @@ def run_app():
         button[kind="primary"]::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 380px; z-index: 99; cursor: pointer; }
 
         /* TOOLTIP */
-        .tooltip-sup { font-size: 0.65rem; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; }
-        .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.15s ease-in-out; text-align: center; border: 1px solid #334155; }
+        .tooltip-sup { font-size: 0.65rem; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; border: 1px solid #475569; }
+        .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.8); opacity: 0; pointer-events: none; transition: opacity 0.15s ease-in-out; text-align: center; border: 1px solid #334155; }
         .tooltip-sup:hover::after, .tooltip-sup:active::after { opacity: 1; }
     </style>
+    <div id="top-anchor"></div>
     """, unsafe_allow_html=True)
 
-    # --- TOP BAR (BRAND & BLINDSPOTS) ---
+    # --- TOP BAR (BRAND & BLINDSPOTS LOCKED ON ONE ROW) ---
     colA, colB = st.columns([3, 1])
     with colA:
-        st.markdown("<h2 style='margin:0; padding:0; color:#3B82F6;'>Balkan <span style='color:#F8FAFC;'>Intel</span></h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='margin:0; padding:0; color:#3B82F6; font-size: 1.4rem;'>Balkan <span style='color:#F8FAFC;'>Intel</span></h2>", unsafe_allow_html=True)
     with colB:
-        st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True) # spacing
         if st.button(t['blindspots_btn'], use_container_width=True):
             open_blindspots_modal(t)
     
-    st.markdown("<hr style='margin: 0.5rem 0 1rem 0; border-color: #1E293B;'/>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
-    # --- CLICKABLE NAVIGATION TABS ---
-    nav1, nav2, nav3 = st.columns(3)
-    with nav1:
-        if st.button(t['nav_home'], type="primary" if st.session_state.current_view == "Home" else "secondary", use_container_width=True):
-            st.session_state.current_view = "Home"
-            st.rerun()
-    with nav2:
-        if st.button(t['nav_search'], type="primary" if st.session_state.current_view == "Search" else "secondary", use_container_width=True):
-            st.session_state.current_view = "Search"
-            st.rerun()
-    with nav3:
-        if st.button(t['nav_lang'], type="primary" if st.session_state.current_view == "Language" else "secondary", use_container_width=True):
-            st.session_state.current_view = "Language"
-            st.rerun()
+    # --- TRUE TAB NAVIGATION (HORIZONTAL RADIO) ---
+    nav_options = [t['nav_home'], t['nav_search'], t['nav_lang']]
+    selected_nav = st.radio("Navigation", nav_options, horizontal=True, index=st.session_state.nav_index, label_visibility="collapsed")
+    
+    # State mapping
+    if selected_nav == t['nav_home']: 
+        st.session_state.nav_index = 0; view = "Home"
+    elif selected_nav == t['nav_search']: 
+        st.session_state.nav_index = 1; view = "Search"
+    else: 
+        st.session_state.nav_index = 2; view = "Language"
             
     st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
@@ -245,49 +287,50 @@ def run_app():
     # ==========================================
     # VIEW: SEARCH & EXPLORE
     # ==========================================
-    if st.session_state.current_view == "Search":
+    if view == "Search":
         search_input = st.text_input("🔍", placeholder=t["search_label"], label_visibility="collapsed")
         if search_input:
             st.session_state.search_query = search_input
             st.session_state.active_cat = "All Topics"
             st.session_state.active_geo = "All Regions"
-            st.session_state.current_view = "Home"
+            st.session_state.nav_index = 0
             st.rerun()
 
         st.markdown(f"<h4 style='margin-top: 20px; font-size: 1rem; color: #94A3B8;'>{t['filter_cat']}</h4>", unsafe_allow_html=True)
         cat_cols = st.columns(2)
-        for i, cat in enumerate(t["topics"][1:]): # Skip 'All Topics'
+        for i, cat in enumerate(t["topics"][1:]): 
             with cat_cols[i % 2]:
                 if st.button(cat, key=f"cat_{i}", use_container_width=True):
-                    st.session_state.active_cat = UI_TEXT["English"]["topics"][i+1] # Save backend English tag
+                    st.session_state.active_cat = UI_TEXT["English"]["topics"][i+1] 
                     st.session_state.search_query = ""
-                    st.session_state.current_view = "Home"
+                    st.session_state.nav_index = 0
                     st.rerun()
 
         st.markdown(f"<h4 style='margin-top: 20px; font-size: 1rem; color: #94A3B8;'>{t['filter_geo']}</h4>", unsafe_allow_html=True)
         geo_cols = st.columns(2)
-        for i, geo in enumerate(t["geos"][1:]): # Skip 'All Regions'
+        for i, geo in enumerate(t["geos"][1:]): 
             with geo_cols[i % 2]:
                 display_label = f"{t['geo_labels'][i+1].split(' ')[0]} {geo}" 
                 if st.button(display_label, key=f"geo_{i}", use_container_width=True):
                     st.session_state.active_geo = UI_TEXT["English"]["geos"][i+1]
                     st.session_state.search_query = ""
-                    st.session_state.current_view = "Home"
+                    st.session_state.nav_index = 0
                     st.rerun()
 
     # ==========================================
-    # VIEW: LANGUAGE SETTINGS
+    # VIEW: LANGUAGE SETTINGS (RESTORED ALL 5)
     # ==========================================
-    elif st.session_state.current_view == "Language":
+    elif view == "Language":
         st.markdown(f"### {t['lang_header']}")
-        st.markdown("<p style='color: #94A3B8;'>Select your preferred language interface.</p>", unsafe_allow_html=True)
+        lang_options = ["English", "Shqip", "Македонски", "Srpski", "Bosanski"]
         
-        lang_options = ["English", "Shqip", "Македонски"]
-        for l_opt in lang_options:
-            if st.button(f"{'✅ ' if st.session_state.lang_code == l_opt else ''}{l_opt}", key=f"lang_{l_opt}", use_container_width=True):
-                st.session_state.lang_code = l_opt
-                st.session_state.current_view = "Home"
-                st.rerun()
+        l_cols = st.columns(2)
+        for i, l_opt in enumerate(lang_options):
+            with l_cols[i % 2]:
+                if st.button(f"{'✅ ' if st.session_state.lang_code == l_opt else ''}{l_opt}", key=f"lang_{l_opt}", use_container_width=True):
+                    st.session_state.lang_code = l_opt
+                    st.session_state.nav_index = 0
+                    st.rerun()
 
     # ==========================================
     # VIEW: HOME FEED
@@ -317,7 +360,8 @@ def run_app():
             filtered_df = filtered_df[
                 filtered_df['title_en'].str.lower().str.contains(sq, na=False) |
                 filtered_df['title_sq'].str.lower().str.contains(sq, na=False) |
-                filtered_df['title_mk'].str.lower().str.contains(sq, na=False)
+                filtered_df['title_mk'].str.lower().str.contains(sq, na=False) |
+                filtered_df['title_sr'].str.lower().str.contains(sq, na=False)
             ]
             
         if st.session_state.active_geo != "All Regions" and not filtered_df.empty: 
