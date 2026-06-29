@@ -89,8 +89,8 @@ def fetch_rss_feeds(feed_urls):
             
         valid_entries_count = 0
         for entry in parsed_feed.entries:
-            # INCREASED to 5 articles per feed to ensure overlapping news stories
-            if valid_entries_count >= 5: 
+            # INCREASED to 10 articles per feed to ensure overlapping news stories
+            if valid_entries_count >= 10: 
                 break
             title = entry.get('title', '').strip()
             summary = entry.get('summary', '').strip()
