@@ -1,9 +1,9 @@
-name: BalkanIntel Auto-Scraper
+name: Run Balkan Intel Pipeline
 
 on:
+  workflow_dispatch: # Allows you to run it manually
   schedule:
-    - cron: "0 */6 * * *" 
-  workflow_dispatch: 
+    - cron: '0 */6 * * *' # Runs automatically every 6 hours
 
 jobs:
   scrape_and_analyze:
