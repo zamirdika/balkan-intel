@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install feedparser beautifulsoup4 requests pandas google-generativeai google.genai python-dotenv
+          pip install feedparser beautifulsoup4 requests pandas google-generativeai google.genai python-dotenv pydantic
 
       - name: Run the Orchestrator
         env:
