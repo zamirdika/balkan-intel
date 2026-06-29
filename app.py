@@ -126,10 +126,11 @@ if 'active_geo' not in st.session_state: st.session_state.active_geo = "All Regi
 if 'search_query' not in st.session_state: st.session_state.search_query = ""
 if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
 
-# --- DATABASE FETCH FUNCTIONS ---
+# --- DATABASE FETCH FUNCTIONS (UPDATED FOR TIME SORTING) ---
 def get_connection(): return sqlite3.connect('news_aggregator.db')
 def get_database_data():
     conn = get_connection()
+    # BUG FIX: Added MAX(published_at) and sorted by published_at DESC so newest news is always on top.
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
@@ -137,8 +138,8 @@ def get_database_data():
                MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq, MAX(perspective_mk) as perspective_mk, MAX(perspective_sr) as perspective_sr, 
                AVG(geo_pro_western) as avg_pro_western, AVG(narrative_objectivity) as avg_objectivity, AVG(narrative_divergence_score) as avg_divergence,
                GROUP_CONCAT(source_domain, ', ') as sources, GROUP_CONCAT(original_title, '||') as orig_titles,
-               GROUP_CONCAT(original_url, '||') as orig_urls, MAX(image_url) as cluster_image
-        FROM articles WHERE cluster_id IS NOT NULL GROUP BY cluster_id ORDER BY article_id DESC
+               GROUP_CONCAT(original_url, '||') as orig_urls, MAX(image_url) as cluster_image, MAX(published_at) as published_at
+        FROM articles WHERE cluster_id IS NOT NULL GROUP BY cluster_id ORDER BY published_at DESC
     """
     try: df = pd.read_sql_query(query, conn)
     except: df = pd.DataFrame()
@@ -307,7 +308,7 @@ def run_app():
 
         /* TOOLTIP 'i' */
         .tooltip-sup { font-size: 0.65rem; font-style: italic; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; border: 1px solid #475569; }
-        .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; font-style: normal; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; text-align: center; }
+        .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; font-style: normal; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; text-align: center; border: 1px solid #334155; }
         .tooltip-sup:hover::after, .tooltip-sup:active::after { opacity: 1; }
     </style>
     <div id="top-anchor"></div>
