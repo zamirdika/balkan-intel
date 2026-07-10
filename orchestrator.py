@@ -150,10 +150,120 @@ def analyze_article_with_llm(text):
                 )
             )
             raw_text = response.text.strip()
-            if raw_text.startswith("
-http://googleusercontent.com/immersive_entry_chip/0
-http://googleusercontent.com/immersive_entry_chip/1
-http://googleusercontent.com/immersive_entry_chip/2
-http://googleusercontent.com/immersive_entry_chip/3
+            
+            # BULLETPROOF JSON PARSING: Avoids raw triple backticks to stop copy-paste breakage
+            if raw_text.startswith("`" * 3 + "json"):
+                raw_text = raw_text[7:]
+            if raw_text.endswith("`" * 3):
+                raw_text = raw_text[:-3]
+                
+            return json.loads(raw_text.strip())
+        except Exception as e:
+            continue
+    return None
 
-Commit this new `orchestrator.py` layout to your repository and trigger the action once. It will parse the existing 380+ rows historically, locate the matching narratives that occurred at different hours over the last two days, and bundle them together natively.
+def run_global_clustering():
+    """Pulls all recent records from the database and runs cross-run clustering analysis."""
+    print("\n⚡ Initiating Global Cross-Run Clustering Engine...")
+    conn = sqlite3.connect("news_aggregator.db")
+    
+    # Select articles from the last 48 hours to find overlaps across different time batches
+    time_threshold = (datetime.now() - timedelta(hours=48)).isoformat()
+    df = pd.read_sql_query("SELECT article_id, title_en, cluster_category FROM articles WHERE published_at > ?", conn, params=(time_threshold,))
+    
+    if df.empty or len(df) < 2:
+        conn.close()
+        return
+
+    prompt = "Group these historical regional articles into lists of article_ids ONLY if they cover the exact same core event event across the region. Relax criteria slightly to allow cross-border translations of the same narrative event to match:\n\n"
+    for _, row in df.iterrows():
+        prompt += f"ID: {row['article_id']} | Category: {row['cluster_category']} | Headline: {row['title_en']}\n"
+
+    try:
+        client = genai.Client(api_key=API_KEYS[0])
+        response = client.models.generate_content(
+            model="gemini-2.5-flash", contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json", response_schema=ArticleClusterMapping, temperature=0.1
+            )
+        )
+        raw_text = response.text.strip()
+        
+        # BULLETPROOF JSON PARSING
+        if raw_text.startswith("`" * 3 + "json"):
+            raw_text = raw_text[7:]
+        if raw_text.endswith("`" * 3):
+            raw_text = raw_text[:-3]
+            
+        clusters = json.loads(raw_text.strip()).get("clusters", [])
+        
+        cursor = conn.cursor()
+        for cluster_list in clusters:
+            if len(cluster_list) > 1:
+                new_cluster_id = f"cluster_{uuid.uuid4().hex[:8]}"
+                print(f"🔗 Match Found! Merging {len(cluster_list)} cross-run stories into {new_cluster_id}")
+                for a_id in cluster_list:
+                    cursor.execute("UPDATE articles SET cluster_id = ? WHERE article_id = ?", (new_cluster_id, a_id))
+        conn.commit()
+    except Exception as e:
+        print(f"⚠️ Global clustering step encountered an error: {e}")
+    finally:
+        conn.close()
+
+# ==========================================
+# 4. RUN PIPELINE
+# ==========================================
+def run_pipeline():
+    init_db()
+    target_feeds = {
+        "MIA (MK)": "[https://mia.mk/feed/](https://mia.mk/feed/)", "Sitel (MK)": "[https://sitel.com.mk/rss](https://sitel.com.mk/rss)", "Alsat (MK/SQ)": "[https://alsat.mk/feed/](https://alsat.mk/feed/)",
+        "Koha (KS)": "[https://koha.net/rss](https://koha.net/rss)", "Klan Kosova (KS)": "[https://klankosova.tv/feed/](https://klankosova.tv/feed/)", "Gazeta Express (KS)": "[https://www.gazetaexpress.com/feed/](https://www.gazetaexpress.com/feed/)",
+        "Top Channel (AL)": "[https://top-channel.tv/feed/](https://top-channel.tv/feed/)", "BalkanWeb (AL)": "[https://balkanweb.com/feed/](https://balkanweb.com/feed/)",
+        "RTS (SR)": "[https://www.rts.rs/page/stories/sr/rss.html](https://www.rts.rs/page/stories/sr/rss.html)", "Telegraf (SR)": "[https://www.telegraf.rs/rss](https://www.telegraf.rs/rss)",
+        "B92 (SR)": "[https://www.b92.net/info/rss/vesti.xml](https://www.b92.net/info/rss/vesti.xml)", "Klix (BA)": "[https://www.klix.ba/rss](https://www.klix.ba/rss)"
+    }
+    
+    raw_articles = fetch_rss_feeds(target_feeds)
+    if not raw_articles: return
+
+    conn = sqlite3.connect("news_aggregator.db")
+    cursor = conn.cursor()
+    
+    for idx, art in enumerate(raw_articles):
+        # Prevent analyzing articles that are already in our DB from previous runs
+        cursor.execute("SELECT 1 FROM articles WHERE original_title = ?", (art['original_title'],))
+        if cursor.fetchone(): continue
+        
+        ai_data = analyze_article_with_llm(art['raw_text'])
+        if not ai_data: continue
+        art.update(ai_data)
+        
+        # Initial status: single item unique cluster ID
+        art['cluster_id'] = f"unique_{uuid.uuid4().hex[:8]}"
+        
+        cursor.execute('''
+            INSERT OR REPLACE INTO articles 
+            (article_id, cluster_id, original_title, original_url, source_domain, image_url, raw_text, 
+             title_en, bullets_en, perspective_en, title_sq, bullets_sq, perspective_sq, 
+             title_mk, bullets_mk, perspective_mk, title_sr, bullets_sr, perspective_sr,
+             cluster_category, cluster_geo_scope, geo_pro_western, narrative_objectivity, 
+             narrative_divergence_score, published_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            art['article_id'], art['cluster_id'], art['original_title'], art['original_url'], art['source_domain'], art['image_url'], art['raw_text'], 
+            art['title_en'], art['bullets_en'], art['perspective_en'], art['title_sq'], art['bullets_sq'], art['perspective_sq'],
+            art['title_mk'], art['bullets_mk'], art['perspective_mk'], art['title_sr'], art['bullets_sr'], art['perspective_sr'],
+            art['cluster_category'], art['cluster_geo_scope'], art['geo_pro_western'], art['narrative_objectivity'], art['narrative_divergence_score'], art['published_at']
+        ))
+        conn.commit()
+        time.sleep(10)
+        
+    conn.close()
+    
+    # RUN THE GLOBAL HISTORICAL CLUSTERING LOOP OVER EVERYTHING RECENTLY ACCUMULATED
+    run_global_clustering()
+    print("✅ Pipeline Complete!")
+
+if __name__ == "__main__":
+    run_pipeline()
+```eof
