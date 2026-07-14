@@ -3,7 +3,6 @@ import feedparser
 import requests
 import json
 import uuid
-import pandas as pd
 from datetime import datetime, timedelta
 import os
 import re
