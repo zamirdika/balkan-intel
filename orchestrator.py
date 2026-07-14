@@ -80,7 +80,7 @@ def fetch_rss_feeds(feed_urls):
             
         valid_entries_count = 0
         for entry in parsed_feed.entries:
-            if valid_entries_count >= 10: # Keeps the 10 depth
+            if valid_entries_count >= 10: 
                 break
             title = entry.get('title', '').strip()
             summary = entry.get('summary', '').strip()
@@ -151,10 +151,10 @@ def analyze_article_with_llm(text):
             )
             raw_text = response.text.strip()
             
-            # BULLETPROOF JSON PARSING: Avoids raw triple backticks to stop copy-paste breakage
-            if raw_text.startswith("`" * 3 + "json"):
+            # Safe JSON parsing
+            if raw_text.startswith("```json"):
                 raw_text = raw_text[7:]
-            if raw_text.endswith("`" * 3):
+            if raw_text.endswith("```"):
                 raw_text = raw_text[:-3]
                 
             return json.loads(raw_text.strip())
@@ -162,13 +162,15 @@ def analyze_article_with_llm(text):
             continue
     return None
 
+import pandas as pd # Ensure pandas is loaded for global clustering
+
 def run_global_clustering():
-    """Pulls all recent records from the database and runs cross-run clustering analysis."""
+    """Pulls recent records from the database and runs cross-run clustering analysis."""
     print("\n⚡ Initiating Global Cross-Run Clustering Engine...")
     conn = sqlite3.connect("news_aggregator.db")
     
-    # Select articles from the last 48 hours to find overlaps across different time batches
-    time_threshold = (datetime.now() - timedelta(hours=48)).isoformat()
+    # REDUCED TO 24 HOURS: Prevents the AI context window from being overwhelmed and timing out
+    time_threshold = (datetime.now() - timedelta(hours=24)).isoformat()
     df = pd.read_sql_query("SELECT article_id, title_en, cluster_category FROM articles WHERE published_at > ?", conn, params=(time_threshold,))
     
     if df.empty or len(df) < 2:
@@ -189,10 +191,9 @@ def run_global_clustering():
         )
         raw_text = response.text.strip()
         
-        # BULLETPROOF JSON PARSING
-        if raw_text.startswith("`" * 3 + "json"):
+        if raw_text.startswith("```json"):
             raw_text = raw_text[7:]
-        if raw_text.endswith("`" * 3):
+        if raw_text.endswith("```"):
             raw_text = raw_text[:-3]
             
         clusters = json.loads(raw_text.strip()).get("clusters", [])
@@ -201,7 +202,7 @@ def run_global_clustering():
         for cluster_list in clusters:
             if len(cluster_list) > 1:
                 new_cluster_id = f"cluster_{uuid.uuid4().hex[:8]}"
-                print(f"🔗 Match Found! Merging {len(cluster_list)} cross-run stories into {new_cluster_id}")
+                print(f"🔗 Match Found! Merging {len(cluster_list)} stories into {new_cluster_id}")
                 for a_id in cluster_list:
                     cursor.execute("UPDATE articles SET cluster_id = ? WHERE article_id = ?", (new_cluster_id, a_id))
         conn.commit()
@@ -256,11 +257,12 @@ def run_pipeline():
             art['cluster_category'], art['cluster_geo_scope'], art['geo_pro_western'], art['narrative_objectivity'], art['narrative_divergence_score'], art['published_at']
         ))
         conn.commit()
-        time.sleep(10)
+        
+        # REDUCED SLEEP: 3 seconds is plenty of time to respect the API limits while running much faster
+        time.sleep(3)
         
     conn.close()
     
-    # RUN THE GLOBAL HISTORICAL CLUSTERING LOOP OVER EVERYTHING RECENTLY ACCUMULATED
     run_global_clustering()
     print("✅ Pipeline Complete!")
 
