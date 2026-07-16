@@ -26,6 +26,9 @@ API_KEYS = [key for key in API_KEYS if key is not None]
 if not API_KEYS:
     raise ValueError("CRITICAL: No API keys found in .env file.")
 
+# ==========================================
+# 1. DATABASE SETUP & MIGRATION
+# ==========================================
 def init_db(db_name="news_aggregator.db"):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -58,9 +61,25 @@ def init_db(db_name="news_aggregator.db"):
             published_at DATETIME
         )
     ''')
+    
+    # MIGRATION: Safely add new AI metrics to existing database without losing old data
+    new_columns = [
+        "narrative_sensationalism REAL",
+        "narrative_attribution REAL",
+        "narrative_polarization REAL"
+    ]
+    for col in new_columns:
+        try:
+            cursor.execute(f"ALTER TABLE articles ADD COLUMN {col}")
+        except sqlite3.OperationalError:
+            pass # Column already exists
+
     conn.commit()
     conn.close()
 
+# ==========================================
+# 2. DATA INGESTION
+# ==========================================
 def fetch_rss_feeds(feed_urls):
     articles = []
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
@@ -126,10 +145,25 @@ class ArticleAnalysis(BaseModel):
     geo_pro_western: float
     narrative_objectivity: float
     narrative_divergence_score: float
+    
+    # NEW METRICS
+    narrative_sensationalism: float = Field(description="Score 0.0 to 1.0. Measures hyperbole, clickbait, and emotionally charged language (1.0 = highly sensational, 0.0 = completely dry/factual).")
+    narrative_attribution: float = Field(description="Score 0.0 to 1.0. Measures reliance on named sources, direct quotes, and hard data vs anonymous rumors (1.0 = highly attributed/sourced, 0.0 = unsourced rumor).")
+    narrative_polarization: float = Field(description="Score 0.0 to 1.0. Measures 'us vs. them' framing, ad hominem attacks, or divisive language designed to anger (1.0 = highly polarized, 0.0 = neutral).")
 
+# ==========================================
+# 3. AI ENGINES
+# ==========================================
 def analyze_article_with_llm(text):
     prompt = f"""Analyze and translate this news text into English, Albanian, Macedonian, and Serbian.
+CRITICAL INSTRUCTIONS:
+1. For 'geo_pro_western', if the story is a natural disaster, crime, sports, or non-political, the score MUST be exactly 0.5.
+2. Evaluate Sensationalism: Look for hyperbolic adjectives and emotional triggers.
+3. Evaluate Attribution: Look for quotes, statistics, and verifiable named entities.
+4. Evaluate Polarization: Look for adversarial framing, nationalism, or hostile rhetoric.
+
 Text: {text}"""
+    
     for index, key in enumerate(API_KEYS):
         try:
             client = genai.Client(api_key=key)
@@ -196,6 +230,9 @@ Recent Articles:
     finally:
         conn.close()
 
+# ==========================================
+# 4. RUN PIPELINE
+# ==========================================
 def run_pipeline():
     init_db()
     target_feeds = {
@@ -222,19 +259,21 @@ def run_pipeline():
         
         art['cluster_id'] = f"unique_{uuid.uuid4().hex[:8]}"
         
+        # INSERT UPDATED WITH NEW METRICS
         cursor.execute('''
             INSERT OR REPLACE INTO articles 
             (article_id, cluster_id, original_title, original_url, source_domain, image_url, raw_text, 
              title_en, bullets_en, perspective_en, title_sq, bullets_sq, perspective_sq, 
              title_mk, bullets_mk, perspective_mk, title_sr, bullets_sr, perspective_sr,
              cluster_category, cluster_geo_scope, geo_pro_western, narrative_objectivity, 
-             narrative_divergence_score, published_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             narrative_divergence_score, narrative_sensationalism, narrative_attribution, narrative_polarization, published_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             art['article_id'], art['cluster_id'], art['original_title'], art['original_url'], art['source_domain'], art['image_url'], art['raw_text'], 
             art['title_en'], art['bullets_en'], art['perspective_en'], art['title_sq'], art['bullets_sq'], art['perspective_sq'],
             art['title_mk'], art['bullets_mk'], art['perspective_mk'], art['title_sr'], art['bullets_sr'], art['perspective_sr'],
-            art['cluster_category'], art['cluster_geo_scope'], art['geo_pro_western'], art['narrative_objectivity'], art['narrative_divergence_score'], art['published_at']
+            art['cluster_category'], art['cluster_geo_scope'], art['geo_pro_western'], art['narrative_objectivity'], art['narrative_divergence_score'],
+            art.get('narrative_sensationalism', 0.5), art.get('narrative_attribution', 0.5), art.get('narrative_polarization', 0.5), art['published_at']
         ))
         conn.commit()
         time.sleep(3)
