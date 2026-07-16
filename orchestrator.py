@@ -26,9 +26,6 @@ API_KEYS = [key for key in API_KEYS if key is not None]
 if not API_KEYS:
     raise ValueError("CRITICAL: No API keys found in .env file.")
 
-# ==========================================
-# 1. DATABASE SETUP
-# ==========================================
 def init_db(db_name="news_aggregator.db"):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -64,9 +61,6 @@ def init_db(db_name="news_aggregator.db"):
     conn.commit()
     conn.close()
 
-# ==========================================
-# 2. DATA INGESTION
-# ==========================================
 def fetch_rss_feeds(feed_urls):
     articles = []
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
@@ -115,8 +109,8 @@ def fetch_rss_feeds(feed_urls):
     return articles
 
 class ArticleAnalysis(BaseModel):
-    cluster_category: str
-    cluster_geo_scope: str
+    cluster_category: str = Field(description="Must be one of: 'Politics', 'Economy', 'Technology', 'Culture', 'Entertainment', 'Sports', 'Crime & Accidents'")
+    cluster_geo_scope: str = Field(description="Must be a Balkan country OR 'Regional' (multiple Balkan countries). CRITICAL: If the event takes place outside the Balkans (e.g. Middle East, Argentina, Russia, USA), you MUST output 'Global'.")
     title_en: str
     bullets_en: str
     perspective_en: str
@@ -129,19 +123,12 @@ class ArticleAnalysis(BaseModel):
     title_sr: str
     bullets_sr: str
     perspective_sr: str
-    geo_pro_western: float = Field(description="Score from 0.0 to 1.0. CRITICAL: For non-political events (like natural disasters, sports, crime), you MUST return EXACTLY 0.5.")
+    geo_pro_western: float
     narrative_objectivity: float
     narrative_divergence_score: float
 
-class ArticleClusterMapping(BaseModel):
-    clusters: list[list[str]] = Field(description="A list of clusters. Each cluster is a list of article_ids that cover the exact same core event.")
-
-# ==========================================
-# 3. AI ENGINES
-# ==========================================
 def analyze_article_with_llm(text):
     prompt = f"""Analyze and translate this news text into English, Albanian, Macedonian, and Serbian.
-CRITICAL INSTRUCTION: For 'geo_pro_western', if the story is a natural disaster, crime, sports, or non-political, the score MUST be exactly 0.5.
 Text: {text}"""
     for index, key in enumerate(API_KEYS):
         try:
@@ -171,13 +158,12 @@ def run_global_clustering():
         conn.close()
         return
 
-    prompt = """You are a highly accurate news clustering engine. 
-Your job is to identify articles that are reporting on the EXACT SAME EVENT (e.g., the same earthquake, the same political meeting, the same match) published by different sources.
+    class ArticleClusterMapping(BaseModel):
+        clusters: list[list[str]]
 
-RULES:
-1. Group the article_ids into lists.
-2. A cluster MUST contain at least 2 article_ids. Do not return clusters with only 1 ID.
-3. Relax translation differences—different outlets describe the same event differently. Focus on the core event.
+    prompt = """You are a highly accurate news clustering engine. 
+Your job is to identify articles that are reporting on the EXACT SAME EVENT published by different sources.
+RULES: Group the article_ids into lists. A cluster MUST contain at least 2 article_ids. Relax translation differences.
 
 Recent Articles:
 """
@@ -210,9 +196,6 @@ Recent Articles:
     finally:
         conn.close()
 
-# ==========================================
-# 4. RUN PIPELINE
-# ==========================================
 def run_pipeline():
     init_db()
     target_feeds = {
