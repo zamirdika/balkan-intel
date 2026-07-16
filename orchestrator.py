@@ -129,18 +129,20 @@ class ArticleAnalysis(BaseModel):
     title_sr: str
     bullets_sr: str
     perspective_sr: str
-    geo_pro_western: float
+    geo_pro_western: float = Field(description="Score from 0.0 to 1.0. CRITICAL: For non-political events (like natural disasters, sports, crime), you MUST return EXACTLY 0.5.")
     narrative_objectivity: float
     narrative_divergence_score: float
 
 class ArticleClusterMapping(BaseModel):
-    clusters: list[list[str]] = Field(description="Group article_ids together if they belong to the same core story event.")
+    clusters: list[list[str]] = Field(description="A list of clusters. Each cluster is a list of article_ids that cover the exact same core event.")
 
 # ==========================================
 # 3. AI ENGINES
 # ==========================================
 def analyze_article_with_llm(text):
-    prompt = f"Analyze and translate this news text into English, Albanian, Macedonian, and Serbian: {text}"
+    prompt = f"""Analyze and translate this news text into English, Albanian, Macedonian, and Serbian.
+CRITICAL INSTRUCTION: For 'geo_pro_western', if the story is a natural disaster, crime, sports, or non-political, the score MUST be exactly 0.5.
+Text: {text}"""
     for index, key in enumerate(API_KEYS):
         try:
             client = genai.Client(api_key=key)
@@ -151,36 +153,36 @@ def analyze_article_with_llm(text):
                 )
             )
             raw_text = response.text.strip()
-            
-            # Safe JSON parsing
-            if raw_text.startswith("```json"):
-                raw_text = raw_text[7:]
-            if raw_text.endswith("```"):
-                raw_text = raw_text[:-3]
-                
+            if raw_text.startswith("`" * 3 + "json"): raw_text = raw_text[7:]
+            if raw_text.endswith("`" * 3): raw_text = raw_text[:-3]
             return json.loads(raw_text.strip())
         except Exception as e:
             continue
     return None
 
-import pandas as pd # Ensure pandas is loaded for global clustering
-
 def run_global_clustering():
-    """Pulls recent records from the database and runs cross-run clustering analysis."""
     print("\n⚡ Initiating Global Cross-Run Clustering Engine...")
     conn = sqlite3.connect("news_aggregator.db")
     
-    # REDUCED TO 24 HOURS: Prevents the AI context window from being overwhelmed and timing out
     time_threshold = (datetime.now() - timedelta(hours=24)).isoformat()
-    df = pd.read_sql_query("SELECT article_id, title_en, cluster_category FROM articles WHERE published_at > ?", conn, params=(time_threshold,))
+    df = pd.read_sql_query("SELECT article_id, title_en, cluster_category, source_domain FROM articles WHERE published_at > ?", conn, params=(time_threshold,))
     
     if df.empty or len(df) < 2:
         conn.close()
         return
 
-    prompt = "Group these historical regional articles into lists of article_ids ONLY if they cover the exact same core event event across the region. Relax criteria slightly to allow cross-border translations of the same narrative event to match:\n\n"
+    prompt = """You are a highly accurate news clustering engine. 
+Your job is to identify articles that are reporting on the EXACT SAME EVENT (e.g., the same earthquake, the same political meeting, the same match) published by different sources.
+
+RULES:
+1. Group the article_ids into lists.
+2. A cluster MUST contain at least 2 article_ids. Do not return clusters with only 1 ID.
+3. Relax translation differences—different outlets describe the same event differently. Focus on the core event.
+
+Recent Articles:
+"""
     for _, row in df.iterrows():
-        prompt += f"ID: {row['article_id']} | Category: {row['cluster_category']} | Headline: {row['title_en']}\n"
+        prompt += f"- ID: {row['article_id']} | Source: {row['source_domain']} | Headline: {row['title_en']}\n"
 
     try:
         client = genai.Client(api_key=API_KEYS[0])
@@ -191,19 +193,15 @@ def run_global_clustering():
             )
         )
         raw_text = response.text.strip()
-        
-        if raw_text.startswith("```json"):
-            raw_text = raw_text[7:]
-        if raw_text.endswith("```"):
-            raw_text = raw_text[:-3]
+        if raw_text.startswith("`" * 3 + "json"): raw_text = raw_text[7:]
+        if raw_text.endswith("`" * 3): raw_text = raw_text[:-3]
             
         clusters = json.loads(raw_text.strip()).get("clusters", [])
-        
         cursor = conn.cursor()
         for cluster_list in clusters:
             if len(cluster_list) > 1:
                 new_cluster_id = f"cluster_{uuid.uuid4().hex[:8]}"
-                print(f"🔗 Match Found! Merging {len(cluster_list)} stories into {new_cluster_id}")
+                print(f"🔗 Match Found! Merging {len(cluster_list)} cross-run stories into {new_cluster_id}")
                 for a_id in cluster_list:
                     cursor.execute("UPDATE articles SET cluster_id = ? WHERE article_id = ?", (new_cluster_id, a_id))
         conn.commit()
@@ -232,7 +230,6 @@ def run_pipeline():
     cursor = conn.cursor()
     
     for idx, art in enumerate(raw_articles):
-        # Prevent analyzing articles that are already in our DB from previous runs
         cursor.execute("SELECT 1 FROM articles WHERE original_title = ?", (art['original_title'],))
         if cursor.fetchone(): continue
         
@@ -240,7 +237,6 @@ def run_pipeline():
         if not ai_data: continue
         art.update(ai_data)
         
-        # Initial status: single item unique cluster ID
         art['cluster_id'] = f"unique_{uuid.uuid4().hex[:8]}"
         
         cursor.execute('''
@@ -258,8 +254,6 @@ def run_pipeline():
             art['cluster_category'], art['cluster_geo_scope'], art['geo_pro_western'], art['narrative_objectivity'], art['narrative_divergence_score'], art['published_at']
         ))
         conn.commit()
-        
-        # REDUCED SLEEP: 3 seconds is plenty of time to respect the API limits while running much faster
         time.sleep(3)
         
     conn.close()
