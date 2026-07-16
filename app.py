@@ -7,14 +7,14 @@ UI_TEXT = {
     "English": {
         "nav_home": "🏠 Home", "nav_search": "🔍 Search", "nav_settings": "⚙️ Settings",
         "topics": ["All Topics", "Politics", "Economy", "Technology", "Culture", "Entertainment", "Sports", "Crime & Accidents"],
-        "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Serbia", "Bosnia and Herzegovina", "Montenegro", "Regional"],
-        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkans"],
+        "geos": ["All Regions", "North Macedonia", "Kosovo", "Albania", "Serbia", "Bosnia and Herzegovina", "Montenegro", "Regional", "Global"],
+        "geo_labels": ["🌍 All", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkans", "🌍 Global"],
         "lang_header": "Language", "geo_header": "Regional Focus",
         "search_label": "Search narratives, topics, or keywords...",
         "filter_cat": "Categories",
         "blindspots_btn": "👁️ Blindspots", "blindspots": "Blindspots", 
         "blindspots_sub": "Regional narratives and crucial information updates you might have missed.",
-        "modal_title": "Deep Dive Analysis", "pw": "Pro-Western", "obj": "Objectivity", "btn_back": "Close",
+        "modal_title": "Deep Dive Analysis", "pw": "Western Alignment", "obj": "Objectivity", "btn_back": "Close",
         "sources": "Original Sources", "analysis_title": "Narrative Summary",
         "pw_help": "Measures alignment with EU/US/NATO geopolitical positions.",
         "obj_help": "Measures factual reporting vs. emotional or biased language.",
@@ -30,14 +30,14 @@ UI_TEXT = {
     "Shqip": {
         "nav_home": "🏠 Kryefaqja", "nav_search": "🔍 Kërko", "nav_settings": "⚙️ Cilësimet",
         "topics": ["Të gjitha", "Politikë", "Ekonomi", "Teknologji", "Kulturë", "Show Biz", "Sport", "Kronika e Zezë"],
-        "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Serbia", "Bosnja dhe Hercegovina", "Mali i Zi", "Rajonale"],
-        "geo_labels": ["🌍 Global", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Ballkan"],
+        "geos": ["Të gjitha", "Maqedonia e Veriut", "Kosova", "Shqipëria", "Serbia", "Bosnja dhe Hercegovina", "Mali i Zi", "Rajonale", "Global"],
+        "geo_labels": ["🌍 Të Gjitha", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Ballkan", "🌍 Global"],
         "lang_header": "Gjuha", "geo_header": "Fokusi Rajonal",
         "search_label": "Kërko narrativa, tema ose fjalë kyçe...",
         "filter_cat": "Kategoritë",
         "blindspots_btn": "👁️ Të pathënat", "blindspots": "Të pathënat", 
         "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar.",
-        "modal_title": "Analiza e Thelluar", "pw": "Pro-Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
+        "modal_title": "Analiza e Thelluar", "pw": "Përafrimi Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
         "sources": "Burimet Origjinale", "analysis_title": "Përmbledhja e Narrativës",
         "pw_help": "Mat përafrimin me qëndrimet gjeopolitike të BE/SHBA/NATO-s.",
         "obj_help": "Mat raportimin faktik kundrejt gjuhës emocionale apo të anashme.",
@@ -53,14 +53,14 @@ UI_TEXT = {
     "Македонски": {
         "nav_home": "🏠 Дома", "nav_search": "🔍 Пребарај", "nav_settings": "⚙️ Поставки",
         "topics": ["Сите Теми", "Политика", "Економија", "Технологија", "Култура", "Забава", "Спорт", "Црна Хроника"],
-        "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално"],
-        "geo_labels": ["🌍 Глобално", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан"],
+        "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално", "Global"],
+        "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан", "🌍 Глобално"],
         "lang_header": "Јазик", "geo_header": "Регионален Фокус",
         "search_label": "Пребарајте наративи, теми или клучни зборови...",
         "filter_cat": "Категории",
         "blindspots_btn": "👁️ Игнорирани", "blindspots": "Игнорирани", 
         "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле.",
-        "modal_title": "Длабинска Анализа", "pw": "Про-Западно", "obj": "Објективност", "btn_back": "Затвори",
+        "modal_title": "Длабинска Анализа", "pw": "Западна Усогласеност", "obj": "Објективност", "btn_back": "Затвори",
         "sources": "Оригинални Извори", "analysis_title": "Наративно Резиме",
         "pw_help": "Го мери усогласувањето со геополитичките позиции на ЕУ/САД/НАТО.",
         "obj_help": "Го мери фактуелното известување наспроти емотивниот или пристрасен јазик.",
@@ -76,14 +76,14 @@ UI_TEXT = {
     "Srpski": {
         "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_settings": "⚙️ Podešavanja",
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
-        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
-        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
+        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno", "Global"],
+        "geo_labels": ["🌍 Svi", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan", "🌍 Globalno"],
         "lang_header": "Jezik", "geo_header": "Regionalni Fokus",
         "search_label": "Pretraži narative, teme ili ključne reči...",
         "filter_cat": "Kategorije",
         "blindspots_btn": "👁️ Slepe tačke", "blindspots": "Slepe tačke", 
         "blindspots_sub": "Narativi koje ste možda propustili.",
-        "modal_title": "Dubinska Analiza", "pw": "Pro-Zapadno", "obj": "Objektivnost", "btn_back": "Zatvori",
+        "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
         "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
         "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
         "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
@@ -98,14 +98,14 @@ UI_TEXT = {
     "Bosanski": {
         "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_settings": "⚙️ Postavke",
         "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
-        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno"],
-        "geo_labels": ["🌍 Globalno", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan"],
+        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno", "Global"],
+        "geo_labels": ["🌍 Svi", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan", "🌍 Globalno"],
         "lang_header": "Jezik", "geo_header": "Regionalni Fokus",
         "search_label": "Pretraži narative, teme ili ključne riječi...",
         "filter_cat": "Kategorije",
         "blindspots_btn": "👁️ Slijepe tačke", "blindspots": "Slijepe tačke", 
         "blindspots_sub": "Narativi koje ste možda propustili.",
-        "modal_title": "Dubinska Analiza", "pw": "Pro-Zapadno", "obj": "Objektivnost", "btn_back": "Zatvori",
+        "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
         "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
         "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
         "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
@@ -157,18 +157,30 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     st.markdown(f"<h3 style='margin-top:0px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
     pw, obj = int(float(row.get('avg_pro_western', 0.5)) * 100), int(float(row.get('avg_objectivity', 0.5)) * 100) 
+    
     db_geo = row.get('cluster_geo_scope', '')
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
     display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
+    
+    db_cat = row.get('cluster_category', 'News')
+    is_geopol = db_cat in ["Politics", "Economy"]
 
-    spectrum_html = "".join([
-        '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-        f'<div style="margin-bottom: 12px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")} <span class="tooltip-sup" data-tooltip="{t_dict.get("pw_help")}">i</span> : {pw}%</span></div>',
-        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-        f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")} <span class="tooltip-sup" data-tooltip="{t_dict.get("obj_help")}">i</span> : {obj}%</span></div>',
-        f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
-        '</div>'
-    ])
+    if is_geopol:
+        spectrum_html = "".join([
+            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
+            f'<div style="margin-bottom: 12px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")} <span class="tooltip-sup" data-tooltip="{t_dict.get("pw_help")}">i</span> : {pw}%</span></div>',
+            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
+            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")} <span class="tooltip-sup" data-tooltip="{t_dict.get("obj_help")}">i</span> : {obj}%</span></div>',
+            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
+            '</div>'
+        ])
+    else:
+        spectrum_html = "".join([
+            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
+            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")} <span class="tooltip-sup" data-tooltip="{t_dict.get("obj_help")}">i</span> : {obj}%</span></div>',
+            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
+            '</div>'
+        ])
 
     with header_col1:
         st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 8px;"></div>""", unsafe_allow_html=True)
@@ -263,7 +275,6 @@ def run_app():
         .card-title { font-size: clamp(1.05rem, 1.15vw, 1.2rem); font-weight: 800; color: #F8FAFC !important; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 6px rgba(0,0,0,0.8) !important; }
         .card-footer { height: 100px; padding: 16px 24px; background: #1E293B; display: flex; flex-direction: column; justify-content: center; gap: 8px; border-top: 1px solid #334155; }
         
-        /* FIXED INVISIBLE BUTTON CSS SO X BUTTON WORKS */
         div[data-testid="stButton"]:has(button[kind="primary"]) { margin-top: -380px !important; height: 380px !important; z-index: 99 !important; position: relative !important; }
         button[kind="primary"] { height: 380px !important; width: 100% !important; background: transparent !important; border: none !important; color: transparent !important; box-shadow: none !important; opacity: 0; }
 
@@ -412,24 +423,45 @@ def run_app():
                 if db_cat == 'Infrastructure': db_cat = 'Economy'
                 display_tag = t["topics"][UI_TEXT["English"]["topics"].index(db_cat)] if db_cat in UI_TEXT["English"]["topics"] else db_cat
 
+                # DYNAMIC UI: Show Geopolitics only for relevant categories
+                is_geopol = db_cat in ["Politics", "Economy"]
+
                 with (grid_col1 if idx % 2 == 0 else grid_col2):
-                    card_html = f"""
-                    <div class="particle-card">
-                        <div class="card-img-area" style="background-image: {bg};">
-                            <div class="card-img-content"><span class="card-tag">{display_tag}</span><div class="card-title">{display_title}</div></div>
-                        </div>
-                        <div class="card-footer">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
-                                <span>🇪🇺 {t.get("pw")} <span class="tooltip-sup" data-tooltip="{t.get('pw_help')}">i</span> : <span style="color:#F8FAFC;">{pw}%</span></span>
-                                <span>🔍 {t.get("obj")} <span class="tooltip-sup" data-tooltip="{t.get('obj_help')}">i</span> : <span style="color:#F8FAFC;">{obj}%</span></span>
+                    if is_geopol:
+                        card_html = f"""
+                        <div class="particle-card">
+                            <div class="card-img-area" style="background-image: {bg};">
+                                <div class="card-img-content"><span class="card-tag">{display_tag}</span><div class="card-title">{display_title}</div></div>
                             </div>
-                            <div style="display: flex; width: 100%; height: 6px; background-color: #334155; border-radius: 999px; overflow: hidden;">
-                                <div style="width: 50%; display: flex; justify-content: flex-start; border-right: 1px solid #1E293B;"><div style="width: {pw}%; background-color: #3B82F6; height: 100%;"></div></div>
-                                <div style="width: 50%; display: flex; justify-content: flex-end;"><div style="width: {obj}%; background-color: #10B981; height: 100%;"></div></div>
+                            <div class="card-footer">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
+                                    <span>🇪🇺 {t.get("pw")} <span class="tooltip-sup" data-tooltip="{t.get('pw_help')}">i</span> : <span style="color:#F8FAFC;">{pw}%</span></span>
+                                    <span>🔍 {t.get("obj")} <span class="tooltip-sup" data-tooltip="{t.get('obj_help')}">i</span> : <span style="color:#F8FAFC;">{obj}%</span></span>
+                                </div>
+                                <div style="display: flex; width: 100%; height: 6px; background-color: #334155; border-radius: 999px; overflow: hidden;">
+                                    <div style="width: 50%; display: flex; justify-content: flex-start; border-right: 1px solid #1E293B;"><div style="width: {pw}%; background-color: #3B82F6; height: 100%;"></div></div>
+                                    <div style="width: 50%; display: flex; justify-content: flex-end;"><div style="width: {obj}%; background-color: #10B981; height: 100%;"></div></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    """
+                        """
+                    else:
+                        card_html = f"""
+                        <div class="particle-card">
+                            <div class="card-img-area" style="background-image: {bg};">
+                                <div class="card-img-content"><span class="card-tag" style="background:#10B981;">{display_tag}</span><div class="card-title">{display_title}</div></div>
+                            </div>
+                            <div class="card-footer">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
+                                    <span>🔍 {t.get("obj")} <span class="tooltip-sup" data-tooltip="{t.get('obj_help')}">i</span> : <span style="color:#F8FAFC;">{obj}%</span></span>
+                                </div>
+                                <div style="display: flex; width: 100%; height: 6px; background-color: #334155; border-radius: 999px; overflow: hidden;">
+                                    <div style="width: 100%; display: flex; justify-content: flex-start;"><div style="width: {obj}%; background-color: #10B981; height: 100%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        """
+                    
                     st.markdown(card_html, unsafe_allow_html=True)
                     if st.button(" ", key=f"btn_{row.get('cluster_id', idx)}_{idx}", type="primary", use_container_width=True):
                         row_dict = row.to_dict()
