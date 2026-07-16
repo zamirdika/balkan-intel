@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
 import pandas as pd
+import math
 
 # --- UI TRANSLATION DICTIONARY ---
 UI_TEXT = {
@@ -15,9 +16,13 @@ UI_TEXT = {
         "blindspots_btn": "👁️ Blindspots", "blindspots": "Blindspots", 
         "blindspots_sub": "Regional narratives and crucial information updates you might have missed.",
         "modal_title": "Deep Dive Analysis", "pw": "Western Alignment", "obj": "Objectivity", "btn_back": "Close",
-        "sources": "Original Sources", "analysis_title": "Narrative Summary",
+        "sens": "Sensationalism", "attr": "Attribution", "pol": "Polarization",
         "pw_help": "Measures alignment with EU/US/NATO geopolitical positions.",
         "obj_help": "Measures factual reporting vs. emotional or biased language.",
+        "sens_help": "Measures clickbait, hyperbole, and emotional triggers.",
+        "attr_help": "Measures reliance on named sources, quotes, and verifiable data.",
+        "pol_help": "Measures divisive language, adversarial framing, and hostility.",
+        "sources": "Original Sources", "analysis_title": "Narrative Summary",
         "divergence": "Divergence",
         "div_help": "Measures how much this story is omitted or selectively framed compared to the regional baseline.",
         "read_source": "Read Original ↗",
@@ -38,9 +43,13 @@ UI_TEXT = {
         "blindspots_btn": "👁️ Të pathënat", "blindspots": "Të pathënat", 
         "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar.",
         "modal_title": "Analiza e Thelluar", "pw": "Përafrimi Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
-        "sources": "Burimet Origjinale", "analysis_title": "Përmbledhja e Narrativës",
+        "sens": "Sensacionalizmi", "attr": "Atribuimi", "pol": "Polarizimi",
         "pw_help": "Mat përafrimin me qëndrimet gjeopolitike të BE/SHBA/NATO-s.",
         "obj_help": "Mat raportimin faktik kundrejt gjuhës emocionale apo të anashme.",
+        "sens_help": "Mat gjuhën emocionale dhe teprimet (clickbait).",
+        "attr_help": "Mat përdorimin e burimeve të emëruara dhe të dhënave.",
+        "pol_help": "Mat gjuhën përçarëse dhe armiqësore.",
+        "sources": "Burimet Origjinale", "analysis_title": "Përmbledhja e Narrativës",
         "divergence": "Divergjenca",
         "div_help": "Mat shkallën në të cilën kjo ngjarje anashkalohet ose kornizohet në mënyrë selektive.",
         "read_source": "Lexo Origjinalin ↗",
@@ -61,9 +70,13 @@ UI_TEXT = {
         "blindspots_btn": "👁️ Игнорирани", "blindspots": "Игнорирани", 
         "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа", "pw": "Западна Усогласеност", "obj": "Објективност", "btn_back": "Затвори",
-        "sources": "Оригинални Извори", "analysis_title": "Наративно Резиме",
+        "sens": "Сензационализам", "attr": "Атрибуција", "pol": "Поларизација",
         "pw_help": "Го мери усогласувањето со геополитичките позиции на ЕУ/САД/НАТО.",
         "obj_help": "Го мери фактуелното известување наспроти емотивниот или пристрасен јазик.",
+        "sens_help": "Мери употреба на емотивен јазик и претерувања.",
+        "attr_help": "Мери потпирање на именувани извори и податоци.",
+        "pol_help": "Мери јазик на поделби и непријателство.",
+        "sources": "Оригинални Извори", "analysis_title": "Наративно Резиме",
         "divergence": "Дивергенција",
         "div_help": "Мери колку оваа вест е изоставена или селективно врамена во споредба со регионалниот просек.",
         "read_source": "Оригинален Напис ↗",
@@ -84,9 +97,13 @@ UI_TEXT = {
         "blindspots_btn": "👁️ Slepe tačke", "blindspots": "Slepe tačke", 
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
-        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
+        "sens": "Senzacionalizam", "attr": "Atribucija", "pol": "Polarizacija",
         "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
         "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
+        "sens_help": "Meri upotrebu emotivnog jezika i preterivanja (clickbait).",
+        "attr_help": "Meri oslanjanje na imenovane izvore i podatke.",
+        "pol_help": "Meri jezik podela i neprijateljstvo.",
+        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
         "divergence": "Divergencija", "div_help": "Meri koliko je ova vest izostavljena u poređenju sa regionom.",
         "read_source": "Pročitaj Original ↗",
         "db_header": "📬 Dnevni Brifing", "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "subscribe": "Pretplati se",
@@ -106,9 +123,13 @@ UI_TEXT = {
         "blindspots_btn": "👁️ Slijepe tačke", "blindspots": "Slijepe tačke", 
         "blindspots_sub": "Narativi koje ste možda propustili.",
         "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
-        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
+        "sens": "Senzacionalizam", "attr": "Atribucija", "pol": "Polarizacija",
         "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
         "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
+        "sens_help": "Mjeri upotrebu emotivnog jezika i preterivanja (clickbait).",
+        "attr_help": "Mjeri oslanjanje na imenovane izvore i podatke.",
+        "pol_help": "Mjeri jezik podela i neprijateljstvo.",
+        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
         "divergence": "Divergencija", "div_help": "Mjeri koliko je ova vijest izostavljena u poređenju sa regionom.",
         "read_source": "Pročitaj Original ↗",
         "db_header": "📬 Dnevni Briefing", "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "subscribe": "Pretplati se",
@@ -128,12 +149,14 @@ if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
 def get_connection(): return sqlite3.connect('news_aggregator.db')
 def get_database_data():
     conn = get_connection()
+    # FETCHES NEW METRICS IN SQL
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
                MAX(bullets_en) as bullets_en, MAX(bullets_sq) as bullets_sq, MAX(bullets_mk) as bullets_mk, MAX(bullets_sr) as bullets_sr, 
                MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq, MAX(perspective_mk) as perspective_mk, MAX(perspective_sr) as perspective_sr, 
                AVG(geo_pro_western) as avg_pro_western, AVG(narrative_objectivity) as avg_objectivity, AVG(narrative_divergence_score) as avg_divergence,
+               AVG(narrative_sensationalism) as avg_sensationalism, AVG(narrative_attribution) as avg_attribution, AVG(narrative_polarization) as avg_polarization,
                GROUP_CONCAT(source_domain, ', ') as sources, GROUP_CONCAT(original_title, '||') as orig_titles,
                GROUP_CONCAT(original_url, '||') as orig_urls, MAX(image_url) as cluster_image, MAX(published_at) as published_at
         FROM articles WHERE cluster_id IS NOT NULL GROUP BY cluster_id ORDER BY published_at DESC
@@ -152,11 +175,23 @@ def get_blindspot_stories():
         return df
     except: return pd.DataFrame()
 
+def safe_float(val, default=0.5):
+    try:
+        if pd.isna(val) or val is None: return default
+        return float(val)
+    except: return default
+
 @st.dialog(" ", width="large")
 def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     st.markdown(f"<h3 style='margin-top:0px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
-    pw, obj = int(float(row.get('avg_pro_western', 0.5)) * 100), int(float(row.get('avg_objectivity', 0.5)) * 100) 
+    
+    # EXTRACT ALL METRICS SAFELY
+    pw = int(safe_float(row.get('avg_pro_western')) * 100)
+    obj = int(safe_float(row.get('avg_objectivity')) * 100)
+    sens = int(safe_float(row.get('avg_sensationalism')) * 100)
+    attr = int(safe_float(row.get('avg_attribution')) * 100)
+    pol = int(safe_float(row.get('avg_polarization')) * 100)
     
     db_geo = row.get('cluster_geo_scope', '')
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
@@ -165,22 +200,25 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     db_cat = row.get('cluster_category', 'News')
     is_geopol = db_cat in ["Politics", "Economy"]
 
+    # DYNAMIC METRIC STACKER
+    base_metrics = [
+        (t_dict.get("obj"), t_dict.get("obj_help"), obj, "#10B981"), # Green
+        (t_dict.get("sens"), t_dict.get("sens_help"), sens, "#F59E0B"), # Amber
+        (t_dict.get("attr"), t_dict.get("attr_help"), attr, "#0EA5E9"), # Sky Blue
+        (t_dict.get("pol"), t_dict.get("pol_help"), pol, "#8B5CF6") # Purple
+    ]
     if is_geopol:
-        spectrum_html = "".join([
-            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-            f'<div style="margin-bottom: 12px;"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("pw")} <span class="tooltip-sup" data-tooltip="{t_dict.get("pw_help")}">i</span> : {pw}%</span></div>',
-            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {pw}%; background-color: #3B82F6;"></div></div></div>',
-            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")} <span class="tooltip-sup" data-tooltip="{t_dict.get("obj_help")}">i</span> : {obj}%</span></div>',
-            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
-            '</div>'
-        ])
-    else:
-        spectrum_html = "".join([
-            '<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">',
-            f'<div><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{t_dict.get("obj")} <span class="tooltip-sup" data-tooltip="{t_dict.get("obj_help")}">i</span> : {obj}%</span></div>',
-            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {obj}%; background-color: #10B981;"></div></div></div>',
-            '</div>'
-        ])
+        base_metrics.insert(0, (t_dict.get("pw"), t_dict.get("pw_help"), pw, "#3B82F6")) # Deep Blue
+
+    metrics_html_list = []
+    for idx, (label, help_text, val, color) in enumerate(base_metrics):
+        mt = "12px" if idx > 0 else "0px"
+        metrics_html_list.append(
+            f'<div style="margin-top: {mt};"><div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;"><span>{label} <span class="tooltip-sup" data-tooltip="{help_text}">i</span> : {val}%</span></div>'
+            f'<div style="position: relative; width: 100%; height: 6px; background-color: #E2E8F0; border-radius: 999px; overflow: hidden;"><div style="position: absolute; left: 0; top: 0; height: 100%; width: {val}%; background-color: {color};"></div></div></div>'
+        )
+    
+    spectrum_html = f'<div style="background-color: transparent; border: 1px solid rgba(148, 163, 184, 0.3); padding: 12px; border-radius: 12px; margin-top: 4px;">{"".join(metrics_html_list)}</div>'
 
     with header_col1:
         st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 8px;"></div>""", unsafe_allow_html=True)
@@ -219,7 +257,7 @@ def open_blindspots_modal(t_dict):
         clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip()]
         
         bullets_html = "".join([f"<div style='margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4; color: #E2E8F0;'>• {b}</div>" for b in clean_b[:3]])
-        div_score = int(float(row.get('narrative_divergence_score', 0.8)) * 100)
+        div_score = int(safe_float(row.get('narrative_divergence_score', 0.8)) * 100)
 
         card_html = f"""<div style='background: #1E293B; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #EF4444; margin-bottom: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #334155;'>
 <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;'><div style='font-size: 0.75rem; font-weight: 800; color: #EF4444; text-transform: uppercase;'>{display_tag}</div></div>
@@ -418,12 +456,13 @@ def run_app():
                 fallback = "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop"
                 bg = f"url('{fallback}')" if pd.isna(row.get('cluster_image')) or raw_img in ('None', 'nan', '') or not raw_img.startswith('http') else f"url('{raw_img}'), url('{fallback}')"
 
-                pw, obj = int(float(row.get('avg_pro_western', 0.5)) * 100), int(float(row.get('avg_objectivity', 0.5)) * 100)
+                pw = int(safe_float(row.get('avg_pro_western')) * 100)
+                obj = int(safe_float(row.get('avg_objectivity')) * 100)
+                
                 db_cat = row.get('cluster_category', 'News')
                 if db_cat == 'Infrastructure': db_cat = 'Economy'
                 display_tag = t["topics"][UI_TEXT["English"]["topics"].index(db_cat)] if db_cat in UI_TEXT["English"]["topics"] else db_cat
 
-                # DYNAMIC UI: Show Geopolitics only for relevant categories
                 is_geopol = db_cat in ["Politics", "Economy"]
 
                 with (grid_col1 if idx % 2 == 0 else grid_col2):
