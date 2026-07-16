@@ -119,18 +119,15 @@ UI_TEXT = {
     }
 }
 
-# --- STATE MANAGEMENT ---
 if 'lang_code' not in st.session_state: st.session_state.lang_code = "English"
 if 'active_cat' not in st.session_state: st.session_state.active_cat = "All Topics"
 if 'active_geo' not in st.session_state: st.session_state.active_geo = "All Regions"
 if 'search_query' not in st.session_state: st.session_state.search_query = ""
 if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
 
-# --- DATABASE FETCH FUNCTIONS (UPDATED FOR TIME SORTING) ---
 def get_connection(): return sqlite3.connect('news_aggregator.db')
 def get_database_data():
     conn = get_connection()
-    # BUG FIX: Added MAX(published_at) and sorted by published_at DESC so newest news is always on top.
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
@@ -155,10 +152,9 @@ def get_blindspot_stories():
         return df
     except: return pd.DataFrame()
 
-# --- MODALS ---
 @st.dialog(" ", width="large")
 def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
-    st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='margin-top:0px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
     pw, obj = int(float(row.get('avg_pro_western', 0.5)) * 100), int(float(row.get('avg_objectivity', 0.5)) * 100) 
     db_geo = row.get('cluster_geo_scope', '')
@@ -231,63 +227,33 @@ def open_methodology_modal(t_dict):
     st.markdown(f"<h3 style='margin-top:-20px; margin-bottom:15px;'>{t_dict.get('how_ai_works')}</h3>", unsafe_allow_html=True)
     st.markdown(f"<div style='font-size:0.95rem; line-height: 1.6; opacity: 0.9;'>{t_dict.get('ai_desc')}</div>", unsafe_allow_html=True)
 
-# --- MAIN APP ---
 def run_app():
     st.set_page_config(page_title="Balkan Intel", layout="wide", initial_sidebar_state="collapsed")
     t = UI_TEXT[st.session_state.lang_code]
 
-    # --- CORE STYLING (FIXED CONTRAST, HEADER, AND TABS) ---
     st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        
-        /* FORCE DARK THEME COMPATIBILITY AND HIDE NATIVE UI */
         [data-testid="collapsedControl"], [data-testid="stSidebar"], header { display: none !important; }
         .block-container { padding-top: 1rem !important; padding-bottom: 50px !important; }
-
-        /* FIX THE "NAV" LABEL GLITCH */
         div[data-testid="stRadio"] > label { display: none !important; }
-
-        /* HEADER MOBILE LOCK (Fixes Blindspot Button breaking row) */
-        div[data-testid="stVerticalBlock"]:has(#header-anchor) > div[data-testid="stHorizontalBlock"] {
-            flex-wrap: nowrap !important; align-items: center !important; 
-        }
-        button[kind="secondary"]:has(div:contains("👁️")) {
-            padding: 4px 8px !important; min-height: 32px !important; border-radius: 8px !important;
-            border: 1px solid #E2E8F0 !important; background-color: #FFFFFF !important; color: #0F172A !important;
-        }
+        div[data-testid="stVerticalBlock"]:has(#header-anchor) > div[data-testid="stHorizontalBlock"] { flex-wrap: nowrap !important; align-items: center !important; }
+        button[kind="secondary"]:has(div:contains("👁️")) { padding: 4px 8px !important; min-height: 32px !important; border-radius: 8px !important; border: 1px solid #E2E8F0 !important; background-color: #FFFFFF !important; color: #0F172A !important; }
         button[kind="secondary"]:has(div:contains("👁️")) p { font-size: 0.85rem !important; font-weight: 700 !important; margin: 0 !important; }
-
-        /* BEAUTIFUL NATIVE TABS (Replaces Radio Buttons) */
-        div[data-testid="stRadio"]:has(p:contains("🏠")) div[role="radiogroup"] {
-            display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
-            background-color: #F1F5F9 !important; border-radius: 12px !important; padding: 4px !important; gap: 4px !important; width: 100%;
-            overflow-x: auto !important; scrollbar-width: none !important;
-        }
-        div[data-testid="stRadio"]:has(p:contains("🏠")) label {
-            background-color: transparent !important; border: none !important; padding: 8px 4px !important; border-radius: 8px !important;
-            flex: 1 !important; text-align: center !important; justify-content: center !important; margin: 0 !important;
-        }
-        div[data-testid="stRadio"]:has(p:contains("🏠")) label div:first-child { display: none !important; } /* Hide the circle */
+        div[data-testid="stRadio"]:has(p:contains("🏠")) div[role="radiogroup"] { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; background-color: #F1F5F9 !important; border-radius: 12px !important; padding: 4px !important; gap: 4px !important; width: 100%; overflow-x: auto !important; scrollbar-width: none !important; }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) label { background-color: transparent !important; border: none !important; padding: 8px 4px !important; border-radius: 8px !important; flex: 1 !important; text-align: center !important; justify-content: center !important; margin: 0 !important; }
+        div[data-testid="stRadio"]:has(p:contains("🏠")) label div:first-child { display: none !important; } 
         div[data-testid="stRadio"]:has(p:contains("🏠")) label p { color: #64748B !important; font-size: 0.9rem !important; font-weight: 700 !important; margin: 0 !important; }
         div[data-testid="stRadio"]:has(p:contains("🏠")) label:has(input:checked) { background-color: #FFFFFF !important; box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important; }
         div[data-testid="stRadio"]:has(p:contains("🏠")) label:has(input:checked) p { color: #0F172A !important; }
-
-        /* CATEGORY/GEO GRIDS (Replaces old fashioned radio buttons with Pill Grids) */
-        div[data-testid="stRadio"]:has(p:contains("🌍")) div[role="radiogroup"], div[data-testid="stRadio"]:has(p:contains("Polit")) div[role="radiogroup"] {
-            display: flex !important; flex-wrap: wrap !important; gap: 8px !important;
-        }
-        div[data-testid="stRadio"]:has(p:contains("🌍")) label, div[data-testid="stRadio"]:has(p:contains("Polit")) label {
-            background-color: #F8FAFC !important; border: 1px solid #E2E8F0 !important; padding: 10px !important; border-radius: 12px !important;
-            flex: 1 1 calc(50% - 8px) !important; justify-content: center !important; margin: 0 !important;
-        }
+        div[data-testid="stRadio"]:has(p:contains("🌍")) div[role="radiogroup"], div[data-testid="stRadio"]:has(p:contains("Polit")) div[role="radiogroup"] { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+        div[data-testid="stRadio"]:has(p:contains("🌍")) label, div[data-testid="stRadio"]:has(p:contains("Polit")) label { background-color: #F8FAFC !important; border: 1px solid #E2E8F0 !important; padding: 10px !important; border-radius: 12px !important; flex: 1 1 calc(50% - 8px) !important; justify-content: center !important; margin: 0 !important; }
         div[data-testid="stRadio"]:has(p:contains("🌍")) label div:first-child, div[data-testid="stRadio"]:has(p:contains("Polit")) label div:first-child { display: none !important; }
         div[data-testid="stRadio"]:has(p:contains("🌍")) label p, div[data-testid="stRadio"]:has(p:contains("Polit")) label p { color: #0F172A !important; font-size: 0.85rem !important; font-weight: 700 !important; text-align: center !important; margin: 0 !important; }
         div[data-testid="stRadio"]:has(p:contains("🌍")) label:has(input:checked), div[data-testid="stRadio"]:has(p:contains("Polit")) label:has(input:checked) { background-color: #3B82F6 !important; border-color: #3B82F6 !important; }
         div[data-testid="stRadio"]:has(p:contains("🌍")) label:has(input:checked) p, div[data-testid="stRadio"]:has(p:contains("Polit")) label:has(input:checked) p { color: #FFFFFF !important; }
 
-        /* DARK THEME FOR NEWS CARDS */
         .particle-card { background: #1E293B; border-radius: 20px; border: 1px solid #334155; height: 380px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         .particle-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); }
         .card-img-area { height: 280px; background-color: #0F172A; background-size: cover; background-position: center; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 24px; }
@@ -297,16 +263,13 @@ def run_app():
         .card-title { font-size: clamp(1.05rem, 1.15vw, 1.2rem); font-weight: 800; color: #F8FAFC !important; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-shadow: 0 2px 6px rgba(0,0,0,0.8) !important; }
         .card-footer { height: 100px; padding: 16px 24px; background: #1E293B; display: flex; flex-direction: column; justify-content: center; gap: 8px; border-top: 1px solid #334155; }
         
-        /* INVISIBLE CLICK ELEMENT TRIGGER FOR CARDS */
-        div[data-testid="stButton"]:has(button[kind="primary"]) { margin: 0 !important; padding: 0 !important; height: 0px !important; overflow: visible !important; }
-        button[kind="primary"] { position: absolute !important; background: transparent !important; border: none !important; color: transparent !important; height: 0px !important; padding: 0 !important; box-shadow: none !important; }
-        button[kind="primary"]::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 380px; z-index: 99; cursor: pointer; }
+        /* FIXED INVISIBLE BUTTON CSS SO X BUTTON WORKS */
+        div[data-testid="stButton"]:has(button[kind="primary"]) { margin-top: -380px !important; height: 380px !important; z-index: 99 !important; position: relative !important; }
+        button[kind="primary"] { height: 380px !important; width: 100% !important; background: transparent !important; border: none !important; color: transparent !important; box-shadow: none !important; opacity: 0; }
 
-        /* FLOATING SCROLL TO TOP BUTTON */
         .scroll-top-btn { position: fixed; bottom: 25px; right: 25px; background-color: #3B82F6; color: white !important; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 999999; font-weight: bold; font-size: 1.2rem; text-decoration: none !important; border: 2px solid #FFFFFF; transition: transform 0.2s ease; }
         .scroll-top-btn:hover { transform: scale(1.1); background-color: #2563EB; }
 
-        /* TOOLTIP 'i' */
         .tooltip-sup { font-size: 0.65rem; font-style: italic; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; border: 1px solid #475569; }
         .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; font-style: normal; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; text-align: center; border: 1px solid #334155; }
         .tooltip-sup:hover::after, .tooltip-sup:active::after { opacity: 1; }
@@ -315,7 +278,6 @@ def run_app():
     <div id="header-anchor"></div>
     """, unsafe_allow_html=True)
 
-    # --- TOP BAR (LOCKED) ---
     colA, colB = st.columns([3, 1])
     with colA:
         st.markdown("<h2 style='margin:0; padding:0; color:#3B82F6; font-size: 1.8rem; font-weight: 800;'>Balkan<span style='color:#F8FAFC;'>Intel</span></h2>", unsafe_allow_html=True)
@@ -325,7 +287,6 @@ def run_app():
     
     st.markdown("<div style='margin-bottom: 1rem;'></div>", unsafe_allow_html=True)
 
-    # --- NAVIGATION TABS ---
     nav_options = [t['nav_home'], t['nav_search'], t['nav_settings']]
     try: current_idx = nav_options.index(st.session_state.get('current_nav_label', t['nav_home']))
     except ValueError: current_idx = 0
@@ -336,9 +297,6 @@ def run_app():
     st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
     df = get_database_data()
 
-    # ==========================================
-    # VIEW: SEARCH TAB
-    # ==========================================
     if selected_nav == t['nav_search']:
         search_input = st.text_input("🔍", placeholder=t["search_label"], label_visibility="collapsed")
         if search_input:
@@ -357,12 +315,7 @@ def run_app():
             st.session_state.current_nav_label = t['nav_home']
             st.rerun()
 
-    # ==========================================
-    # VIEW: SETTINGS (LANG, GEO, NEWSLETTER, API)
-    # ==========================================
     elif selected_nav == t['nav_settings']:
-        
-        # 1. LANGUAGE
         st.markdown(f"<h4 style='font-size: 1.1rem; color: #475569; font-weight: 800;'>{t['lang_header']}</h4>", unsafe_allow_html=True)
         lang_options = ["English", "Shqip", "Македонски", "Srpski", "Bosanski"]
         l_cols = st.columns(2)
@@ -373,7 +326,6 @@ def run_app():
                     st.session_state.current_nav_label = t['nav_home']
                     st.rerun()
 
-        # 2. GEOGRAPHY
         st.markdown(f"<h4 style='font-size: 1.1rem; color: #475569; font-weight: 800; margin-top: 1.5rem;'>{t['geo_header']}</h4>", unsafe_allow_html=True)
         display_geos = [f"{t['geo_labels'][i+1].split(' ')[0]} {geo}" for i, geo in enumerate(t["geos"][1:])]
         selected_geo = st.radio("Geo_Hidden", display_geos, index=None, key="geo_grid", horizontal=True, label_visibility="collapsed")
@@ -386,7 +338,6 @@ def run_app():
             
         st.markdown("<hr style='border-color: #E2E8F0; margin: 1.5rem 0;'>", unsafe_allow_html=True)
 
-        # 3. NEWSLETTER
         st.markdown(f"<h4 style='font-size: 1.1rem; color: #0F172A; font-weight: 800;'>{t['db_header']}</h4>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size: 0.9rem; color: #64748B;'>{t['db_sub']}</p>", unsafe_allow_html=True)
         with st.form("newsletter_form", clear_on_submit=True):
@@ -396,7 +347,6 @@ def run_app():
                 
         st.markdown("<hr style='border-color: #E2E8F0; margin: 1.5rem 0;'>", unsafe_allow_html=True)
 
-        # 4. API & METHODOLOGY
         st.markdown(f"<h4 style='font-size: 1.1rem; color: #0F172A; font-weight: 800;'>{t['api_header']}</h4>", unsafe_allow_html=True)
         st.markdown(f"<p style='font-size: 0.9rem; color: #64748B;'>{t['api_sub']}</p>", unsafe_allow_html=True)
         st.button(t['api_btn'], use_container_width=True)
@@ -405,9 +355,6 @@ def run_app():
         if st.button(t['how_ai_works'], use_container_width=True):
             open_methodology_modal(t)
 
-    # ==========================================
-    # VIEW: HOME FEED
-    # ==========================================
     else:
         active_filters = []
         if st.session_state.active_cat != "All Topics": active_filters.append(t['topics'][UI_TEXT["English"]["topics"].index(st.session_state.active_cat)])
@@ -490,7 +437,6 @@ def run_app():
                         open_article_modal(row_dict, clean_b, persp_text, bg, t)
                     st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
-    # FLOATING HOME BUTTON
     st.markdown('<a href="#top-anchor" class="scroll-top-btn">▲</a>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
