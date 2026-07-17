@@ -1,7 +1,6 @@
 import streamlit as st
 import sqlite3
 import pandas as pd
-import math
 
 # --- UI TRANSLATION DICTIONARY ---
 UI_TEXT = {
@@ -147,9 +146,12 @@ if 'search_query' not in st.session_state: st.session_state.search_query = ""
 if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
 
 def get_connection(): return sqlite3.connect('news_aggregator.db')
+
+# CACHING ADDED: Stores data in high-speed memory for 5 minutes (300 seconds) 
+# This eliminates lag when interacting with the UI on mobile devices.
+@st.cache_data(ttl=300)
 def get_database_data():
     conn = get_connection()
-    # FETCHES NEW METRICS IN SQL
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
@@ -166,6 +168,7 @@ def get_database_data():
     conn.close()
     return df
 
+@st.cache_data(ttl=300)
 def get_blindspot_stories():
     try:
         conn = get_connection()
@@ -186,7 +189,6 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     st.markdown(f"<h3 style='margin-top:0px; margin-bottom:15px;'>{t_dict.get('modal_title')}</h3>", unsafe_allow_html=True)
     header_col1, header_col2 = st.columns([1, 1.5], gap="small")
     
-    # EXTRACT ALL METRICS SAFELY
     pw = int(safe_float(row.get('avg_pro_western')) * 100)
     obj = int(safe_float(row.get('avg_objectivity')) * 100)
     sens = int(safe_float(row.get('avg_sensationalism')) * 100)
@@ -195,20 +197,19 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     
     db_geo = row.get('cluster_geo_scope', '')
     geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
-    display_geo_pin = t_dict["geos"][geo_idx] if geo_idx != -1 else db_geo
+    display_geo_pin = t_dict["geo_labels"][geo_idx] if geo_idx != -1 else db_geo
     
     db_cat = row.get('cluster_category', 'News')
     is_geopol = db_cat in ["Politics", "Economy"]
 
-    # DYNAMIC METRIC STACKER
     base_metrics = [
-        (t_dict.get("obj"), t_dict.get("obj_help"), obj, "#10B981"), # Green
-        (t_dict.get("sens"), t_dict.get("sens_help"), sens, "#F59E0B"), # Amber
-        (t_dict.get("attr"), t_dict.get("attr_help"), attr, "#0EA5E9"), # Sky Blue
-        (t_dict.get("pol"), t_dict.get("pol_help"), pol, "#8B5CF6") # Purple
+        (t_dict.get("obj"), t_dict.get("obj_help"), obj, "#10B981"), 
+        (t_dict.get("sens"), t_dict.get("sens_help"), sens, "#F59E0B"), 
+        (t_dict.get("attr"), t_dict.get("attr_help"), attr, "#0EA5E9"), 
+        (t_dict.get("pol"), t_dict.get("pol_help"), pol, "#8B5CF6") 
     ]
     if is_geopol:
-        base_metrics.insert(0, (t_dict.get("pw"), t_dict.get("pw_help"), pw, "#3B82F6")) # Deep Blue
+        base_metrics.insert(0, (t_dict.get("pw"), t_dict.get("pw_help"), pw, "#3B82F6"))
 
     metrics_html_list = []
     for idx, (label, help_text, val, color) in enumerate(base_metrics):
@@ -222,7 +223,7 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
 
     with header_col1:
         st.markdown(f"""<div style="width: 100%; height: 220px; border-radius: 16px; background-color: #1E293B; background-image: {bg_style}; background-size: cover; background-position: center; margin-bottom: 8px;"></div>""", unsafe_allow_html=True)
-        st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">📍 {display_geo_pin}</span></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div style="display: flex; gap: 0.5rem;"><span style="background: rgba(148, 163, 184, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700;">{display_geo_pin}</span></div>""", unsafe_allow_html=True)
         st.markdown(spectrum_html, unsafe_allow_html=True)
         
     with header_col2:
@@ -463,6 +464,11 @@ def run_app():
                 if db_cat == 'Infrastructure': db_cat = 'Economy'
                 display_tag = t["topics"][UI_TEXT["English"]["topics"].index(db_cat)] if db_cat in UI_TEXT["English"]["topics"] else db_cat
 
+                # EXTRACT NEW GEO PIN FOR CARDS
+                db_geo = row.get('cluster_geo_scope', '')
+                geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
+                display_geo_pin = t["geo_labels"][geo_idx] if geo_idx != -1 else db_geo
+
                 is_geopol = db_cat in ["Politics", "Economy"]
 
                 with (grid_col1 if idx % 2 == 0 else grid_col2):
@@ -470,7 +476,11 @@ def run_app():
                         card_html = f"""
                         <div class="particle-card">
                             <div class="card-img-area" style="background-image: {bg};">
-                                <div class="card-img-content"><span class="card-tag">{display_tag}</span><div class="card-title">{display_title}</div></div>
+                                <div class="card-img-content">
+                                    <span class="card-tag">{display_tag}</span>
+                                    <span class="card-tag" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); margin-left: 6px; border: 1px solid rgba(255,255,255,0.3); color: #FFF;">{display_geo_pin}</span>
+                                    <div class="card-title">{display_title}</div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
@@ -488,7 +498,11 @@ def run_app():
                         card_html = f"""
                         <div class="particle-card">
                             <div class="card-img-area" style="background-image: {bg};">
-                                <div class="card-img-content"><span class="card-tag" style="background:#10B981;">{display_tag}</span><div class="card-title">{display_title}</div></div>
+                                <div class="card-img-content">
+                                    <span class="card-tag" style="background:#10B981;">{display_tag}</span>
+                                    <span class="card-tag" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); margin-left: 6px; border: 1px solid rgba(255,255,255,0.3); color: #FFF;">{display_geo_pin}</span>
+                                    <div class="card-title">{display_title}</div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #94A3B8; margin-bottom: 6px;">
