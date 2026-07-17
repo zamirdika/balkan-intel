@@ -12,6 +12,7 @@ UI_TEXT = {
         "lang_header": "Language", "geo_header": "Regional Focus",
         "search_label": "Search narratives, topics, or keywords...",
         "filter_cat": "Categories",
+        "multi_source_toggle": "🔗 Show Multi-Source Overlaps Only",
         "blindspots_btn": "👁️ Blindspots", "blindspots": "Blindspots", 
         "blindspots_sub": "Regional narratives and crucial information updates you might have missed.",
         "modal_title": "Deep Dive Analysis", "pw": "Western Alignment", "obj": "Objectivity", "btn_back": "Close",
@@ -39,6 +40,7 @@ UI_TEXT = {
         "lang_header": "Gjuha", "geo_header": "Fokusi Rajonal",
         "search_label": "Kërko narrativa, tema ose fjalë kyçe...",
         "filter_cat": "Kategoritë",
+        "multi_source_toggle": "🔗 Trego vetëm lajmet me shumë burime",
         "blindspots_btn": "👁️ Të pathënat", "blindspots": "Të pathënat", 
         "blindspots_sub": "Narrativa rajonale strategjike dhe informacione jetike që mund t'i keni anashkaluar.",
         "modal_title": "Analiza e Thelluar", "pw": "Përafrimi Perëndimor", "obj": "Objektiviteti", "btn_back": "Mbyll",
@@ -61,11 +63,12 @@ UI_TEXT = {
     "Македонски": {
         "nav_home": "🏠 Дома", "nav_search": "🔍 Пребарај", "nav_settings": "⚙️ Поставки",
         "topics": ["Сите Теми", "Политика", "Економија", "Технологија", "Култура", "Забава", "Спорт", "Црна Хроника"],
-        "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Херцеговина", "Црна Гора", "Регионално", "Global"],
+        "geos": ["Сите Региони", "Северна Македонија", "Косово", "Албанија", "Србија", "Босна и Hercegovina", "Црна Гора", "Регионално", "Global"],
         "geo_labels": ["🌍 Сите", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Балкан", "🌍 Глобално"],
         "lang_header": "Јазик", "geo_header": "Регионален Фокус",
         "search_label": "Пребарајте наративи, теми или клучни зборови...",
         "filter_cat": "Категории",
+        "multi_source_toggle": "🔗 Прикажи само вести со повеќе извори",
         "blindspots_btn": "👁️ Игнорирани", "blindspots": "Игнорирани", 
         "blindspots_sub": "Регионални наративи и клучни информации кои можеби целосно сте ги пропуштиле.",
         "modal_title": "Длабинска Анализа", "pw": "Западна Усогласеност", "obj": "Објективност", "btn_back": "Затвори",
@@ -84,58 +87,6 @@ UI_TEXT = {
         "how_ai_works": "🧠 Како работи ВИ?",
         "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.",
         "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk"
-    },
-    "Srpski": {
-        "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_settings": "⚙️ Podešavanja",
-        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
-        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno", "Global"],
-        "geo_labels": ["🌍 Svi", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan", "🌍 Globalno"],
-        "lang_header": "Jezik", "geo_header": "Regionalni Fokus",
-        "search_label": "Pretraži narative, teme ili ključne reči...",
-        "filter_cat": "Kategorije",
-        "blindspots_btn": "👁️ Slepe tačke", "blindspots": "Slepe tačke", 
-        "blindspots_sub": "Narativi koje ste možda propustili.",
-        "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
-        "sens": "Senzacionalizam", "attr": "Atribucija", "pol": "Polarizacija",
-        "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
-        "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
-        "sens_help": "Meri upotrebu emotivnog jezika i preterivanja (clickbait).",
-        "attr_help": "Meri oslanjanje na imenovane izvore i podatke.",
-        "pol_help": "Meri jezik podela i neprijateljstvo.",
-        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
-        "divergence": "Divergencija", "div_help": "Meri koliko je ova vest izostavljena u poređenju sa regionom.",
-        "read_source": "Pročitaj Original ↗",
-        "db_header": "📬 Dnevni Brifing", "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "subscribe": "Pretplati se",
-        "api_header": "⚙️ Enterprise API", "api_sub": "Integrišite grupisanje narativa u realnom vremenu.", "api_btn": "Vidi API Dokumentaciju",
-        "how_ai_works": "🧠 Kako radi AI?",
-        "ai_desc": "Balkan Intel agregira RSS vesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
-        "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
-    },
-    "Bosanski": {
-        "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_settings": "⚙️ Postavke",
-        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
-        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno", "Global"],
-        "geo_labels": ["🌍 Svi", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan", "🌍 Globalno"],
-        "lang_header": "Jezik", "geo_header": "Regionalni Fokus",
-        "search_label": "Pretraži narative, teme ili ključne riječi...",
-        "filter_cat": "Kategorije",
-        "blindspots_btn": "👁️ Slijepe tačke", "blindspots": "Slijepe tačke", 
-        "blindspots_sub": "Narativi koje ste možda propustili.",
-        "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
-        "sens": "Senzacionalizam", "attr": "Atribucija", "pol": "Polarizacija",
-        "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
-        "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
-        "sens_help": "Mjeri upotrebu emotivnog jezika i preterivanja (clickbait).",
-        "attr_help": "Mjeri oslanjanje na imenovane izvore i podatke.",
-        "pol_help": "Mjeri jezik podela i neprijateljstvo.",
-        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
-        "divergence": "Divergencija", "div_help": "Mjeri koliko je ova vijest izostavljena u poređenju sa regionom.",
-        "read_source": "Pročitaj Original ↗",
-        "db_header": "📬 Dnevni Briefing", "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "subscribe": "Pretplati se",
-        "api_header": "⚙️ Enterprise API", "api_sub": "Integrišite grupisanje narativa u realnom vremenu.", "api_btn": "Vidi API Dokumentaciju",
-        "how_ai_works": "🧠 Kako radi AI?",
-        "ai_desc": "Balkan Intel agregira RSS vijesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
-        "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr"
     }
 }
 
@@ -144,19 +95,25 @@ if 'active_cat' not in st.session_state: st.session_state.active_cat = "All Topi
 if 'active_geo' not in st.session_state: st.session_state.active_geo = "All Regions"
 if 'search_query' not in st.session_state: st.session_state.search_query = ""
 if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
+if 'show_only_multi' not in st.session_state: st.session_state.show_only_multi = False
 
 def get_connection(): return sqlite3.connect('news_aggregator.db')
 
-@st.cache_data(ttl=300)
+@st.cache_data(ttl=120)
 def get_database_data():
     conn = get_connection()
+    # FIXED: Grouping queries now strictly prioritize longer string segments to ensure 3 detailed bullet points survive clusters
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
-               MAX(bullets_en) as bullets_en, MAX(bullets_sq) as bullets_sq, MAX(bullets_mk) as bullets_mk, MAX(bullets_sr) as bullets_sr, 
+               (SELECT bullets_en FROM articles a2 WHERE a2.cluster_id = articles.cluster_id ORDER BY LENGTH(bullets_en) DESC LIMIT 1) as bullets_en,
+               (SELECT bullets_sq FROM articles a2 WHERE a2.cluster_id = articles.cluster_id ORDER BY LENGTH(bullets_sq) DESC LIMIT 1) as bullets_sq,
+               (SELECT bullets_mk FROM articles a2 WHERE a2.cluster_id = articles.cluster_id ORDER BY LENGTH(bullets_mk) DESC LIMIT 1) as bullets_mk,
+               (SELECT bullets_sr FROM articles a2 WHERE a2.cluster_id = articles.cluster_id ORDER BY LENGTH(bullets_sr) DESC LIMIT 1) as bullets_sr,
                MAX(perspective_en) as perspective_en, MAX(perspective_sq) as perspective_sq, MAX(perspective_mk) as perspective_mk, MAX(perspective_sr) as perspective_sr, 
                AVG(geo_pro_western) as avg_pro_western, AVG(narrative_objectivity) as avg_objectivity, AVG(narrative_divergence_score) as avg_divergence,
                AVG(narrative_sensationalism) as avg_sensationalism, AVG(narrative_attribution) as avg_attribution, AVG(narrative_polarization) as avg_polarization,
+               COUNT(article_id) as source_count,
                GROUP_CONCAT(source_domain, ', ') as sources, GROUP_CONCAT(original_title, '||') as orig_titles,
                GROUP_CONCAT(original_url, '||') as orig_urls, MAX(image_url) as cluster_image, MAX(published_at) as published_at
         FROM articles WHERE cluster_id IS NOT NULL GROUP BY cluster_id ORDER BY published_at DESC
@@ -166,7 +123,7 @@ def get_database_data():
     conn.close()
     return df
 
-@st.cache_data(ttl=300)
+@st.cache_data(ttl=120)
 def get_blindspot_stories():
     try:
         conn = get_connection()
@@ -227,7 +184,8 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
     with header_col2:
         st.markdown(f"<h3 style='margin-top: 4px; margin-bottom: 8px; font-weight: 800; font-size: 1.4rem; line-height: 1.2;'>{row['display_title']}</h3>", unsafe_allow_html=True)
         if clean_bullets:
-            for b in clean_bullets[:4]: st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
+            for b in clean_bullets: 
+                if b.strip(): st.markdown(f"<div style='margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; opacity: 0.85;'>• {b}</div>", unsafe_allow_html=True)
         if perspective_text:
             st.markdown(f"""<div style='margin-top: 16px; margin-bottom: 16px; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.3);'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('analysis_title')}</h4><div style='font-size: 0.95rem; line-height: 1.6; opacity: 0.9;'>{perspective_text}</div></div>""", unsafe_allow_html=True)
 
@@ -238,9 +196,6 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
                 seen.add(t)
                 links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
         if links_html: st.markdown(f"<div style='border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
-            
-    # REMOVED THE CUSTOM CLOSE BUTTON TO ELIMINATE LAG
-    # The native 'X' at the top right handles this instantly.
 
 @st.dialog(" ", width="large")
 def open_blindspots_modal(t_dict):
@@ -366,7 +321,7 @@ def run_app():
 
     elif selected_nav == t['nav_settings']:
         st.markdown(f"<h4 style='font-size: 1.1rem; color: #475569; font-weight: 800;'>{t['lang_header']}</h4>", unsafe_allow_html=True)
-        lang_options = ["English", "Shqip", "Македонски", "Srpski", "Bosanski"]
+        lang_options = ["English", "Shqip", "Македонски"]
         l_cols = st.columns(2)
         for i, l_opt in enumerate(lang_options):
             with l_cols[i % 2]:
@@ -405,6 +360,14 @@ def run_app():
             open_methodology_modal(t)
 
     else:
+        # NEW INTERACTIVE OVERLAP TOGGLE FOR NARRATIVES
+        multi_col1, multi_col2 = st.columns([2, 1])
+        with multi_col1:
+            is_checked = st.checkbox(t["multi_source_toggle"], value=st.session_state.show_only_multi)
+            if is_checked != st.session_state.show_only_multi:
+                st.session_state.show_only_multi = is_checked
+                st.rerun()
+                
         active_filters = []
         if st.session_state.active_cat != "All Topics": active_filters.append(t['topics'][UI_TEXT["English"]["topics"].index(st.session_state.active_cat)])
         if st.session_state.active_geo != "All Regions": active_filters.append(t['geos'][UI_TEXT["English"]["geos"].index(st.session_state.active_geo)])
@@ -423,13 +386,17 @@ def run_app():
                 st.rerun()
 
         filtered_df = df.copy()
+        
+        # APPLY GLOBAL INTERACTIVE TOGGLE
+        if st.session_state.show_only_multi and not filtered_df.empty:
+            filtered_df = filtered_df[filtered_df['source_count'] > 1]
+            
         if st.session_state.search_query and not filtered_df.empty:
             sq = st.session_state.search_query.lower()
             filtered_df = filtered_df[
                 filtered_df['title_en'].str.lower().str.contains(sq, na=False) |
                 filtered_df['title_sq'].str.lower().str.contains(sq, na=False) |
-                filtered_df['title_mk'].str.lower().str.contains(sq, na=False) |
-                filtered_df['title_sr'].str.lower().str.contains(sq, na=False)
+                filtered_df['title_mk'].str.lower().str.contains(sq, na=False)
             ]
         if st.session_state.active_geo != "All Regions" and not filtered_df.empty: 
             target_geo = st.session_state.active_geo.strip().lower()
@@ -448,8 +415,10 @@ def run_app():
                 col_persp = t.get("db_col_persp", "perspective_en")
                 
                 display_title = row.get(col_title) or row.get('title_en') or "Title Missing"
-                raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "").split("||")[0]
-                clean_b = [b.strip().lstrip('-*• ') for b in raw_b.split('\n') if b.strip()]
+                
+                # REPAIRED SUMMARY SPLITTER LOGIC
+                raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "")
+                clean_b = [b.strip().lstrip('-*• ') for b in raw_b.replace('||', '\n').split('\n') if b.strip()]
                 persp_text = row.get(col_persp) or row.get('perspective_en') or ""
                 
                 raw_img = str(row.get('cluster_image', '')).strip()
