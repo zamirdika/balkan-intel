@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
 import pandas as pd
+from datetime import datetime
 
 # --- UI TRANSLATION DICTIONARY ---
 UI_TEXT = {
@@ -30,7 +31,8 @@ UI_TEXT = {
         "api_header": "⚙️ Enterprise API", "api_sub": "Integrate real-time narrative clustering into your dashboards.", "api_btn": "View API Docs",
         "how_ai_works": "🧠 How AI Works",
         "ai_desc": "<b>Core Data Aggregation:</b> Balkan Intel continuously aggregates automated RSS feeds across the Western Balkans region.<br><br><b>AI Synthesis Engine:</b> The raw source text is securely structured and analyzed using Google's Gemini 2.5 Flash model to extract language neutral narrative properties, evaluate western strategic alignment metrics, and measure objective factual presentation.",
-        "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en"
+        "db_col_title": "title_en", "db_col_bullets": "bullets_en", "db_col_persp": "perspective_en",
+        "date_today": "Today", "date_yesterday": "Yesterday"
     },
     "Shqip": {
         "nav_home": "🏠 Kryefaqja", "nav_search": "🔍 Kërko", "nav_settings": "⚙️ Cilësimet",
@@ -58,7 +60,8 @@ UI_TEXT = {
         "api_header": "⚙️ API për Biznese", "api_sub": "Integroni grupimin e narrativave në kohë reale.", "api_btn": "Shiko Dokumentacionin",
         "how_ai_works": "🧠 Si funksionon AI?",
         "ai_desc": "<b>Grumbullimi i të Dhënave:</b> Balkan Intel grumbullon në mënyrë të vazhdueshme lajmet automatike nga rajoni i Ballkanit Perëndimor përmes RSS.<br><br><b>Motori i Inteligjencës Artificiale:</b> Teksti bruto i burimit strukturohet dhe analizohet duke përdorur modelin Gemini 2.5 Flash të Google.",
-        "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq"
+        "db_col_title": "title_sq", "db_col_bullets": "bullets_sq", "db_col_persp": "perspective_sq",
+        "date_today": "Sot", "date_yesterday": "Dje"
     },
     "Македонски": {
         "nav_home": "🏠 Дома", "nav_search": "🔍 Пребарај", "nav_settings": "⚙️ Поставки",
@@ -86,7 +89,64 @@ UI_TEXT = {
         "api_header": "⚙️ Enterprise API", "api_sub": "Интегрирајте групирање на наративи во реално време.", "api_btn": "Види API Документација",
         "how_ai_works": "🧠 Како работи ВИ?",
         "ai_desc": "<b>Агрегација на податоци:</b> Balkan Intel континуирано собира автоматизирани RSS извори низ регионот на Западен Балкан.",
-        "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk"
+        "db_col_title": "title_mk", "db_col_bullets": "bullets_mk", "db_col_persp": "perspective_mk",
+        "date_today": "Денес", "date_yesterday": "Вчера"
+    },
+    "Srpski": {
+        "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_settings": "⚙️ Podešavanja",
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
+        "geos": ["Svi Regioni", "Severna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno", "Global"],
+        "geo_labels": ["🌍 Svi", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan", "🌍 Globalno"],
+        "lang_header": "Jezik", "geo_header": "Regionalni Fokus",
+        "search_label": "Pretraži narative, teme ili ključne reči...",
+        "filter_cat": "Kategorije",
+        "multi_source_toggle": "🔗 Prikaži samo vesti sa više izvora",
+        "blindspots_btn": "👁️ Slepe tačke", "blindspots": "Slepe tačke", 
+        "blindspots_sub": "Narativi koje ste možda propustili.",
+        "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
+        "sens": "Senzacionalizam", "attr": "Atribucija", "pol": "Polarizacija",
+        "pw_help": "Meri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
+        "obj_help": "Meri činjenično izveštavanje naspram emotivnog ili pristrasnog jezika.",
+        "sens_help": "Meri upotrebu emotivnog jezika i preterivanja (clickbait).",
+        "attr_help": "Meri oslanjanje na imenovane izvore i podatke.",
+        "pol_help": "Meri jezik podela i neprijateljstvo.",
+        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
+        "divergence": "Divergencija", "div_help": "Meri koliko je ova vest izostavljena u poređenju sa regionom.",
+        "read_source": "Pročitaj Original ↗",
+        "db_header": "📬 Dnevni Brifing", "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "subscribe": "Pretplati se",
+        "api_header": "⚙️ Enterprise API", "api_sub": "Integrišite grupisanje narativa u realnom vremenu.", "api_btn": "Vidi API Dokumentaciju",
+        "how_ai_works": "🧠 Kako radi AI?",
+        "ai_desc": "Balkan Intel agregira RSS vesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
+        "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr",
+        "date_today": "Danas", "date_yesterday": "Juče"
+    },
+    "Bosanski": {
+        "nav_home": "🏠 Početna", "nav_search": "🔍 Pretraga", "nav_settings": "⚙️ Postavke",
+        "topics": ["Sve Teme", "Politika", "Ekonomija", "Tehnologija", "Kultura", "Zabava", "Sport", "Crna Hronika"],
+        "geos": ["Svi Regioni", "Sjeverna Makedonija", "Kosovo", "Albanija", "Srbija", "Bosna i Hercegovina", "Crna Gora", "Regionalno", "Global"],
+        "geo_labels": ["🌍 Svi", "🇲🇰 MKD", "🇽🇰 KOS", "🇦🇱 ALB", "🇷🇸 SRB", "🇧🇦 BIH", "🇲🇪 MNE", "🗺️ Balkan", "🌍 Globalno"],
+        "lang_header": "Jezik", "geo_header": "Regionalni Fokus",
+        "search_label": "Pretraži narative, teme ili ključne riječi...",
+        "filter_cat": "Kategorije",
+        "multi_source_toggle": "🔗 Prikaži samo vijesti sa više izvora",
+        "blindspots_btn": "👁️ Slijepe tačke", "blindspots": "Slijepe tačke", 
+        "blindspots_sub": "Narativi koje ste možda propustili.",
+        "modal_title": "Dubinska Analiza", "pw": "Zapadna Usklađenost", "obj": "Objektivnost", "btn_back": "Zatvori",
+        "sens": "Senzacionalizam", "attr": "Atribucija", "pol": "Polarizacija",
+        "pw_help": "Mjeri usklađenost sa geopolitičkim pozicijama EU/SAD/NATO.",
+        "obj_help": "Mjeri činjenično izvještavanje naspram emotivnog ili pristrasnog jezika.",
+        "sens_help": "Mjeri upotrebu emotivnog jezika i preterivanja (clickbait).",
+        "attr_help": "Mjeri oslanjanje na imenovane izvore i podatke.",
+        "pol_help": "Mjeri jezik podela i neprijateljstvo.",
+        "sources": "Originalni Izvori", "analysis_title": "Narativni Sažetak",
+        "divergence": "Divergencija", "div_help": "Mjeri koliko je ova vijest izostavljena u poređenju sa regionom.",
+        "read_source": "Pročitaj Original ↗",
+        "db_header": "📬 Dnevni Briefing", "db_sub": "Narativi koje ste možda propustili direktno u vaš inbox.", "subscribe": "Pretplati se",
+        "api_header": "⚙️ Enterprise API", "api_sub": "Integrišite grupisanje narativa u realnom vremenu.", "api_btn": "Vidi API Dokumentaciju",
+        "how_ai_works": "🧠 Kako radi AI?",
+        "ai_desc": "Balkan Intel agregira RSS vijesti i koristi Gemini 2.5 Flash za izvlačenje geopolitičkih metrika.",
+        "db_col_title": "title_sr", "db_col_bullets": "bullets_sr", "db_col_persp": "perspective_sr",
+        "date_today": "Danas", "date_yesterday": "Jučer"
     }
 }
 
@@ -102,7 +162,6 @@ def get_connection(): return sqlite3.connect('news_aggregator.db')
 @st.cache_data(ttl=120)
 def get_database_data():
     conn = get_connection()
-    # FIXED: Grouping queries now strictly prioritize longer string segments to ensure 3 detailed bullet points survive clusters
     query = """
         SELECT cluster_id, cluster_category, cluster_geo_scope,
                MAX(title_en) as title_en, MAX(title_sq) as title_sq, MAX(title_mk) as title_mk, MAX(title_sr) as title_sr, 
@@ -138,6 +197,21 @@ def safe_float(val, default=0.5):
         if pd.isna(val) or val is None: return default
         return float(val)
     except: return default
+
+# DATE HELPER FUNCTION
+def get_date_header(date_str, t_dict):
+    if not date_str: return "📅 Unknown Date"
+    try:
+        dt = pd.to_datetime(date_str)
+        today = pd.Timestamp(datetime.now().date())
+        if dt.date() == today.date():
+            return f"📅 {t_dict.get('date_today', 'Today')}"
+        elif dt.date() == (today - pd.Timedelta(days=1)).date():
+            return f"📅 {t_dict.get('date_yesterday', 'Yesterday')}"
+        else:
+            return f"📅 {dt.strftime('%B %d, %Y')}"
+    except:
+        return "📅 " + str(date_str).split("T")[0]
 
 @st.dialog(" ", width="large")
 def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
@@ -277,6 +351,8 @@ def run_app():
         .tooltip-sup { font-size: 0.65rem; font-style: italic; vertical-align: super; background-color: #334155; color: #F8FAFC; border-radius: 50%; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; margin-left: 4px; font-weight: 800; cursor: pointer; position: relative; border: 1px solid #475569; }
         .tooltip-sup::after { content: attr(data-tooltip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); background-color: #0F172A; color: #FFFFFF; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; font-style: normal; line-height: 1.3; width: 180px; white-space: normal; z-index: 999999 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; text-align: center; border: 1px solid #334155; }
         .tooltip-sup:hover::after, .tooltip-sup:active::after { opacity: 1; }
+        
+        .date-divider { color: #64748B; font-size: 1.1rem; font-weight: 800; margin-top: 1.5rem; margin-bottom: 0.5rem; border-bottom: 2px solid #E2E8F0; padding-bottom: 0.25rem; }
     </style>
     <div id="top-anchor"></div>
     <div id="header-anchor"></div>
@@ -321,7 +397,7 @@ def run_app():
 
     elif selected_nav == t['nav_settings']:
         st.markdown(f"<h4 style='font-size: 1.1rem; color: #475569; font-weight: 800;'>{t['lang_header']}</h4>", unsafe_allow_html=True)
-        lang_options = ["English", "Shqip", "Македонски"]
+        lang_options = ["English", "Shqip", "Македонски", "Srpski", "Bosanski"]
         l_cols = st.columns(2)
         for i, l_opt in enumerate(lang_options):
             with l_cols[i % 2]:
@@ -360,7 +436,6 @@ def run_app():
             open_methodology_modal(t)
 
     else:
-        # NEW INTERACTIVE OVERLAP TOGGLE FOR NARRATIVES
         multi_col1, multi_col2 = st.columns([2, 1])
         with multi_col1:
             is_checked = st.checkbox(t["multi_source_toggle"], value=st.session_state.show_only_multi)
@@ -387,7 +462,6 @@ def run_app():
 
         filtered_df = df.copy()
         
-        # APPLY GLOBAL INTERACTIVE TOGGLE
         if st.session_state.show_only_multi and not filtered_df.empty:
             filtered_df = filtered_df[filtered_df['source_count'] > 1]
             
@@ -396,7 +470,8 @@ def run_app():
             filtered_df = filtered_df[
                 filtered_df['title_en'].str.lower().str.contains(sq, na=False) |
                 filtered_df['title_sq'].str.lower().str.contains(sq, na=False) |
-                filtered_df['title_mk'].str.lower().str.contains(sq, na=False)
+                filtered_df['title_mk'].str.lower().str.contains(sq, na=False) |
+                filtered_df['title_sr'].str.lower().str.contains(sq, na=False)
             ]
         if st.session_state.active_geo != "All Regions" and not filtered_df.empty: 
             target_geo = st.session_state.active_geo.strip().lower()
@@ -408,15 +483,30 @@ def run_app():
         if filtered_df.empty:
             st.info("No articles found matching the current filters.")
         else:
-            grid_col1, grid_col2 = st.columns(2, gap="small")
+            # DATE GROUPING LOGIC
+            current_date_header = None
+            grid_col1, grid_col2 = None, None
+            col_idx = 0
+
             for idx, row in filtered_df.reset_index(drop=True).iterrows():
+                
+                # Check if we need a new date header
+                date_str = str(row.get('published_at', '')).split("T")[0]
+                new_header = get_date_header(date_str, t)
+                
+                if current_date_header != new_header:
+                    current_date_header = new_header
+                    st.markdown(f"<div class='date-divider'>{current_date_header}</div>", unsafe_allow_html=True)
+                    # Reset columns for the new date section
+                    grid_col1, grid_col2 = st.columns(2, gap="small")
+                    col_idx = 0 
+
                 col_title = t.get("db_col_title", "title_en")
                 col_bullets = t.get("db_col_bullets", "bullets_en")
                 col_persp = t.get("db_col_persp", "perspective_en")
                 
                 display_title = row.get(col_title) or row.get('title_en') or "Title Missing"
                 
-                # REPAIRED SUMMARY SPLITTER LOGIC
                 raw_b = str(row.get(col_bullets) or row.get('bullets_en') or "")
                 clean_b = [b.strip().lstrip('-*• ') for b in raw_b.replace('||', '\n').split('\n') if b.strip()]
                 persp_text = row.get(col_persp) or row.get('perspective_en') or ""
@@ -438,7 +528,7 @@ def run_app():
 
                 is_geopol = db_cat in ["Politics", "Economy"]
 
-                with (grid_col1 if idx % 2 == 0 else grid_col2):
+                with (grid_col1 if col_idx % 2 == 0 else grid_col2):
                     if is_geopol:
                         card_html = f"""
                         <div class="particle-card">
@@ -488,6 +578,7 @@ def run_app():
                         row_dict['display_title'] = display_title 
                         open_article_modal(row_dict, clean_b, persp_text, bg, t)
                     st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
+                    col_idx += 1
 
     st.markdown('<a href="#top-anchor" class="scroll-top-btn">▲</a>', unsafe_allow_html=True)
 
