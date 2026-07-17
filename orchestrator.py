@@ -62,7 +62,6 @@ def init_db(db_name="news_aggregator.db"):
         )
     ''')
     
-    # MIGRATION: Safely add new AI metrics to existing database without losing old data
     new_columns = [
         "narrative_sensationalism REAL",
         "narrative_attribution REAL",
@@ -72,7 +71,7 @@ def init_db(db_name="news_aggregator.db"):
         try:
             cursor.execute(f"ALTER TABLE articles ADD COLUMN {col}")
         except sqlite3.OperationalError:
-            pass # Column already exists
+            pass 
 
     conn.commit()
     conn.close()
@@ -131,22 +130,26 @@ class ArticleAnalysis(BaseModel):
     cluster_category: str = Field(description="Must be one of: 'Politics', 'Economy', 'Technology', 'Culture', 'Entertainment', 'Sports', 'Crime & Accidents'")
     cluster_geo_scope: str = Field(description="Must be a Balkan country OR 'Regional' (multiple Balkan countries). CRITICAL: If the event takes place outside the Balkans (e.g. Middle East, Argentina, Russia, USA), you MUST output 'Global'.")
     title_en: str
-    bullets_en: str
+    
+    # ENFORCING BULLET POINT LENGTH AND FORMATTING
+    bullets_en: str = Field(description="EXACTLY 3 detailed bullet points summarizing the core facts. Each bullet must be a full sentence. Separate bullets using a newline (\\n).")
     perspective_en: str
+    
     title_sq: str
-    bullets_sq: str
+    bullets_sq: str = Field(description="EXACTLY 3 detailed bullet points. Full sentences. Separate using newline (\\n).")
     perspective_sq: str
+    
     title_mk: str
-    bullets_mk: str
+    bullets_mk: str = Field(description="EXACTLY 3 detailed bullet points. Full sentences. Separate using newline (\\n).")
     perspective_mk: str
+    
     title_sr: str
-    bullets_sr: str
+    bullets_sr: str = Field(description="EXACTLY 3 detailed bullet points. Full sentences. Separate using newline (\\n).")
     perspective_sr: str
+    
     geo_pro_western: float
     narrative_objectivity: float
     narrative_divergence_score: float
-    
-    # NEW METRICS
     narrative_sensationalism: float = Field(description="Score 0.0 to 1.0. Measures hyperbole, clickbait, and emotionally charged language (1.0 = highly sensational, 0.0 = completely dry/factual).")
     narrative_attribution: float = Field(description="Score 0.0 to 1.0. Measures reliance on named sources, direct quotes, and hard data vs anonymous rumors (1.0 = highly attributed/sourced, 0.0 = unsourced rumor).")
     narrative_polarization: float = Field(description="Score 0.0 to 1.0. Measures 'us vs. them' framing, ad hominem attacks, or divisive language designed to anger (1.0 = highly polarized, 0.0 = neutral).")
@@ -161,6 +164,7 @@ CRITICAL INSTRUCTIONS:
 2. Evaluate Sensationalism: Look for hyperbolic adjectives and emotional triggers.
 3. Evaluate Attribution: Look for quotes, statistics, and verifiable named entities.
 4. Evaluate Polarization: Look for adversarial framing, nationalism, or hostile rhetoric.
+5. SUMMARIES: You MUST provide exactly 3 detailed bullet points for the 'bullets' fields. Each bullet must be at least one comprehensive sentence summarizing key facts. Separate bullets with newlines.
 
 Text: {text}"""
     
@@ -259,7 +263,6 @@ def run_pipeline():
         
         art['cluster_id'] = f"unique_{uuid.uuid4().hex[:8]}"
         
-        # INSERT UPDATED WITH NEW METRICS
         cursor.execute('''
             INSERT OR REPLACE INTO articles 
             (article_id, cluster_id, original_title, original_url, source_domain, image_url, raw_text, 
