@@ -147,8 +147,6 @@ if 'nav_index' not in st.session_state: st.session_state.nav_index = 0
 
 def get_connection(): return sqlite3.connect('news_aggregator.db')
 
-# CACHING ADDED: Stores data in high-speed memory for 5 minutes (300 seconds) 
-# This eliminates lag when interacting with the UI on mobile devices.
 @st.cache_data(ttl=300)
 def get_database_data():
     conn = get_connection()
@@ -241,7 +239,8 @@ def open_article_modal(row, clean_bullets, perspective_text, bg_style, t_dict):
                 links_html += f"<a href='{u}' target='_blank' style='text-decoration: none; color: inherit;'><div class='source-link-card'><div style='font-size: 0.7rem; color: #3B82F6; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em;'>🔗 {s}</div><div style='font-size: 0.85rem; font-weight: 600; line-height: 1.3;'>{t}</div></div></a>"
         if links_html: st.markdown(f"<div style='border-top: 1px solid rgba(148, 163, 184, 0.3); padding-top: 12px;'><h4 style='font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; opacity: 0.7;'>{t_dict.get('sources')}</h4>{links_html}</div>", unsafe_allow_html=True)
             
-    if st.button(t_dict.get("btn_back")): st.rerun()
+    # REMOVED THE CUSTOM CLOSE BUTTON TO ELIMINATE LAG
+    # The native 'X' at the top right handles this instantly.
 
 @st.dialog(" ", width="large")
 def open_blindspots_modal(t_dict):
@@ -464,7 +463,6 @@ def run_app():
                 if db_cat == 'Infrastructure': db_cat = 'Economy'
                 display_tag = t["topics"][UI_TEXT["English"]["topics"].index(db_cat)] if db_cat in UI_TEXT["English"]["topics"] else db_cat
 
-                # EXTRACT NEW GEO PIN FOR CARDS
                 db_geo = row.get('cluster_geo_scope', '')
                 geo_idx = UI_TEXT["English"]["geos"].index(db_geo) if db_geo in UI_TEXT["English"]["geos"] else -1
                 display_geo_pin = t["geo_labels"][geo_idx] if geo_idx != -1 else db_geo
